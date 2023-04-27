@@ -30,8 +30,7 @@ export const Header = () => {
     <nav id="header" className="navbar">
       <div className="logo">
         <Link to="/">
-          {" "}
-          <img src={foody} alt="logo" className="logo" />{" "}
+          <img src={foody} alt="logo" className="logo" />
         </Link>
       </div>
 
@@ -48,7 +47,14 @@ export const Header = () => {
       <>
         <Link to="login">Log In</Link>
       </>
-           ): (<button onClick={logout}> Logout</button> )
+           ):
+
+        (<>
+        <button onClick={logout}> Logout</button> 
+        <Link to="Admin">Admin</Link>
+        </>
+        
+        )
   
         }
       </div>
