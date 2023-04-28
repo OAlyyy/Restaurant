@@ -29,7 +29,6 @@ const validationSchema = Yup.object({
 function Admin() {
 
   const [showAlert , setShowAlert ] = useState(null);
-  const [deleteAlert , setDeleteAlert ] = useState(null);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -55,12 +54,11 @@ function Admin() {
   const RemoveProduct = (productId) => {
     
     axios.delete(`http://localhost:3001/product/${productId}`).then(() => {
-      setDeleteAlert(true);
       setProducts(products.filter((product) => product.id !== productId));
     
     }).catch((error) => {
       console.log(error);
-      setDeleteAlert(false);
+
     });
   };
 
@@ -96,11 +94,7 @@ function Admin() {
           <Alert severity="success">Product added Successfully!</Alert>
         </Stack>
       )}
-      {deleteAlert && (
-        <Stack sx={{ width: '100%' }} spacing={2}>
-          <Alert severity="info">Product deleted!</Alert>
-        </Stack>
-      )} 
+      
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
