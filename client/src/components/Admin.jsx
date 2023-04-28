@@ -3,13 +3,34 @@ import axios from "axios";
 import { ProductRemoveCard } from "./ProductRemoveCard.jsx";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+
+const initialValues = {
+  name: "",
+  type: "",
+  description: "",
+  price: "",
+  attachment: null,
+};
+
+const validationSchema = Yup.object({
+  name: Yup.string().required("Product name is required"),
+  type: Yup.string().required("Product type is required"),
+  description: Yup.string().required("Product description is required"),
+  price: Yup.number().required("Product price is required"),
+});
+
+ 
 
 function Admin() {
+
+  const [showAlert , setShowAlert ] = useState(null);
+  const [deleteAlert , setDeleteAlert ] = useState(null);
   const [products, setProducts] = useState([]);
-  const [productName, setProductName] = useState("");
-  const [type, setType] = useState("");
-  const [description, setDescription] = useState("");
-  const [attachment, setAttachment] = useState(null);
 
   useEffect(() => {
     axios
@@ -20,26 +41,26 @@ function Admin() {
       .catch((e) => console.log(e));
   }, []);
 
-  const addProductToDatabase = () => {
-    const formData = new FormData();
-    formData.append("productName", productName);
-    formData.append("type", type);
-    formData.append("description", description);
-    formData.append("attachment", attachment);
-    axios
-      .post("http://localhost:3001/product/add", formData)
-      .then((response) => {
-        setProducts([...products, response.data]);
-        setProductName("");
-        setType("");
-        setDescription("");
-        setAttachment(null);
-      });
-  };
+  
+  const onSubmit = (data) => {
+    axios.post("http://localhost:3001/product/add", data).then((response) => {
+      setShowAlert(true);
+    })
+    .catch((error) => {
+      console.log(error);
+      setShowAlert(false);
+    });
+};
 
   const RemoveProduct = (productId) => {
+    
     axios.delete(`http://localhost:3001/product/${productId}`).then(() => {
+      setDeleteAlert(true);
       setProducts(products.filter((product) => product.id !== productId));
+    
+    }).catch((error) => {
+      console.log(error);
+      setDeleteAlert(false);
     });
   };
 
@@ -68,69 +89,75 @@ function Admin() {
   });
 
   return (
-    <div className="loginParent">
-      <div className="loginContainer">
-        <div>Adding a Product</div>
+    <>
+      <div className="createPostPage">
+      {showAlert && (
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="success">Product added Successfully!</Alert>
+        </Stack>
+      )}
+      {deleteAlert && (
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="info">Product deleted!</Alert>
+        </Stack>
+      )} 
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+        >
+          <Form className="formContainer">
+            <label>Product Name:</label>
+            <ErrorMessage name="name" component="span" />
+            <Field id="AddingProduct"   name="name" placeholder="(Ex. Kosharyy...)"     />
+            <label htmlFor="type">Product Type:</label>
+            <Field name="type" as="select" id="AddingProduct">
+              <option value="">Select a type</option>
+              {productTypes.map((product) => (
+                <option key={product.type} value={product.type}>
+                  {product.type}
+                </option>
+              ))}
+            </Field>
 
-        <label>Product Name:</label>
-        <input
-          type="text"
-          value={productName}
-          onChange={(event) => {
-            setProductName(event.target.value);
-          }}
-        />
-        <label>Product Type:</label>
-        <select onChange={(event) => setType(event.target.value)}>
-          <option value="">Select a type</option>
-          {productTypes.map((product) => (
-            <option key={product.type} value={product.type}>
-              {product.type}
-            </option>
-          ))}
-        </select>
+            <label>Product Description:</label>
+            <ErrorMessage name="description" component="span" />
+            <Field id="AddingProduct" name="description" placeholder="(Ex. Rice,Macaroni, ads, alot of stuf...)"/>
 
-        <label>Product Description:</label>
-        <input
-          type="text"
-          value={description}
-          onChange={(event) => {
-            setDescription(event.target.value);
-          }}
-        />
+            <label>Product Price:</label>
+            <ErrorMessage name="price" component="span" />
+            <Field id="AddingProduct" name="price" placeholder="(Ex. 15 $ )" />
 
-        <label className="attachment-label">Product Picture:</label>
-        <input
-          type="file"
-          onChange={(event) => {
-            setAttachment(event.target.files[0]);
-          }}
-        />
+            <label className="attachment-label">Product Picture:</label>
+            <ErrorMessage name="imageUrl" component="span" />
+            <Field id="AddingProduct" name="imageUrl" type="file" />
 
-        <button onClick={addProductToDatabase}>Add</button>
-
-        <div>Removing a Product</div>
-
-        <div className="aboveCarouselTitle">Popular Products</div>
-        <div className="carousel-container">
-          <Carousel responsive={responsive}>
-            {Array.isArray(products) &&
-              products.length > 0 &&
-              products.map((product, index) => {
-                return (
-                  <div key={product.id}>
-                    <ProductRemoveCard
-                      key={index}
-                      product={product}
-                      RemoveProduct={RemoveProduct}
-                    />
-                  </div>
-                );
-              })}
-          </Carousel>
-        </div>
+            <button type="submit">Add</button>
+          </Form>
+        </Formik>
       </div>
-    </div>
+
+      <div className="carouselParent">
+      <div className="aboveCarouselTitle">Click to delete a Product</div>
+      <div className="carousel-container">  
+        <Carousel responsive={responsive}>
+          {Array.isArray(products) &&
+            products.length > 0 &&
+            products.map((product, index) => {
+              return (
+                <div key={product.id}>
+                  <ProductRemoveCard
+                    key={index}
+                    product={product}
+                    RemoveProduct={RemoveProduct}
+                  />
+                </div>
+              );
+            })}
+        </Carousel>
+      </div>
+      </div>
+    </>
   );
 }
 

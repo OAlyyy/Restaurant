@@ -39,5 +39,33 @@ router.get('/grouped', async (req, res) => {
     });
 
 
+    //Adding a product 
+
+router.post("/add" ,async (req,res) => {  // request & respond
+    console.log("server side i am hereee ")
+    const product = req.body ; 
+
+    await Product.create(product); // call sequelizer function and created db post
+    res.json(product);
+});
+
+
+// Deleting a product
+
+router.delete("/:productId", async (req,res) =>{
+     console.log("trying to delete ");
+
+      const productId = req.params.productId;
+      await Product.destroy({
+        where: {
+          id: productId,
+        },
+      }); 
+
+      console.log("successful  to delete ");
+      return ;
+    } 
+  );
+  
 
 module.exports = router;

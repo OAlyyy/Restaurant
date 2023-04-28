@@ -4,10 +4,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      adjective: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       description: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -18,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       imageUrl: {
         type: DataTypes.STRING,
-        allowNull: false,
+      default: "later",
       },
     });
   

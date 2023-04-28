@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Menu from "./pages/Menu";
 import Cart from "./pages/Cart";
-import Admin from "./components/Admin";
+import Admin from "./components/Admin.jsx";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import { useSelector } from "react-redux";
 import { cartProducts } from "./store/cart/cartSlice";

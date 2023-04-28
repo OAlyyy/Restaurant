@@ -49,7 +49,6 @@ const connection = mysql.createConnection({
         const Type = _.random(1, categories.length);
         const newProduct = {
           name: faker.commerce.productName(),
-          adjective: faker.commerce.productAdjective(),
           description: faker.commerce.productDescription(),
           price: faker.commerce.price(),
           type: Type,
@@ -63,8 +62,8 @@ const connection = mysql.createConnection({
       const productInserts = products.map((product) => {
         return new Promise((resolve, reject) => {
           connection.query(
-            `INSERT INTO products (name, adjective, description, price, type, imageUrl,createdAt,updatedAt) 
-            VALUES ('${product.name}', '${product.adjective}', '${product.description}', '${product.price}', '${product.type}', '${product.imageUrl}', NOW(),NOW())`,
+            `INSERT INTO products (name, description, price, type, imageUrl,createdAt,updatedAt) 
+            VALUES ('${product.name}', '${product.description}', '${product.price}', '${product.type}', '${product.imageUrl}', NOW(),NOW())`,
             (err, result) => {
               if (err) {
                 reject(err);

@@ -1,10 +1,21 @@
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from "axios";
+import React, { useState } from "react";
 
-export const ProductRemoveCard = ({ product, onRemoveProduct }) => {
 
-  const RemoveProduct = () => {
-    onRemoveProduct(product);
+
+export const ProductRemoveCard = ({ product, RemoveProduct }) => {
+
+
+  const [products, setProducts] = useState([]);
+  
+   RemoveProduct = (productId) => {
+    console.log(" 1111111 admin Deleting ");
+    axios.delete(`http://localhost:3001/product/${productId}`).then(() => {
+      setProducts(products.filter((product) => product.id !== productId));
+      console.log("Deleting ");
+    });
   };
 
   return (
@@ -26,8 +37,7 @@ export const ProductRemoveCard = ({ product, onRemoveProduct }) => {
       size="large"
       color="primary"
       aria-label="add to shopping cart"
-      onClick={onRemoveProduct}
-      onRemoveProduct={RemoveProduct} 
+      onClick={() => RemoveProduct(product.id)}
     >
     </Button>
   </div>;
