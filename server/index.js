@@ -19,8 +19,10 @@ app.use("/product",productRouter);
 const userRouter = require('./routes/User');
 app.use('/user/', userRouter);
 
-const cartRouter= require('./routes/Cart')
-app.use("/cart",cartRouter);
+
+const ordersRouter = require('./routes/Orders');
+app.use('/orders/', ordersRouter);
+
 
 const paymentRouter= require('./routes/Payment')
 app.use("/payment", paymentRouter);

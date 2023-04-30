@@ -7,6 +7,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Cookies  from "universal-cookie";
+import { useNavigate } from "react-router-dom";
 
 
 const initialValues = {
@@ -28,9 +30,18 @@ const validationSchema = Yup.object({
 
 function Admin() {
 
+  const cookies = new Cookies();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!cookies.get("jwt_authorization")) {
+      navigate("/login");
+    }
+   },   // eslint-disable-next-line
+   []);
+
+
   const [showAlert , setShowAlert ] = useState(null);
   const [products, setProducts] = useState([]);
-
   useEffect(() => {
     axios
       .get("http://localhost:3001/product")
@@ -88,13 +99,13 @@ function Admin() {
 
   return (
     <>
-      <div className="createPostPage">
+      <div className="addingNewProdct">
       {showAlert && (
         <Stack sx={{ width: '100%' }} spacing={2}>
           <Alert severity="success">Product added Successfully!</Alert>
         </Stack>
       )}
-      
+      <div className="addingNewProdcttitle">Fill Form to Add a new Product</div>
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}

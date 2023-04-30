@@ -35,9 +35,7 @@ export const AddressForm = ({ onTabSwitch }) => {
         validationSchema={validationSchema}
       >
         <Form className="formContainer">
-          <h3>
-            Address for the delivery
-          </h3>
+          <div className="addressContainertitle"> Address Form </div>
 
           <label>Street Address</label>
           <ErrorMessage name="Street Address" component="span" />

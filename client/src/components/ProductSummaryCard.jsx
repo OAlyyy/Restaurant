@@ -40,7 +40,8 @@ export const ProductsSummaryCard = ({ product }) => {
         </div>
         <div className="product-summary-info">
           <h3>{product.name}</h3>
-          <p>{product.price}</p>
+          <p>Price: {product.price}</p>
+          <p>Qty: {product.amount}</p>
         </div>
         <div className="product-price-qt">
           <div className="price">{`${product.price * product.amount}$`}</div>

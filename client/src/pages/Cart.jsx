@@ -10,12 +10,44 @@ import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
 import { totalPrice } from "../components/ProductSummaryCard.jsx";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const Cart = () => {
+
+
+const Cart = () => { 
   const cart = useSelector(cartProducts);
+    // eslint-disable-next-line
+  const [orderId, setOrderId] = useState("");
   const [currentTab, handleTabSwitch] = useState("Summary");
-  console.log("cart ***************** cart =>>>>>>", cart);
   const navigate = useNavigate();
+
+  const placeOrder = () => {
+    axios
+      .get("http://localhost:3001/orders/lastOrderNumber")
+      .then((response) => {
+        const lastOrderNumber = response.data;
+        const newOrderId = lastOrderNumber + 1;
+        setOrderId(newOrderId);
+        const orderData = {
+          orderNumber: newOrderId, // Use the new order ID here
+          status: "pending",
+          items: cart,
+          totalPrice: cart.reduce((acc, product) => acc + totalPrice(product), 0),
+          shippingAddress: "",
+          paymentMethod: "cash",
+        };
+        console.log("orderData", orderData);
+        axios.post("http://localhost:3001/orders", orderData).then((response) => {
+          console.log("response", response);
+          navigate(`/orders/${orderData.orderNumber}`);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  
+
 
   const onTabSwitch = (event, currentTab) => {
     handleTabSwitch(currentTab);
@@ -49,16 +81,15 @@ const Cart = () => {
             </div>
             <div className="summaryButtons">
 
-              <Button variant="contained" onClick={() => navigate("/menu")}>
-                Forgot Something ?
+              <Button variant="contained" onClick={placeOrder}>
+               Place Order & Pay at Cashier
               </Button>
               
               <Button
-               
                 onClick={() => handleTabSwitch("Delivery")}
                 endIcon={<SendIcon />}
               >
-                Next
+                Pay Online
               </Button>
             </div>
           </div>

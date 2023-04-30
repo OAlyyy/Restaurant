@@ -1,11 +1,12 @@
-import { Alert } from "../components/elements/Alerts";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+
 const PaymentSuccess = () => {
     return (
-        <div className="max-w-lg mx-auto p-4">
-            <Alert variant="success">
-                Your payment was successful
-            </Alert>
-        </div>
+            <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="success">  Your payment was successful</Alert>
+        </Stack>
     )
 }
 

@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Menu from "./pages/Menu";
+import Orders from "./pages/Orders";
+import MyOrder from "./pages/MyOrder";
 import Cart from "./pages/Cart";
 import Admin from "./components/Admin.jsx";
 import PaymentSuccess from "./pages/PaymentSuccess";
@@ -55,6 +57,8 @@ const Navigation = () => {
             <Route path="/register" element={<Register/>} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/orders/:orderNumber" element={<MyOrder />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />        
           </Routes>
 
