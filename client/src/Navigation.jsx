@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Header } from "./components/Header";
+import  Header  from "./components/Header";
 import { Footer } from "./components/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -15,6 +15,7 @@ import { cartProducts } from "./store/cart/cartSlice";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import NavMenu from "./components/NavMenu"
 
 const Navigation = () => {
 
@@ -48,7 +49,7 @@ const Navigation = () => {
 
     return (
           <AuthContext.Provider value={{ authState, setAuthState }}>
-          <Header  cartCount={productsInCart ? productsInCart.length : 0}/>
+          <NavMenu  cartCount={productsInCart ? productsInCart.length : 0}/>
           <Routes>
             
             <Route path="/" element={<Home />} />

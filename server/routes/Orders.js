@@ -61,20 +61,13 @@ router.get("/:orderNumber", async (req, res) => {
 
 
 // Update existing order
-router.put("/:id", async (req, res) => {
-  try {
-    const order = await Orders.findByPk(req.params.id);
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-    const { items } = req.body;
-    await order.update({ items });
-    res.json(order);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server Error" });
-  }
+router.put("/orderStatus", async (req, res) => {
+
+   const { newStatus, id } = req.body;
+   await Orders.update({ status: newStatus }, { where: {id: id}});
+   res.json(newStatus);
 });
+
 
 // Delete existing order
 router.delete("/:id", async (req, res) => {

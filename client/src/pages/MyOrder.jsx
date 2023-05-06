@@ -7,12 +7,26 @@ const OrderDetail = () => {
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3001/orders/${orderNumber}`)
-      .then((response) => {
-        setOrder(response.data);
-      });
+    const fetchOrder = async () => {
+      const response = await axios.get(`http://localhost:3001/orders/${orderNumber}`);
+      setOrder(response.data);
+    };
+    fetchOrder();
   }, [orderNumber]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const fetchOrder = async () => {
+        const response = await axios.get(`http://localhost:3001/orders/${orderNumber}`);
+        const newOrder = response.data;
+        if (newOrder.status !== order.status) {
+          setOrder(newOrder);
+        }
+      };
+      fetchOrder();
+    }, 30000 ); // check every 30 seconds
+    return () => clearInterval(intervalId);
+  }, [order, orderNumber]);
 
   if (!order) {
     return <div>Loading...</div>;

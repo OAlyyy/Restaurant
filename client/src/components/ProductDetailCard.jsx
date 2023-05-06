@@ -8,9 +8,9 @@ const ProductDetailCard = ({ product, onAddProduct }) => {
     <p>{product.description}</p>
     <img src={product.imageUrl} alt={product.name} />
     <div className="product-cart">
-      <div className="product-price" >{product.price}</div>
+      <div className="product-price" >{product.price} €</div>
   
-      <Button className="product-button" onClick={onAddProduct(product)}>Add to Cart</Button>
+      <Button color="error" onClick={onAddProduct(product)}>Add to Cart</Button>
     </div>
   </div>
     

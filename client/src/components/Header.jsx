@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { cartProducts } from "../store/cart/cartSlice";
 import { totalPrice } from "./ProductSummaryCard";
+import NavMenu from "./NavMenu"
 
 export const Header = () => {
   const cookies = new Cookies();
@@ -19,12 +20,12 @@ export const Header = () => {
   });
 
   const cart = useSelector(cartProducts);
-  const logout = () => {
+  const logout =() => {
     cookies.remove("jwt_authorization");
-    setAuthState({ username: "", id: 0, status: false });
-    navigate("/login");
-  };
-
+   setAuthState({ username: "", id: 0, status: false });
+   navigate("/login");
+ }; 
+  
   return (
     <nav id="header" className="navbar">
       <div className="logo">
@@ -36,33 +37,37 @@ export const Header = () => {
       <div className="links">
         <Link to="/"> Home </Link>
         <Link to="/menu"> Menu </Link>
-
-        <div className="authButtons">
-          {!jwtToken ? (
-            <>
-              <Link to="login">Admin</Link>
-
-              <Link className="price-cart-icon" to="/cart">
-                <div className="price">
-                  {cart
-                    .reduce((acc, product) => acc + totalPrice(product), 0)
-                    .toFixed(2)}
-                  $
-                </div>
-                <div className="cart-icon-container">
-                  <img src={cartIcon} alt="cart" className="cart-icon" />
-                </div>
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="Orders">Orders</Link>
-              <Link to="Admin">Admin</Link>
-              <button onClick={logout}> Logout</button>
-            </>
-          )}
-        </div>
       </div>
+
+      <div className="authButtons">
+        {
+          
+            !jwtToken ?
+            (
+      <>
+        <Link to="login">Log In</Link>
+      </>
+           ):
+
+        (<>
+        <button onClick={logout}> Logout</button> 
+        <Link to="Admin">Admin</Link>
+        </>
+        
+        )
+  
+        }
+      </div>
+
+      <Link className="price-cart-icon" to="/cart">
+      <div className="price">
+              {cart.reduce((acc, product) => acc + totalPrice(product), 0).toFixed(2)} $ 
+          </div>
+
+      <div className="cart-icon-container">
+          <img src={cartIcon} alt="cart" className="cart-icon" />
+        </div>
+      </Link>
     </nav>
   );
 };

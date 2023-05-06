@@ -74,7 +74,7 @@ const Cart = () => {
 
           <div className="summaryEnd">
             <div className="total-price">
-              Total : $
+              Total : €
               {cart
                 .reduce((acc, product) => acc + totalPrice(product), 0)
                 .toFixed(2)}
@@ -82,7 +82,7 @@ const Cart = () => {
             <div className="summaryButtons">
 
               <Button variant="contained" onClick={placeOrder}>
-               Place Order & Pay at Cashier
+                Pay at Cashier
               </Button>
               
               <Button
@@ -131,9 +131,11 @@ const Cart = () => {
         onChange={onTabSwitch}
         textColor="primary"
         indicatorColor="primary"
+        variant="scrollable"
+              scrollButtons="auto"
+              aria-label="scrollable auto tabs example"
       >
         <Tab label="Summary" value="Summary" />
-        <Tab label="Delivery" value="Delivery" />
         <Tab label="Payment" value="Payment" />
       </Tabs>
 

@@ -5,6 +5,7 @@ import ProductDetailCard from "../components/ProductDetailCard.jsx";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { addToCart } from "../store/cart/cartSlice";
+import Box from "@mui/material/Box";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,10 @@ const Menu = () => {
   }, [dispatch]);
 
   const onAddProduct = (product) => (event) => {
-    console.log("menuu productproductproduct----------------------- :",product);
+    console.log(
+      "menuu productproductproduct----------------------- :",
+      product
+    );
     dispatch(addToCart(product));
   };
 
@@ -28,7 +32,7 @@ const Menu = () => {
   const filteredProducts = products.products.filter((product) => {
     switch (activeTabIndex) {
       case 0:
-        return true; 
+        return true;
       case 1:
         return product.type === 1;
       case 2:
@@ -49,12 +53,17 @@ const Menu = () => {
         <div>loading...</div>
       ) : (
         <div className="menu-wrapper">
-          {products.products.length > 0 && products.products && (
+          {products.products.length > 0 && products.products && (       
             <Tabs
               value={activeTabIndex}
               onChange={onTabSwitch}
               textColor="primary"
               indicatorColor="primary"
+              variant="scrollable"
+              scrollButtons="auto"
+              aria-label="scrollable auto tabs example"
+              style={{ position: "fixed", top: "98px",backgroundColor: "white"  }}
+              
             >
               <Tab label="Breakfast" value={1} />
               <Tab label="Lunch" value={2} />

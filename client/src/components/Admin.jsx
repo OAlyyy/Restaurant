@@ -131,11 +131,11 @@ function Admin() {
 
             <label>Product Price:</label>
             <ErrorMessage name="price" component="span" />
-            <Field id="AddingProduct" name="price" placeholder="(Ex. 15 $ )" />
+            <Field id="AddingProduct" name="price" placeholder="(Ex. 15 € )" />
 
             <label className="attachment-label">Product Picture:</label>
             <ErrorMessage name="imageUrl" component="span" />
-            <Field id="AddingProduct" name="imageUrl" type="file" />
+            <Field id="AddingProduct" name="imageUrl"  placeholder="(https://photo.com)" />
 
             <button type="submit">Add</button>
           </Form>
