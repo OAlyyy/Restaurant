@@ -6,7 +6,6 @@ import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -16,8 +15,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import foody from "../assets/images/foody.png";
 import cartIcon from "../assets/icons/cart.svg";
 import { Link, useNavigate } from "react-router-dom";
@@ -37,13 +34,13 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginRight: -drawerWidth,
+    marginLeft: `-${drawerWidth}px`,
     ...(open && {
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      marginRight: 0,
+      marginLeft: 0,
     }),
   })
 );
@@ -58,11 +55,11 @@ const AppBar = styled(MuiAppBar, {
   }),
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginRight: drawerWidth,
   }),
 }));
 
@@ -72,10 +69,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: "flex-start",
+  justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerRight() {
+export default function PersistentDrawerLeft() {
   const cookies = new Cookies();
   const jwtToken = cookies.get("jwt_authorization");
   const navigate = useNavigate();
@@ -108,43 +105,55 @@ export default function PersistentDrawerRight() {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <div className="logo">
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              mr: 2,
+              ...(open && { display: "none" }),
+              width: "40px",
+              minWidth: "40px",
+              borderRadius: "0 10px 10px 0",
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <div
+            className="logo"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexGrow: 1,
+              
+            }}
+          >
             <Link to="/">
               <img src={foody} alt="logo" className="logo" />
             </Link>
           </div>
-          <Box sx={{ flexGrow: 1 }} /> {/* Add this line to push the items to the right */}
-        
-{jwtToken? (
-  <>
-<Link to="/orders"> Orders </Link>
-  </>
 
-) : (
-<Link className="price-cart-icon" to="/cart">
-            <div className="price">
-              {cart
-                .reduce((acc, product) => acc + totalPrice(product), 0)
-                .toFixed(2)}{" "}
-              $
-            </div>
+          {jwtToken ? (
+            <>
+              <Link to="/orders"> Orders </Link>
+            </>
+          ) : (
+            <Link className="price-cart-icon" to="/cart">
+              <div className="price">
+                {cart
+                  .reduce((acc, product) => acc + totalPrice(product), 0)
+                  .toFixed(2)}{" "}
+                €
+              </div>
 
-            <div className="cart-icon-container">
-              <img src={cartIcon} alt="cart" className="cart-icon" />
-            </div>
-          </Link>
-
-)}
-          
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
-            onClick={handleDrawerOpen}
-            sx={{ ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
+              <div className="cart-icon-container">
+                <img src={cartIcon} alt="cart" className="cart-icon" />
+              </div>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
       <Main open={open}>
@@ -152,14 +161,15 @@ export default function PersistentDrawerRight() {
       </Main>
       <Drawer
         sx={{
-          width: drawerWidth,
+          width: 1,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
+            boxSizing: "border-box",
           },
         }}
         variant="persistent"
-        anchor="right"
+        anchor="left"
         open={open}
       >
         <DrawerHeader>
@@ -245,6 +255,23 @@ export default function PersistentDrawerRight() {
             </ListItemButton>
           </ListItem>
         )}
+
+        <Divider />
+
+        <div className="contact-list mb-30">
+          <ul>
+            <li>
+              <i className="fas fa-map-marker-alt"></i>66 Broklyn Street, New
+              York United States of America
+            </li>
+            <li>
+              <i className="fas fa-phone"></i>
+              <Link href="tel:+1166442200">
+                <a>+11 66 44 22 00</a>
+              </Link>
+            </li>
+          </ul>
+        </div>
       </Drawer>
     </Box>
   );

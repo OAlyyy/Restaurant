@@ -13,7 +13,7 @@ export const Banner = () => {
                     Food Ordering Made Easy
                 </div> */}
                 <div className="bannerRedAlert">
-                    Get Started Today!
+                    Order Now!
                 </div>
                 <div >
                 <Button className="bannerBttn" color="secondary" style={{ fontWeight: 'bold', fontSize: '1.2rem', color: 'red'  }} href="/menu">MENU </Button>

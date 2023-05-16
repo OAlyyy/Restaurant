@@ -50,11 +50,11 @@ const OrderDetail = () => {
         <div className="myorderDetails">
             <div className="myorderName">{product.name}</div>
             <div className="myorderAmount">Qty: {product.amount}</div>
-            <div className="myorderprice">Sum: ${product.price * product.amount}</div>
+            <div className="myorderprice">Sum: €{product.price * product.amount}</div>
           </div>
         </div>
       ))}
-      <div className="myorderPrice">Total  ${order.totalPrice}</div>
+      <div className="myorderPrice"> Total :  {order.totalPrice}  €</div>
     </div>
   );
 };

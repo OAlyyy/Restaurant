@@ -6,10 +6,10 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { cartProducts } from "../store/cart/cartSlice";
 import { totalPrice } from "./ProductSummaryCard";
-import NavMenu from "./NavMenu"
 
 export const Header = () => {
   const cookies = new Cookies();
+    // eslint-disable-next-line
   const jwtToken = cookies.get("jwt_authorization");
   const navigate = useNavigate();
   // eslint-disable-next-line
@@ -20,54 +20,32 @@ export const Header = () => {
   });
 
   const cart = useSelector(cartProducts);
-  const logout =() => {
+    // eslint-disable-next-line
+  const logout = () => {
     cookies.remove("jwt_authorization");
-   setAuthState({ username: "", id: 0, status: false });
-   navigate("/login");
- }; 
-  
+    setAuthState({ username: "", id: 0, status: false });
+    navigate("/login");
+  };
+
   return (
     <nav id="header" className="navbar">
+      <Link className="price-cart-icon" to="/cart">
+        <div className="price">
+          {cart
+            .reduce((acc, product) => acc + totalPrice(product), 0)
+            .toFixed(2)}{" "}
+          €
+        </div>
+        <div className="cart-icon-container">
+          <img src={cartIcon} alt="cart" className="cart-icon" />
+        </div>
+      </Link>
+
       <div className="logo">
         <Link to="/">
           <img src={foody} alt="logo" className="logo" />
         </Link>
       </div>
-
-      <div className="links">
-        <Link to="/"> Home </Link>
-        <Link to="/menu"> Menu </Link>
-      </div>
-
-      <div className="authButtons">
-        {
-          
-            !jwtToken ?
-            (
-      <>
-        <Link to="login">Log In</Link>
-      </>
-           ):
-
-        (<>
-        <button onClick={logout}> Logout</button> 
-        <Link to="Admin">Admin</Link>
-        </>
-        
-        )
-  
-        }
-      </div>
-
-      <Link className="price-cart-icon" to="/cart">
-      <div className="price">
-              {cart.reduce((acc, product) => acc + totalPrice(product), 0).toFixed(2)} $ 
-          </div>
-
-      <div className="cart-icon-container">
-          <img src={cartIcon} alt="cart" className="cart-icon" />
-        </div>
-      </Link>
     </nav>
   );
 };

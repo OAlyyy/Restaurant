@@ -7,24 +7,19 @@ export const About = () => {
       <div className="aboutContainer-leftside">
         <h2 className="aboutTitle">About Us</h2>
 
-
-
-
-            <p className="openingHours">
-          Opening Hours  <br/><br/>
-          Monday: 11:00 AM - 10:00 PM <br/>
-          Tuesday: 11:00 AM - 10:00 PM <br/>
-          Wednesday: 11:00 AM - 10:00 PM <br/>
-           Thursday: 11:00 AM - 10:00 PM  <br/>
-           Friday: 11:00 AM - 10:00 PM <br/>
-            Saturday: 11:00 AM - 10:00 PM  <br/>
-            Sunday: 11:00 AM - 10:00 PM  <br/><br/><br/>
-            
-            </p>
-
-            <div className="aboutAddress"> Location : XXX at YYYY, ZZZZ </div>
-       
-
+        <p className="openingHours">
+          Opening Hours <br />
+          <br />
+          Monday: 11:00 AM - 10:00 PM <br />
+          Tuesday: 11:00 AM - 10:00 PM <br />
+          Wednesday: 11:00 AM - 10:00 PM <br />
+          Thursday: 11:00 AM - 10:00 PM <br />
+          Friday: 11:00 AM - 10:00 PM <br />
+          Saturday: 11:00 AM - 10:00 PM <br />
+          Sunday: 11:00 AM - 10:00 PM <br />
+          <br />
+          <br />
+        </p>
       </div>
 
       <div className="aboutContainer-rightside">

@@ -11,15 +11,16 @@ import Button from "@mui/material/Button";
 import { totalPrice } from "../components/ProductSummaryCard.jsx";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { clearCart } from "../store/cart/cartSlice.js";
+import { useDispatch } from "react-redux";
 
-
-
-const Cart = () => { 
+const Cart = () => {
   const cart = useSelector(cartProducts);
-    // eslint-disable-next-line
+  // eslint-disable-next-line
   const [orderId, setOrderId] = useState("");
   const [currentTab, handleTabSwitch] = useState("Summary");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const placeOrder = () => {
     axios
@@ -32,22 +33,26 @@ const Cart = () => {
           orderNumber: newOrderId, // Use the new order ID here
           status: "pending",
           items: cart,
-          totalPrice: cart.reduce((acc, product) => acc + totalPrice(product), 0),
+          totalPrice: cart.reduce(
+            (acc, product) => acc + totalPrice(product),
+            0
+          ),
           shippingAddress: "",
           paymentMethod: "cash",
         };
         console.log("orderData", orderData);
-        axios.post("http://localhost:3001/orders", orderData).then((response) => {
-          console.log("response", response);
-          navigate(`/orders/${orderData.orderNumber}`);
-        });
+        dispatch(clearCart());
+        axios
+          .post("http://localhost:3001/orders", orderData)
+          .then((response) => {
+            console.log("response", response);
+            navigate(`/orders/${orderData.orderNumber}`);
+          });
       })
       .catch((error) => {
         console.error(error);
       });
   };
-  
-
 
   const onTabSwitch = (event, currentTab) => {
     handleTabSwitch(currentTab);
@@ -80,11 +85,10 @@ const Cart = () => {
                 .toFixed(2)}
             </div>
             <div className="summaryButtons">
-
               <Button variant="contained" onClick={placeOrder}>
                 Pay at Cashier
               </Button>
-              
+
               <Button
                 onClick={() => handleTabSwitch("Delivery")}
                 endIcon={<SendIcon />}
@@ -102,12 +106,12 @@ const Cart = () => {
         <div className="Delivery-content">
           <AddressForm onTabSwitch={handleTabSwitch} />
           <Button
-               variant="contained"
-                onClick={() => handleTabSwitch("Payment")}
-                endIcon={<SendIcon />}
-              >
-                Next
-              </Button>
+            variant="contained"
+            onClick={() => handleTabSwitch("Payment")}
+            endIcon={<SendIcon />}
+          >
+            Next
+          </Button>
         </div>
       );
       break;
@@ -132,8 +136,8 @@ const Cart = () => {
         textColor="primary"
         indicatorColor="primary"
         variant="scrollable"
-              scrollButtons="auto"
-              aria-label="scrollable auto tabs example"
+        scrollButtons="auto"
+        aria-label="scrollable auto tabs example"
       >
         <Tab label="Summary" value="Summary" />
         <Tab label="Payment" value="Payment" />

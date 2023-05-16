@@ -5,13 +5,21 @@ import ProductDetailCard from "../components/ProductDetailCard.jsx";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { addToCart } from "../store/cart/cartSlice";
-import Box from "@mui/material/Box";
+import Fab from "@mui/material/Fab";
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import SvgIcon from '@mui/material/SvgIcon';
+import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
   console.log("menuu 00000000000", products);
   const [activeTabIndex, setActiveTabIndex] = useState(1);
+  const navigate = useNavigate();
+
+
+
+
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -47,23 +55,35 @@ const Menu = () => {
   });
   console.log("filteredProducts => ", filteredProducts);
 
+
+  const cartMenuButton= ()=>{
+  navigate("/cart");
+  }
+
+
+
+
   return (
     <div className="menuPage">
       {products.status !== "fulfilled" ? (
         <div>loading...</div>
       ) : (
         <div className="menu-wrapper">
-          {products.products.length > 0 && products.products && (       
+          {products.products.length > 0 && products.products && (
             <Tabs
               value={activeTabIndex}
               onChange={onTabSwitch}
               textColor="primary"
-              indicatorColor="primary"
+              indicatorColor="secondary"
               variant="scrollable"
-              scrollButtons="auto"
+              scrollButtons
+              allowScrollButtonsMobile
               aria-label="scrollable auto tabs example"
-              style={{ position: "fixed", top: "98px",backgroundColor: "white"  }}
-              
+              style={{
+                position: "fixed",
+                top: "98px",
+                backgroundColor: "pink",
+              }}
             >
               <Tab label="Breakfast" value={1} />
               <Tab label="Lunch" value={2} />
@@ -85,6 +105,12 @@ const Menu = () => {
           </div>
         </div>
       )}
+
+<div className="fab-container" onClick={cartMenuButton}>
+        <Fab size="small" color="secondary" aria-label="add">
+          <SvgIcon  fontSize="large" component={ShoppingCartCheckoutIcon} alt="cart" className="cart-icon" />
+        </Fab></div>
+     
     </div>
   );
 };
