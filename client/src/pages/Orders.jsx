@@ -5,8 +5,6 @@ import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
-
-
 const Orders = () => {
   const cookies = new Cookies();
   const jwtToken = cookies.get("jwt_authorization");
@@ -33,8 +31,6 @@ const Orders = () => {
     });
   }, []);
 
-
-  
   const handleOrderReady = (orderId) => {
     axios
       .put(`http://localhost:3001/orders/orderStatus`, {
@@ -42,10 +38,8 @@ const Orders = () => {
         id: orderId,
       })
       .then((response) => {
-
         console.log(`Order ${orderId} is now ready!`);
         navigate(0);
- 
       })
       .catch((error) => {
         console.log(error);
@@ -78,7 +72,6 @@ const Orders = () => {
             </div>
           ))}
 
-        
           <Button
             variant="contained"
             color="success"
@@ -86,9 +79,6 @@ const Orders = () => {
           >
             Order Ready
           </Button>
-
-
-          
         </div>
       ))}
     </div>

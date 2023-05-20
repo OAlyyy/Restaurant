@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import  {ProductPreviewCard}  from "./ProductPreviewCard.jsx";
+import { ProductPreviewCard } from "./ProductPreviewCard.jsx";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useDispatch } from "react-redux";
@@ -7,7 +7,6 @@ import { addToCart } from "../store/cart/cartSlice";
 import axios from "axios";
 
 export const ProductsPreview = () => {
-
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
@@ -40,36 +39,32 @@ export const ProductsPreview = () => {
       .catch((e) => console.log(e));
   }, []);
 
- 
-    console.log("twestete", products);
- 
+  console.log("twestete", products);
 
   const onAddProduct = (product) => {
     dispatch(addToCart(product));
   };
 
-
-return (
-  <div className="carouselParent">
-  <div className="aboveCarouselTitle">Popular Products</div>
-  <div className="carousel-container">
-
-      <Carousel responsive={responsive}>
-      { Array.isArray(products) && products.length > 0 && products.map((product, index) => {
-          return (
-            <div key={product.id}>
-              <ProductPreviewCard
-                key={index}
-                product={product}
-                onAddProduct={onAddProduct}
-              />
-            </div>
-          )
-        })
-        }
-      </Carousel>
+  return (
+    <div className="carouselParent">
+      <div className="aboveCarouselTitle">Popular Products</div>
+      <div className="carousel-container">
+        <Carousel responsive={responsive}>
+          {Array.isArray(products) &&
+            products.length > 0 &&
+            products.map((product, index) => {
+              return (
+                <div key={product.id}>
+                  <ProductPreviewCard
+                    key={index}
+                    product={product}
+                    onAddProduct={onAddProduct}
+                  />
+                </div>
+              );
+            })}
+        </Carousel>
+      </div>
     </div>
-  </div>
- 
- );  
+  );
 };

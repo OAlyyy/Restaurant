@@ -20,15 +20,12 @@ module.exports = (sequelize, DataTypes) => {
   
     Product.associate = (models) => {
       Product.belongsTo(models.Category, {
-        foreignKey: {
-          name: "type",
-          allowNull: false,
-        },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        foreignKey: 'categoryId',
+        as: 'productCategory',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       });
     };
-
     
     return Product;
   };

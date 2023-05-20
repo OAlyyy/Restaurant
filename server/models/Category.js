@@ -1,22 +1,21 @@
 module.exports = (sequelize, DataTypes) => {
-    const Category = sequelize.define("Category", {
-      type: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    });
-  
-    Category.associate = (models) => {
-      Category.hasMany(models.Product, {
-          foreignKey: {
-              name: 'type',
-              allowNull: false,
-          },
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE',
-      });
-  }
+  const Category = sequelize.define("Category", {
+    
+    // Step number #3 Change Categories to have them in Database
+    type: {
+      type: DataTypes.ENUM('breakfast', 'lunch', 'dinner','drinks'),
+      allowNull: false,
+    },
+  });
 
-    return Category;
+  Category.associate = (models) => {
+    Category.hasMany(models.Product, {
+      foreignKey: 'categoryId',
+      as: 'products',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
   };
-  
+
+  return Category;
+};

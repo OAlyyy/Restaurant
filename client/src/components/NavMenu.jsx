@@ -15,8 +15,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+// Step number #1 Change Logo Img
 import foody from "../assets/images/foody.png";
-import cartIcon from "../assets/icons/cart.svg";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { useState } from "react";
@@ -128,7 +129,6 @@ export default function PersistentDrawerLeft() {
               justifyContent: "center",
               alignItems: "center",
               flexGrow: 1,
-              
             }}
           >
             <Link to="/">
@@ -150,7 +150,11 @@ export default function PersistentDrawerLeft() {
               </div>
 
               <div className="cart-icon-container">
-                <img src={cartIcon} alt="cart" className="cart-icon" />
+                <ShoppingCartCheckoutIcon
+                  alt="ShoppingCartCheckoutIcon"
+                  fontSize="large" 
+                  className="cart-icon"
+                />
               </div>
             </Link>
           )}
@@ -213,7 +217,11 @@ export default function PersistentDrawerLeft() {
                 secondaryTypographyProps={{ color: "textPrimary" }}
               />
               <ListItemIcon>
-                <img src={cartIcon} alt="cart" className="cart-icon" />
+                <img
+                  src={ShoppingCartCheckoutIcon}
+                  alt="cart"
+                  className="cart-icon"
+                />
               </ListItemIcon>
             </ListItemButton>
           </ListItem>
@@ -266,8 +274,8 @@ export default function PersistentDrawerLeft() {
             </li>
             <li>
               <i className="fas fa-phone"></i>
-              <Link href="tel:+1166442200">
-                <a>+11 66 44 22 00</a>
+              <Link>
+                <a href="tel:+1166442200">+11 66 44 22 00</a>
               </Link>
             </li>
           </ul>

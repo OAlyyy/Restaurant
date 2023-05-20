@@ -6,8 +6,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { addToCart } from "../store/cart/cartSlice";
 import Fab from "@mui/material/Fab";
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import SvgIcon from '@mui/material/SvgIcon';
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import SvgIcon from "@mui/material/SvgIcon";
 import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
@@ -17,19 +17,11 @@ const Menu = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(1);
   const navigate = useNavigate();
 
-
-
-
-
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
   const onAddProduct = (product) => (event) => {
-    console.log(
-      "menuu productproductproduct----------------------- :",
-      product
-    );
     dispatch(addToCart(product));
   };
 
@@ -53,15 +45,10 @@ const Menu = () => {
         return false;
     }
   });
-  console.log("filteredProducts => ", filteredProducts);
 
-
-  const cartMenuButton= ()=>{
-  navigate("/cart");
-  }
-
-
-
+  const cartMenuButton = () => {
+    navigate("/cart");
+  };
 
   return (
     <div className="menuPage">
@@ -106,11 +93,16 @@ const Menu = () => {
         </div>
       )}
 
-<div className="fab-container" onClick={cartMenuButton}>
+      <div className="fab-container" onClick={cartMenuButton}>
         <Fab size="small" color="secondary" aria-label="add">
-          <SvgIcon  fontSize="large" component={ShoppingCartCheckoutIcon} alt="cart" className="cart-icon" />
-        </Fab></div>
-     
+          <SvgIcon
+            fontSize="large"
+            component={ShoppingCartCheckoutIcon}
+            alt="cart"
+            className="cart-icon"
+          />
+        </Fab>
+      </div>
     </div>
   );
 };

@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { clearCart, cartProducts } from "../store/cart/cartSlice";
 import { getAddress, clearAddress } from "../store/userInfo/addressSlice";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from 'react';
-import Button from "./elements/Button";
+import { useState } from 'react';
+import Button from '@mui/material/Button';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -18,6 +18,7 @@ export const StripeWrapper = () => {
 }
 const PaymentForm = () => {
     const [loading, setLoading] = useState(false);
+    // eslint-disable-next-line
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
     const cart = useSelector(cartProducts);
@@ -77,7 +78,8 @@ const PaymentForm = () => {
                 <CardElement id="card-element" />
             </div>
             <div className="flex justify-center p-2">
-                <Button type="submit" disbled={loading}>
+       
+                <Button variant="contained" type="submit" disbled={loading}>
                     {
                         loading ?
                         'Loading...' :

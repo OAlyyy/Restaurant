@@ -3,7 +3,6 @@ import {
   incrementProductAmount,
   decrementProductAmount,
 } from "../store/cart/cartSlice";
-
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
@@ -17,19 +16,19 @@ export const ProductsSummaryCard = ({ product }) => {
   const dispatch = useDispatch();
 
   const buttons = [
-    <Button
-      key="+"
-      onClick={() => dispatch(incrementProductAmount(product))}
-    >
+    <Button key="+" onClick={() => dispatch(incrementProductAmount(product))}>
       +
     </Button>,
-    <Button key="-"  disabled={product.amount <= 0} onClick={() => dispatch(decrementProductAmount(product))}>
+    <Button
+      key="-"
+      disabled={product.amount <= 0}
+      onClick={() => dispatch(decrementProductAmount(product))}
+    >
       -
     </Button>,
   ];
 
-
-  if(product.amount=== 0){
+  if (product.amount === 0) {
     return null;
   }
   return (
@@ -58,7 +57,7 @@ export const ProductsSummaryCard = ({ product }) => {
                 orientation="vertical"
                 aria-label="vertical outlined button group"
               >
-               {buttons}
+                {buttons}
               </ButtonGroup>
             </Box>
           </div>

@@ -165,6 +165,8 @@ a {
 }
 
 .cart-icon {
+  color: white;
+  
   margin-left: auto;
   padding-right: 10px;
 }
@@ -264,72 +266,6 @@ a {
   height: 60%;
 }
 
-/* About */
-
-.aboutContainer {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 100%;
-  height: 100%;
-}
-
-.aboutContainer-leftside {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.aboutTitle {
-  font-size: 1.2rem;
-  line-height: 1.5;
-  text-align: center; /* Add center alignment */
-  max-width: 100%;
-}
-
-.aboutText {
-  text-align: center;
-}
-
-.aboutText p {
-  font-size: 1.2rem;
-  line-height: 1.5;
-}
-
-.aboutAddress {
-  display: flex;
-  flex: 2;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.aboutContainer-rightside {
-  display: flex;
-  flex: 2;
-  justify-content: center;
-  width: 60vw;
-  max-width: 60vw;
-  height: 60vh;
-  max-height: 100%;
-  padding-left: 10px;
-}
-
-.aboutImage {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 40vh;
-}
 
 /* Carousel */
 .carouselParent {
@@ -838,4 +774,10 @@ a {
   position: fixed;
   bottom: 100px;
   right: 30px;
+}
+
+
+
+.urlExample{
+  font-size: 12px;
 }
