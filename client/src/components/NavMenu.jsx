@@ -217,10 +217,9 @@ export default function PersistentDrawerLeft() {
                 secondaryTypographyProps={{ color: "textPrimary" }}
               />
               <ListItemIcon>
-                <img
-                  src={ShoppingCartCheckoutIcon}
-                  alt="cart"
-                  className="cart-icon"
+              <ShoppingCartCheckoutIcon
+                  alt="ShoppingCartCheckoutIcon"
+                  fontSize="large" 
                 />
               </ListItemIcon>
             </ListItemButton>

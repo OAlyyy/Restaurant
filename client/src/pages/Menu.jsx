@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 const Menu = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
-  console.log("menuu 00000000000", products);
   const [activeTabIndex, setActiveTabIndex] = useState(1);
   const navigate = useNavigate();
 
@@ -29,18 +28,20 @@ const Menu = () => {
     setActiveTabIndex(activeTabIndex);
   };
 
+  // Step number #5 add cases or remove if necessary 
+   // Step number #6, line 76, change tabs names if neccessary 
   const filteredProducts = products.products.filter((product) => {
     switch (activeTabIndex) {
       case 0:
         return true;
       case 1:
-        return product.type === 1;
+        return product.categoryId === 1;
       case 2:
-        return product.type === 2;
+        return product.categoryId === 2;
       case 3:
-        return product.type === 3;
+        return product.categoryId === 3;
       case 4:
-        return product.type === 4;
+        return product.categoryId === 4;
       default:
         return false;
     }

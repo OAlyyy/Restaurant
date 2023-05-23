@@ -9,7 +9,7 @@ const ProductDetailCard = ({ product, onAddProduct }) => {
       <div className="product-cart">
         <div className="product-price">{product.price} €</div>
 
-        <Button color="error" onClick={onAddProduct(product)}>
+        <Button variant="contained" color="error" onClick={onAddProduct(product)}>
           Add to Cart
         </Button>
       </div>
