@@ -41,6 +41,7 @@ const Navigation = () => {
   const productsInCart = useSelector(cartProducts);
 
   return (
+    <div className="App">
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <NavMenu cartCount={productsInCart ? productsInCart.length : 0} />
       <Routes>
@@ -54,9 +55,9 @@ const Navigation = () => {
         <Route path="/orders/:orderNumber" element={<MyOrder />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
       </Routes>
-
       <Footer />
     </AuthContext.Provider>
+    </div>
   );
 };
 

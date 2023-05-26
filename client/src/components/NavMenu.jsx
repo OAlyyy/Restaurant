@@ -102,7 +102,7 @@ export default function PersistentDrawerLeft() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} className="Header">
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -138,7 +138,8 @@ export default function PersistentDrawerLeft() {
 
           {jwtToken ? (
             <>
-              <Link to="/orders"> Orders </Link>
+              <Link to="/orders" style={{ color: "white", textDecoration: "none", fontWeight: "bold" }}>Orders</Link>
+
             </>
           ) : (
             <Link className="price-cart-icon" to="/cart">

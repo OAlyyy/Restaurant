@@ -29,7 +29,6 @@ export const ProductRemoveCard = ({ product, RemoveProduct }) => {
         alt={product.name}
       />
       <h2 className="carousel-title">{product.name}</h2>
-      <p className="carousel-desciption">{product.desciption}</p>
       <div>
         <Button
           variant="outlined"

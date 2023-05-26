@@ -72,13 +72,15 @@ const Orders = () => {
             </div>
           ))}
 
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => handleOrderReady(order.id)}
-          >
-            Order Ready
-          </Button>
+{order.status !== "ready" && (
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => handleOrderReady(order.id)}
+            >
+              Order Ready
+            </Button>
+          )}
         </div>
       ))}
     </div>

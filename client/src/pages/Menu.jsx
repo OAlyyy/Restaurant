@@ -28,7 +28,7 @@ const Menu = () => {
     setActiveTabIndex(activeTabIndex);
   };
 
-  // Step number #5 add cases or remove if necessary 
+  // Step number #5 add cases or remove if necessary fort categories
    // Step number #6, line 76, change tabs names if neccessary 
   const filteredProducts = products.products.filter((product) => {
     switch (activeTabIndex) {
@@ -58,6 +58,7 @@ const Menu = () => {
       ) : (
         <div className="menu-wrapper">
           {products.products.length > 0 && products.products && (
+            <div className="tabs-container">
             <Tabs
               value={activeTabIndex}
               onChange={onTabSwitch}
@@ -71,6 +72,7 @@ const Menu = () => {
                 position: "fixed",
                 top: "98px",
                 backgroundColor: "pink",
+                width: "100%",
               }}
             >
               <Tab label="Breakfast" value={1} />
@@ -78,7 +80,9 @@ const Menu = () => {
               <Tab label="Dinner" value={3} />
               <Tab label="Drinks" value={4} />
             </Tabs>
+            </div>
           )}
+          
           <div className="products-container">
             {products.products.length > 0 &&
               filteredProducts.map((product, index) => {
@@ -95,7 +99,7 @@ const Menu = () => {
       )}
 
       <div className="fab-container" onClick={cartMenuButton}>
-        <Fab size="small" color="secondary" aria-label="add">
+        <Fab size="medium" color="secondary" aria-label="add">
           <SvgIcon
             fontSize="large"
             component={ShoppingCartCheckoutIcon}
