@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
 jobs:
   build:
     name: Build
@@ -44,12 +44,9 @@ jobs:
           args: deploy --only hosting --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RESTAURANT_12B3E }}
         env:
           FIREBASE_TOKEN: --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RESTAURANT_12B3E }}
-      - name: Install Dependencies for Functions
+      - name: Install Dependencies for server
         run: npm install
-        working-directory: functions
-      - name: Build the Node.js server
-        run: npm run build-server
-        working-directory: functions
+        working-directory: server
       - name: Deploy to Firebase Functions
         uses: w9jds/firebase-action@master
         with:
