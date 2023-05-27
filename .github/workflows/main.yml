@@ -1,5 +1,7 @@
-name: Deploy to Firebase Hosting on merge
+name: Firebase Deploy  
 
+name: Use Firebase project         
+   run: npx firebase-tools use --add ${{ secrets.FIREBASE_PROJECT_ID_DEV }} --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
 on:
   push:
     branches:
@@ -41,7 +43,7 @@ jobs:
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy --only hosting --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
           PROJECT_ID: restaurant-12b3e
@@ -54,7 +56,7 @@ jobs:
       - name: Deploy to Firebase Functions
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only functions
+          args: deploy --only functions --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
           PROJECT_ID: restaurant-12b3e
