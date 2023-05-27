@@ -52,8 +52,7 @@ jobs:
         with:
           args: deploy --only hosting --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
-          PROJECT_ID: restaurant-12b3e
+          FIREBASE_TOKEN: --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
       - name: Install Dependencies for Functions
         run: npm install
         working-directory: functions
@@ -65,5 +64,5 @@ jobs:
         with:
           args: deploy --only functions --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
-          PROJECT_ID: restaurant-12b3e
+          FIREBASE_TOKEN: --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          
