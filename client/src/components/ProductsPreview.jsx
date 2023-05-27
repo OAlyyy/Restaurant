@@ -4,7 +4,9 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/cart/cartSlice";
-import axios from "axios";
+import { fetchProducts } from '../firebase';
+
+
 
 export const ProductsPreview = () => {
   const [products, setProducts] = useState([]);
@@ -31,15 +33,29 @@ export const ProductsPreview = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/product")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((e) => console.log(e));
+    const fetchProductsData = async () => {
+      try {
+        const fetchedProducts = await fetchProducts();
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.log('Error fetching products:', error);
+      }
+    };
+
+    fetchProductsData();
   }, []);
 
-  console.log("twestete", products);
+  console.log('products products products:', products);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("https://us-central1-restaurant-12b3e.cloudfunctions.net/apiHandler/product")
+  //     .then((response) => {
+  //       setProducts(response.data);
+  //     })
+  //     .catch((e) => console.log(e));
+  // }, []);
+
 
   const onAddProduct = (product) => {
     dispatch(addToCart(product));
