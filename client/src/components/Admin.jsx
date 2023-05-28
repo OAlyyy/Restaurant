@@ -9,6 +9,8 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import { createProduct, fetchProducts } from '../firebase.js';
+
 
 const initialValues = {
   name: "",
@@ -40,40 +42,33 @@ function Admin() {
 
   const [showAlert, setShowAlert] = useState(null);
   const [products, setProducts] = useState([]);
-    // eslint-disable-next-line
-    const [categoryTypes, setCategoryTypes] = useState([]);
+  //Step number #6 
+    // eslint-disable-next-line 
+    const [categoryTypes, setCategoryTypes] = useState(["breakfast", "lunch", "dinner", "drinks"]);
 
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/product")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((e) => console.log(e));
-  }, []);
-  useEffect(() => {
-    
-    axios.get("http://localhost:3001/product/categories")
-    .then((response) => {
-      setCategoryTypes(response.data);
+    useEffect(() => {
+      fetchProducts()
+        .then((products) => {
+          setProducts(products);
+        })
+        .catch((error) => {
+          console.error('Error fetching products:', error);
+        });
+    }, []);
+
+
+
+const onSubmit = (data) => {
+  createProduct(data)
+    .then(() => {
+      setShowAlert(true);
     })
-    .catch((e) => console.log(e));
-}, []);
-console.log(categoryTypes)
+    .catch(() => {
+      setShowAlert(false);
+    });
+};
 
-
-  const onSubmit = (data) => {
-    axios
-      .post("http://localhost:3001/product/add", data)
-      .then((response) => {
-        setShowAlert(true);
-      })
-      .catch((error) => {
-        console.log(error);
-        setShowAlert(false);
-      });
-  };
 
   const RemoveProduct = (productId) => {
     axios
@@ -136,7 +131,7 @@ console.log(categoryTypes)
             <Field name="categoryId" as="select" id="AddingProduct">
               <option value="">Select a category</option>
               {categoryTypes.map((category) => (
-                <option key={category.id} value={category.id}>
+                <option key={category.id} value={category.type}>
                   {category.type}
                 </option>
               ))}

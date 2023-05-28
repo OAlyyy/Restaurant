@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, selectAllProducts } from "../store/Menu/productSlice";
+import { selectAllProducts } from "../store/Menu/productSlice";
 import ProductDetailCard from "../components/ProductDetailCard.jsx";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -9,16 +9,31 @@ import Fab from "@mui/material/Fab";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useNavigate } from "react-router-dom";
+import { fetchProducts } from '../firebase';
+
 
 const Menu = () => {
   const dispatch = useDispatch();
-  const products = useSelector(selectAllProducts);
+  // const products = useSelector(selectAllProducts);
+  const [products, setProducts] = useState([]);
   const [activeTabIndex, setActiveTabIndex] = useState(1);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   dispatch(fetchProducts());
+  // }, [dispatch]);
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    const fetchProductsData = async () => {
+      try {
+        const fetchedProducts = await fetchProducts();
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.log('Error fetching products:', error);
+      }
+    };
+
+    fetchProductsData();
+  }, []);
 
   const onAddProduct = (product) => (event) => {
     dispatch(addToCart(product));
@@ -28,36 +43,36 @@ const Menu = () => {
     setActiveTabIndex(activeTabIndex);
   };
 
+  console.log("products =>",products)
   // Step number #5 add cases or remove if necessary fort categories
    // Step number #6, line 76, change tabs names if neccessary 
-  const filteredProducts = products.products.filter((product) => {
+  const filteredProducts = products.filter((product) => {
+    const categoryId = product.categoryId;
     switch (activeTabIndex) {
       case 0:
-        return true;
+        return true
       case 1:
-        return product.categoryId === 1;
+        return categoryId === "breakfast";
       case 2:
-        return product.categoryId === 2;
+        return categoryId === 2;
       case 3:
-        return product.categoryId === 3;
+        return categoryId === 3;
       case 4:
-        return product.categoryId === 4;
+        return categoryId === 4;
       default:
         return false;
     }
   });
-
+  console.log("filteredProducts",filteredProducts)
   const cartMenuButton = () => {
     navigate("/cart");
   };
 
   return (
     <div className="menuPage">
-      {products.status !== "fulfilled" ? (
-        <div>loading...</div>
-      ) : (
+    
         <div className="menu-wrapper">
-          {products.products.length > 0 && products.products && (
+          {products.length > 0 && products && (
             <div className="tabs-container">
             <Tabs
               value={activeTabIndex}
@@ -84,7 +99,7 @@ const Menu = () => {
           )}
           
           <div className="products-container">
-            {products.products.length > 0 &&
+            {products.length > 0 &&
               filteredProducts.map((product, index) => {
                 return (
                   <ProductDetailCard
@@ -96,7 +111,7 @@ const Menu = () => {
               })}
           </div>
         </div>
-      )}
+      
 
       <div className="fab-container" onClick={cartMenuButton}>
         <Fab size="medium" color="secondary" aria-label="add">

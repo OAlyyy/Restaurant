@@ -1,7 +1,9 @@
 // firebase.js
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from 'firebase/analytics';
-import { getFirestore, doc, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs,addDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDKJ9Kb9RdlINdYv09FR6Bs7rOvqFZem8g",
@@ -15,6 +17,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
 
 const db = getFirestore(app);
 
@@ -32,4 +36,20 @@ const fetchProducts = async () => {
   return products;
 };
 
-export { app, fetchProducts };
+
+const createProduct = async (productData) => {
+  const colRef = collection(db, 'Products');
+
+  try {
+    const docRef = await addDoc(colRef, productData);
+    console.log('Product added with ID:', docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error('Error adding product:', error);
+    throw error;
+  }
+};
+
+
+
+export { app, fetchProducts, createProduct  };

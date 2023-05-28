@@ -24,6 +24,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { cartProducts } from "../store/cart/cartSlice";
 import { totalPrice } from "./ProductSummaryCard";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 
 const drawerWidth = 240;
 
@@ -74,6 +76,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
+  // Get the Firebase Authentication token
+  // eslint-disable-next-line
+  const currentUser = auth.currentUser;
   const cookies = new Cookies();
   const jwtToken = cookies.get("jwt_authorization");
   const navigate = useNavigate();
@@ -83,11 +88,18 @@ export default function PersistentDrawerLeft() {
     id: 0,
     status: false,
   });
+
   const cart = useSelector(cartProducts);
-  const logout = () => {
-    cookies.remove("jwt_authorization");
-    setAuthState({ username: "", id: 0, status: false });
-    navigate("/login");
+
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      cookies.remove("jwt_authorization");
+      setAuthState({ username: "", id: 0, status: false });
+      navigate("/login");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const theme = useTheme();
@@ -138,8 +150,16 @@ export default function PersistentDrawerLeft() {
 
           {jwtToken ? (
             <>
-              <Link to="/orders" style={{ color: "white", textDecoration: "none", fontWeight: "bold" }}>Orders</Link>
-
+              <Link
+                to="/orders"
+                style={{
+                  color: "white",
+                  textDecoration: "none",
+                  fontWeight: "bold",
+                }}
+              >
+                Orders
+              </Link>
             </>
           ) : (
             <Link className="price-cart-icon" to="/cart">
@@ -153,7 +173,7 @@ export default function PersistentDrawerLeft() {
               <div className="cart-icon-container">
                 <ShoppingCartCheckoutIcon
                   alt="ShoppingCartCheckoutIcon"
-                  fontSize="large" 
+                  fontSize="large"
                   className="cart-icon"
                 />
               </div>
@@ -218,9 +238,9 @@ export default function PersistentDrawerLeft() {
                 secondaryTypographyProps={{ color: "textPrimary" }}
               />
               <ListItemIcon>
-              <ShoppingCartCheckoutIcon
+                <ShoppingCartCheckoutIcon
                   alt="ShoppingCartCheckoutIcon"
-                  fontSize="large" 
+                  fontSize="large"
                 />
               </ListItemIcon>
             </ListItemButton>

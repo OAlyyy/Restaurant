@@ -1,51 +1,54 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom"; // import Navigate
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import Cookies from "universal-cookie";
+
 function Login() {
-
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const cookies = new Cookies();
-
-  // eslint-disable-next-line
-  const [authState, setAuthState] = useState({
-    username: "",
-    id: 0,
-    status: false,
-  });
 
   const login = () => {
-    const data = { username: username, password: password };
-    axios.post("http://localhost:3001/user/login", data).then((response) => {
-      if (response.data.error) {
-        alert(response.data.error);
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        // User is logged in successfully
+        // The onAuthStateChanged listener will handle the state update
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        alert(errorMessage);
+      });
+  };
+
+  useEffect(() => {
+    const cookies = new Cookies();
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is logged in
+        cookies.set("jwt_authorization", user.uid);
+        navigate("/");
       } else {
-
-
-       
-        cookies.set("jwt_authorization",response.data.token,{
-        })
-
-        setAuthState({
-          username: response.data.username,
-          id: response.data.id,
-          status: true,
-        });
-        navigate("/"); // navigate to the home page
+        // User is logged out
+        cookies.remove("jwt_authorization");
       }
     });
-  };
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, [navigate]);
 
   return (
     <div className="loginParent">
       <div className="loginContainer">
-        <label>Username:</label>
+        <label>Email:</label>
         <input
           type="text"
           onChange={(event) => {
-            setUsername(event.target.value);
+            setEmail(event.target.value);
           }}
         />
         <label>Password:</label>
@@ -58,8 +61,9 @@ function Login() {
         <button onClick={login}> Login </button>
       </div>
 
-      <div>Dont have an account yet ? Click  <a href="/register">here</a> </div>
-      
+      <div>
+        Don't have an account yet? Click <a href="/register">here</a>{" "}
+      </div>
     </div>
   );
 }
