@@ -54,11 +54,11 @@ const Menu = () => {
       case 1:
         return categoryId === "breakfast";
       case 2:
-        return categoryId === 2;
+        return categoryId === "lunch";
       case 3:
-        return categoryId === 3;
+        return categoryId === "dinner";
       case 4:
-        return categoryId === 4;
+        return categoryId === "drinks";
       default:
         return false;
     }
