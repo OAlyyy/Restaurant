@@ -30,7 +30,8 @@ const fetchProducts = async () => {
   const products = [];
   docsSnap.forEach((doc) => {
     const product = doc.data();
-    products.push(product);
+    const documentId = doc.id; // Retrieve the document ID
+    products.push({ documentId, ...product }); // Include the document ID in the product object
   });
 
   return products;

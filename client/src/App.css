@@ -687,6 +687,7 @@ a {
 }
 
 .myorder {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   width: 100%; /* set the width to 100% by default */
@@ -744,18 +745,18 @@ a {
 }
 
 .myorder-image {
-  width: 30%;
-  height: 30%;
+  width: 100px;
+  height: 100px;
   padding-right: 5px;
 }
 
 .myorderDetails {
-  align-items: center;
-  text-align: center;
+  justify-content: center;
   padding-left: 50px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  height: 200px;
 }
 
 .myorderName {

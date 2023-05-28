@@ -10,12 +10,12 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
-            const { id, name, price, imageUrl } = action.payload;
-            const existingProduct = state.products.find(product => product.id === id);
+            const { documentId, name, price, imageUrl } = action.payload;
+            const existingProduct = state.products.find(product => product.documentId === documentId);
             if (existingProduct) {
-              return { products: state.products.map(product => product.id === id ? { ...product, amount: product.amount + 1 } : product) };
+              return { products: state.products.map(product => product.documentId === documentId ? { ...product, amount: product.amount + 1 } : product) };
             } else {
-              const newProduct = { id, name, price, imageUrl, amount: 1 };
+              const newProduct = { documentId, name, price, imageUrl, amount: 1 };
               return { products: [...state.products, newProduct] };
             }
           }
@@ -25,10 +25,10 @@ export const cartSlice = createSlice({
         },
         incrementProductAmount: (state, action) => {
             console.log('increment');
-            return { products: state.products.map(product => product.id === action.payload.id ? {...product, amount: product.amount + 1} : product)}
+            return { products: state.products.map(product => product.documentId === action.payload.documentId ? {...product, amount: product.amount + 1} : product)}
         },
         decrementProductAmount: (state, action) => {
-            return { products: state.products.map(product => product.id === action.payload.id ? {...product, amount: product.amount - 1} : product)}
+            return { products: state.products.map(product => product.documentId === action.payload.documentId ? {...product, amount: product.amount - 1} : product)}
         }
     }
 })

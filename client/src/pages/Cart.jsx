@@ -23,6 +23,7 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   const placeOrder = () => {
+    const updatedCart = cart.filter((product) => product.amount > 0); // Remove products with amount zero
     axios
       .get("http://localhost:3001/orders/lastOrderNumber")
       .then((response) => {
@@ -32,7 +33,7 @@ const Cart = () => {
         const orderData = {
           orderNumber: newOrderId, // Use the new order ID here
           status: "pending",
-          items: cart,
+          items: updatedCart,  // Use the updated cart without products with amount zero
           totalPrice: cart.reduce(
             (acc, product) => acc + totalPrice(product),
             0

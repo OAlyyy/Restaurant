@@ -63,7 +63,7 @@ const Menu = () => {
         return false;
     }
   });
-  console.log("filteredProducts",filteredProducts)
+
   const cartMenuButton = () => {
     navigate("/cart");
   };
@@ -101,6 +101,7 @@ const Menu = () => {
           <div className="products-container">
             {products.length > 0 &&
               filteredProducts.map((product, index) => {
+                 console.log("onAddProduct",onAddProduct)
                 return (
                   <ProductDetailCard
                     key={index}
@@ -108,6 +109,7 @@ const Menu = () => {
                     onAddProduct={onAddProduct}
                   />
                 );
+               
               })}
           </div>
         </div>
