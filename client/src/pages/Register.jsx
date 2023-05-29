@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
@@ -16,13 +17,19 @@ function Register() {
     password: Yup.string().min(4).max(20).required(),
   });
 
-  const onSubmit = (data) => {
-    axios.post("http://localhost:3001/user", data).then(() => {
+  const onSubmit = async (data) => {
+    const { username, password } = data;
+
+    try {
+      await createUserWithEmailAndPassword(auth, username, password);
       navigate("/login");
-    });
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
-    <>
+    
       <div>
         <Formik
           initialValues={initialValues}
@@ -52,7 +59,7 @@ function Register() {
           </Form>
         </Formik>
       </div>
-    </>
+   
   );
 }
 

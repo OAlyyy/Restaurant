@@ -19,6 +19,7 @@ body {
 /* Register */
 
 .formContainer {
+  margin-top: 100px;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -606,6 +607,10 @@ a {
   font-size: 2rem;
 }
 
+
+
+/* Orders */
+
 .orders {
   display: flex;
   flex-direction: column;
@@ -624,7 +629,7 @@ a {
 .order {
   display: flex;
   flex-direction: column;
-  width: calc((100% - 40px) / 5); /* show 5 orders in a row on desktop */
+  width: calc((100% - 40px) / 3); /* show 5 orders in a row on desktop */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -801,6 +806,8 @@ a {
 }
 
 
+/* Banner & Footer */
+
 /* Styles for mobile devices */
 @media screen and (max-width: 600px) {
   .banner {
@@ -891,4 +898,12 @@ a {
   background-position: center;
 }
 
+/* productspreview left&right buttons */
 
+.react-multiple-carousel__arrow.react-multiple-carousel__arrow--right {
+  width: 60px;
+}
+
+.react-multiple-carousel__arrow.react-multiple-carousel__arrow--left {
+  width: 60px;
+}

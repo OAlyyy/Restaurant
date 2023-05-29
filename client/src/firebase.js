@@ -10,6 +10,7 @@ import {
   doc,
   setDoc,
   updateDoc,
+  deleteDoc,
   limit
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -32,6 +33,7 @@ export const auth = getAuth(app);
 
 const db = getFirestore(app);
 
+// Get Products
 const fetchProducts = async () => {
   const colRef = collection(db, "Products");
   const docsSnap = await getDocs(colRef);
@@ -43,7 +45,7 @@ const fetchProducts = async () => {
   });
   return products;
 };
-
+// Create Products
 const createProduct = async (productData) => {
   const colRef = collection(db, 'Products');
 
@@ -56,8 +58,18 @@ const createProduct = async (productData) => {
     throw error;
   }
 };
+// Delete Products
+const removeProduct = async (productId) => {
+  const productRef = doc(db, "Products", productId);
 
-
+  try {
+    await deleteDoc(productRef);
+    console.log("Product removed with ID:", productId);
+  } catch (error) {
+    console.error("Error removing product:", error);
+    throw error;
+  }
+};
 
 
 // Fetch all orders
@@ -145,6 +157,7 @@ export {
   createProduct,
   fetchOrders,
   createOrder,
+  removeProduct,
   fetchOrder,
   getLastOrderNumber,
   updateOrderStatus

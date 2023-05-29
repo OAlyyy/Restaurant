@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { ProductRemoveCard } from "./ProductRemoveCard.jsx";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -9,7 +8,7 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
-import { createProduct, fetchProducts } from '../firebase.js';
+import { createProduct, fetchProducts, removeProduct  } from '../firebase.js';
 
 
 const initialValues = {
@@ -70,16 +69,15 @@ const onSubmit = (data) => {
 };
 
 
-  const RemoveProduct = (productId) => {
-    axios
-      .delete(`http://localhost:3001/product/${productId}`)
-      .then(() => {
-        setProducts(products.filter((product) => product.id !== productId));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+const RemoveProduct = (productId) => {
+  removeProduct(productId)
+    .then(() => {
+      setProducts(products.filter((product) => product.documentId !== productId));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
   const responsive = {
     superLargeDesktop: {

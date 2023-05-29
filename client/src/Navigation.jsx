@@ -13,8 +13,9 @@ import { useSelector } from "react-redux";
 import { cartProducts } from "./store/cart/cartSlice";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import NavMenu from "./components/NavMenu";
+import { auth } from "./firebase";
+
 
 const Navigation = () => {
   const [authState, setAuthState] = useState({
@@ -24,19 +25,21 @@ const Navigation = () => {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:3001/user/auth").then((response) => {
-      if (response.data.error) {
-        setAuthState((prevState) => ({ ...prevState, status: false }));
-      } else {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
         setAuthState((prevState) => ({
           ...prevState,
-          username: response.data.username,
-          id: response.data.id,
+          username: user.displayName,
+          id: user.uid,
           status: true,
         }));
+      } else {
+        setAuthState((prevState) => ({ ...prevState, status: false }));
       }
     });
-  }, []);
+
+    return () => unsubscribe(); // Unsubscribe from the auth state changes when component unmounts
+  }, [setAuthState]);
 
   const productsInCart = useSelector(cartProducts);
 
