@@ -10,9 +10,9 @@ import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
 import { totalPrice } from "../components/ProductSummaryCard.jsx";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { clearCart } from "../store/cart/cartSlice.js";
 import { useDispatch } from "react-redux";
+import {  createOrder, getLastOrderNumber } from "../firebase.js";
 
 const Cart = () => {
   const cart = useSelector(cartProducts);
@@ -22,37 +22,29 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const placeOrder = () => {
+  const placeOrder = async () => {
     const updatedCart = cart.filter((product) => product.amount > 0); // Remove products with amount zero
-    axios
-      .get("http://localhost:3001/orders/lastOrderNumber")
-      .then((response) => {
-        const lastOrderNumber = response.data;
-        const newOrderId = lastOrderNumber + 1;
-        setOrderId(newOrderId);
-        const orderData = {
-          orderNumber: newOrderId, // Use the new order ID here
-          status: "pending",
-          items: updatedCart,  // Use the updated cart without products with amount zero
-          totalPrice: cart.reduce(
-            (acc, product) => acc + totalPrice(product),
-            0
-          ),
-          shippingAddress: "",
-          paymentMethod: "cash",
-        };
-        console.log("orderData", orderData);
-        dispatch(clearCart());
-        axios
-          .post("http://localhost:3001/orders", orderData)
-          .then((response) => {
-            console.log("response", response);
-            navigate(`/orders/${orderData.orderNumber}`);
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      const lastOrderNumber = await getLastOrderNumber();
+      const newOrderId = lastOrderNumber + 1;
+      setOrderId(newOrderId);
+      const orderData = {
+        orderNumber: newOrderId, // Use the new order ID here
+        status: "pending",
+        items: updatedCart, // Use the updated cart without products with amount zero
+        totalPrice: cart.reduce((acc, product) => acc + totalPrice(product), 0),
+        shippingAddress: "",
+        paymentMethod: "cash",
+      };
+
+      console.log("orderData", orderData);
+      dispatch(clearCart());
+      const orderId = await createOrder(orderData);
+      console.log("orderId", orderId);
+      navigate(`/orders/${orderData.orderNumber}`);
+    } catch (error) {
+      console.error("Error placing order:", error);
+    }
   };
 
   const onTabSwitch = (event, currentTab) => {

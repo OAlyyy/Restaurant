@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { fetchOrders, updateOrderStatus } from "../firebase";
 
 const Orders = () => {
   const cookies = new Cookies();
   const jwtToken = cookies.get("jwt_authorization");
-
   const navigate = useNavigate();
-
   const [orders, setOrders] = useState([]);
 
   useEffect(
@@ -23,28 +21,33 @@ const Orders = () => {
   );
 
   useEffect(() => {
-    axios.get("http://localhost:3001/orders").then((response) => {
-      const sortedOrders = response.data.sort(
-        (a, b) => b.orderNumber - a.orderNumber
-      );
-      setOrders(sortedOrders);
-    });
-  }, []);
+    const getOrders = async () => {
+      try {
+        const orders = await fetchOrders();
+        const sortedOrders = orders.sort(
+          (a, b) => b.orderNumber - a.orderNumber
+        );
+        setOrders(sortedOrders);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    };
 
-  const handleOrderReady = (orderId) => {
-    axios
-      .put(`http://localhost:3001/orders/orderStatus`, {
-        newStatus: "ready",
-        id: orderId,
-      })
-      .then((response) => {
-        console.log(`Order ${orderId} is now ready!`);
-        navigate(0);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    getOrders();
+  }, []);
+ console.log("Error fetching orders:", orders);
+
+
+  const handleOrderReady = async (orderId) => {
+    try {
+      await updateOrderStatus(orderId, "ready");
+      console.log(`Order ${orderId} is now ready!`);
+      navigate(0);
+    } catch (error) {
+      console.log(error);
+    }
   };
+  
 
   return (
     <div className="ordersContainer">
@@ -63,20 +66,21 @@ const Orders = () => {
               {order.status}
             </div>
           </div>
-          {order.items.map((product, index) => (
-            <div key={index}>
-              <div className="orderDetails">
-                <div className="orderAmount">{product.amount}</div>
-                <div className="orderName">{product.name}</div>
+          {Array.isArray(order.items) &&
+            order.items.map((product, index) => (
+              <div key={index}>
+                <div className="orderDetails">
+                  <div className="orderAmount">{product.amount}</div>
+                  <div className="orderName">{product.name}</div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
 
-{order.status !== "ready" && (
+          {order.status !== "ready" && (
             <Button
               variant="contained"
               color="success"
-              onClick={() => handleOrderReady(order.id)}
+              onClick={() => handleOrderReady(order.documentId)}
             >
               Order Ready
             </Button>

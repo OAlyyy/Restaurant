@@ -1,30 +1,29 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { fetchOrder } from "../firebase.js";
 
 const OrderDetail = () => {
   const { orderNumber } = useParams();
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
-    const fetchOrder = async () => {
-      const response = await axios.get(`http://localhost:3001/orders/${orderNumber}`);
-      setOrder(response.data);
+    const getOrder = async () => {
+      const fetchedOrder = await fetchOrder(orderNumber);
+      setOrder(fetchedOrder);
     };
-    fetchOrder();
+    getOrder();
   }, [orderNumber]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      const fetchOrder = async () => {
-        const response = await axios.get(`http://localhost:3001/orders/${orderNumber}`);
-        const newOrder = response.data;
-        if (newOrder.status !== order.status) {
-          setOrder(newOrder);
+      const getOrder = async () => {
+        const fetchedOrder = await fetchOrder(orderNumber);
+        if (fetchedOrder && (!order || fetchedOrder.status !== order.status)) {
+          setOrder(fetchedOrder);
         }
       };
-      fetchOrder();
-    }, 30000 ); // check every 30 seconds
+      getOrder();
+    }, 30000); // check every 30 seconds
     return () => clearInterval(intervalId);
   }, [order, orderNumber]);
 

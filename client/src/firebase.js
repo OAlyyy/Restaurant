@@ -1,7 +1,17 @@
-// firebase.js
 import { initializeApp } from "firebase/app";
-// import { getAnalytics } from 'firebase/analytics';
-import { getFirestore, collection, getDocs,addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  query,
+  getDoc,
+  orderBy,
+  doc,
+  setDoc,
+  updateDoc,
+  limit
+} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 
@@ -24,19 +34,15 @@ const db = getFirestore(app);
 
 const fetchProducts = async () => {
   const colRef = collection(db, "Products");
-
   const docsSnap = await getDocs(colRef);
-
   const products = [];
   docsSnap.forEach((doc) => {
     const product = doc.data();
     const documentId = doc.id; // Retrieve the document ID
     products.push({ documentId, ...product }); // Include the document ID in the product object
   });
-
   return products;
 };
-
 
 const createProduct = async (productData) => {
   const colRef = collection(db, 'Products');
@@ -53,4 +59,93 @@ const createProduct = async (productData) => {
 
 
 
-export { app, fetchProducts, createProduct  };
+
+// Fetch all orders
+const fetchOrders = async () => {
+  try {
+    const colRef = collection(db,"Orders");
+    const docsSnap = await getDocs(colRef);
+    const orders = [];
+    docsSnap.forEach((doc) => {
+      const order = doc.data();
+      const documentId = doc.id; // Retrieve the document ID
+      orders.push({ documentId, ...order }); // Include the document ID in the order object
+    });
+    return orders;
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    throw error;
+  }
+};
+
+
+// Get the last order number created in the database
+const getLastOrderNumber = async () => {
+  const colRef = collection(db, "Orders");
+  const q = query(colRef, orderBy("orderNumber", "desc"), limit(1));
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.empty) {
+    return 0; // No orders found
+  }
+  const docSnapshot = querySnapshot.docs[0];
+  const order = docSnapshot.data();
+  return order.orderNumber || 0; // Retrieve the last order number
+};
+
+const createOrder = async (orderData) => {
+  try {
+    // Get the last order number
+    const lastOrderNumber = await getLastOrderNumber();
+
+    // Increment the last order number by one
+    const newOrderNumber = lastOrderNumber + 1;
+
+    // Set the order number in the order data
+    orderData.orderNumber = newOrderNumber;
+
+    // Create the new order document with the order number as the document ID
+    const docRef = doc(db, "Orders", newOrderNumber.toString());
+    await setDoc(docRef, orderData);
+
+    console.log("Order added with ID:", docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding order:", error);
+    throw error;
+  }
+};
+
+// Fetch a specific order based on order number
+const fetchOrder = async (orderNumber) => {
+  const orderRef = doc(db, "Orders",orderNumber);
+  try {
+    const docSnapshot = await getDoc(orderRef);
+    if (!docSnapshot.exists()) {
+      return null; // Order not found
+    }
+  
+    const order = docSnapshot.data();
+    const documentId = docSnapshot.id; // Retrieve the document ID
+    return { documentId, ...order }; // Include the document ID in the order object
+  } catch (error) {
+    console.error("Error fetching order:", error);
+    throw error;
+  }
+};
+
+
+const updateOrderStatus = async (orderId, newStatus) => {
+  const orderRef = doc(db, "Orders", orderId);
+  await updateDoc(orderRef, { status: newStatus });
+};
+
+export {
+  app,
+  fetchProducts,
+  createProduct,
+  fetchOrders,
+  createOrder,
+  fetchOrder,
+  getLastOrderNumber,
+  updateOrderStatus
+};

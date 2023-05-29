@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectAllProducts } from "../store/Menu/productSlice";
+import { useDispatch } from "react-redux";
 import ProductDetailCard from "../components/ProductDetailCard.jsx";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
