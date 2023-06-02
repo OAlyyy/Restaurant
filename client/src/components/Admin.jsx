@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ProductRemoveCard } from "./ProductRemoveCard.jsx";
+import { ProductEditCard } from "./ProductsEditCard.jsx";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -8,8 +9,7 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
-import { createProduct, fetchProducts, removeProduct  } from '../firebase.js';
-
+import { createProduct, fetchProducts, removeProduct,editProduct } from "../firebase.js";
 
 const initialValues = {
   name: "",
@@ -30,6 +30,17 @@ const validationSchema = Yup.object({
 function Admin() {
   const cookies = new Cookies();
   const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(null);
+  const [products, setProducts] = useState([]);
+  //Step number #6
+  // eslint-disable-next-line
+  const [categoryTypes, setCategoryTypes] = useState([
+    "breakfast",
+    "lunch",
+    "dinner",
+    "drinks",
+  ]);
+
   useEffect(
     () => {
       if (!cookies.get("jwt_authorization")) {
@@ -38,46 +49,52 @@ function Admin() {
     }, // eslint-disable-next-line
     []
   );
+  useEffect(() => {
+    fetchProducts()
+      .then((products) => {
+        setProducts(products);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  }, []);
 
-  const [showAlert, setShowAlert] = useState(null);
-  const [products, setProducts] = useState([]);
-  //Step number #6 
-    // eslint-disable-next-line 
-    const [categoryTypes, setCategoryTypes] = useState(["breakfast", "lunch", "dinner", "drinks"]);
+  const onSubmit = (data) => {
+    createProduct(data)
+      .then(() => {
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(null);
+        }, 1000); // Adjust the delay (in milliseconds) as needed
+      })
+      .catch(() => {
+        setShowAlert(false);
+      });
+  };
 
+  const RemoveProduct = (productId) => {
+    removeProduct(productId)
+      .then(() => {
+        setProducts(
+          products.filter((product) => product.documentId !== productId)
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    useEffect(() => {
-      fetchProducts()
-        .then((products) => {
-          setProducts(products);
-        })
-        .catch((error) => {
-          console.error('Error fetching products:', error);
-        });
-    }, []);
-
-
-
-const onSubmit = (data) => {
-  createProduct(data)
-    .then(() => {
-      setShowAlert(true);
-    })
-    .catch(() => {
-      setShowAlert(false);
-    });
-};
-
-
-const RemoveProduct = (productId) => {
-  removeProduct(productId)
-    .then(() => {
-      setProducts(products.filter((product) => product.documentId !== productId));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+  const EditProduct = (productId) => {
+     editProduct(productId)
+      .then(() => {
+        setProducts(
+          products.filter((product) => product.documentId !== productId)
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const responsive = {
     superLargeDesktop: {
@@ -99,15 +116,24 @@ const RemoveProduct = (productId) => {
     },
   };
 
-
   return (
     <>
+      {showAlert && (
+        <Stack
+          sx={{
+            width: "100%",
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+          spacing={2}
+        >
+          <Alert severity="success">Product added Successfully!</Alert>
+        </Stack>
+      )}
+
       <div className="addingNewProdct">
-        {showAlert && (
-          <Stack sx={{ width: "100%" }} spacing={2}>
-            <Alert severity="success">Product added Successfully!</Alert>
-          </Stack>
-        )}
         <div className="addingNewProdcttitle">
           Fill Form to add a new Product
         </div>
@@ -118,50 +144,89 @@ const RemoveProduct = (productId) => {
         >
           <Form className="formContainer">
             <label>Name:</label>
-            <ErrorMessage name="name" component="span" style={{ color: 'red' }} />
+            <ErrorMessage
+              name="name"
+              component="span"
+              style={{ color: "red" }}
+            />
             <Field
               id="AddingProduct"
               name="name"
               placeholder="(Ex. Burger, Pizza ...)"
             />
             <label htmlFor="type">Category:</label>
-            <ErrorMessage name="categoryId" component="span" style={{ color: 'red' }} />
+            <ErrorMessage
+              name="categoryId"
+              component="span"
+              style={{ color: "red" }}
+            />
             <Field name="categoryId" as="select" id="AddingProduct">
               <option value="">Select a category</option>
-              {categoryTypes.map((category) => (
-                <option key={category.id} value={category.type}>
-                  {category.type}
+              {categoryTypes.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
                 </option>
               ))}
             </Field>
-
             <label> Description:</label>
-            <ErrorMessage name="description"  component="span" style={{ color: 'red' }}/>
+            <ErrorMessage
+              name="description"
+              component="span"
+              style={{ color: "red" }}
+            />
             <Field
               id="AddingProduct"
               name="description"
               placeholder="Components for Ex. Rice, Macaroni ..."
             />
-
             <label> Price:</label>
-            <ErrorMessage name="price" component="span" style={{ color: 'red' }}/>
+            <ErrorMessage
+              name="price"
+              component="span"
+              style={{ color: "red" }}
+            />
             <Field id="AddingProduct" name="price" placeholder=" € " />
-
-            
             {/* Divider */} <hr />
             <label className="attachment-label"> Picture Url in Cloud:</label>
-             <div className="urlExample">Url Ex. https://drive.google.com/uc?id= "put id here"</div>
-            <ErrorMessage name="imageUrl" component="span" style={{ color: 'red' }} />
+            <div className="urlExample">
+              Url Ex. https://drive.google.com/uc?id= "put id here"
+            </div>
+            <ErrorMessage
+              name="imageUrl"
+              component="span"
+              style={{ color: "red" }}
+            />
             <Field
               id="AddingProduct"
               name="imageUrl"
               placeholder="(https://photo.com)"
             />
-            {/* <label> Or Upload Product Picture</label>
-            <input type="file" name="photo" accept="image/*" /> */}
             <button type="submit">Add</button>
           </Form>
         </Formik>
+      </div>
+
+      <div className="carouselParent">
+        <div className="aboveCarouselTitle">Click to Edit a Product</div>
+        <div className="carousel-container">
+          <Carousel responsive={responsive}>
+            {Array.isArray(products) &&
+              products.length > 0 &&
+              products.map((product, index) => {
+                return (
+                  <div key={product.id}>
+                    <ProductEditCard
+                      key={index}
+                      product={product}
+                      onEditProduct={EditProduct}
+                    />
+
+
+                  </div>
+                );
+              })}
+          </Carousel>
+        </div>
       </div>
 
       <div className="carouselParent">

@@ -151,6 +151,19 @@ const updateOrderStatus = async (orderId, newStatus) => {
   await updateDoc(orderRef, { status: newStatus });
 };
 
+const editProduct = async (productId, updatedData) => {
+  const productRef = doc(db, "Products", productId);
+
+  try {
+    await updateDoc(productRef, updatedData);
+    console.log("Product edited with ID:", productId);
+  } catch (error) {
+    console.error("Error editing product:", error);
+    throw error;
+  }
+};
+
+
 export {
   app,
   fetchProducts,
@@ -160,5 +173,6 @@ export {
   removeProduct,
   fetchOrder,
   getLastOrderNumber,
-  updateOrderStatus
+  updateOrderStatus,
+  editProduct
 };
