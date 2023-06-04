@@ -9,7 +9,7 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useNavigate } from "react-router-dom";
 import { fetchProducts } from '../firebase';
-
+import { Grid } from "@mui/material";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -73,7 +73,7 @@ const Menu = () => {
         <div className="menu-wrapper">
           {products.length > 0 && products && (
             <div className="tabs-container">
-            <Tabs
+           <Tabs
               value={activeTabIndex}
               onChange={onTabSwitch}
               textColor="primary"
@@ -89,10 +89,11 @@ const Menu = () => {
                 width: "100%",
               }}
             >
-              <Tab label="Breakfast" value={1} />
-              <Tab label="Lunch" value={2} />
-              <Tab label="Dinner" value={3} />
-              <Tab label="Drinks" value={4} />
+                  <Tab label="Breakfast" value={1} className="tabItem"/>             
+                  <Tab label="Lunch" value={2} className="tabItem"/>       
+                  <Tab label="Dinner" value={3} className="tabItem"/>
+                  <Tab label="Drinks" value={4} className="tabItem"/>
+
             </Tabs>
             </div>
           )}

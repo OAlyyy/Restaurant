@@ -60,7 +60,7 @@ const createProduct = async (productData) => {
 };
 // Delete Products
 const removeProduct = async (productId) => {
-  const productRef = doc(db, "Products", productId);
+  const productRef = doc(db, 'Products', productId);
 
   try {
     await deleteDoc(productRef);
@@ -90,7 +90,6 @@ const fetchOrders = async () => {
   }
 };
 
-
 // Get the last order number created in the database
 const getLastOrderNumber = async () => {
   const colRef = collection(db, "Orders");
@@ -104,6 +103,7 @@ const getLastOrderNumber = async () => {
   return order.orderNumber || 0; // Retrieve the last order number
 };
 
+// Create an Order
 const createOrder = async (orderData) => {
   try {
     // Get the last order number
@@ -145,7 +145,7 @@ const fetchOrder = async (orderNumber) => {
   }
 };
 
-
+// Update order status of a specific order 
 const updateOrderStatus = async (orderId, newStatus) => {
   const orderRef = doc(db, "Orders", orderId);
   await updateDoc(orderRef, { status: newStatus });

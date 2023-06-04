@@ -1,5 +1,4 @@
 import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
@@ -20,7 +19,7 @@ export const ProductEditCard  = ({ product, onEditProduct  }) => {
     setEditedValue(event.target.value);
   };
 
-  const handleProductEdit = () => {
+  const handleProductEdit = (documentId,editedValue) => {
     // Perform the necessary logic to update the product
     console.log("Edited product:", product);
     console.log("Edit field:", editField);
@@ -37,7 +36,7 @@ export const ProductEditCard  = ({ product, onEditProduct  }) => {
     } else if (editField === "imageUrl") {
       product.imageUrl = "Updated imageUrl";
     }
-    onEditProduct(product);
+    onEditProduct(documentId,editedValue);
   };
 
   return (
@@ -53,7 +52,7 @@ export const ProductEditCard  = ({ product, onEditProduct  }) => {
         alt={product.name}
       />
       <h2 className="carousel-title">{product.name}</h2>
-      <div>
+     
       <select value={editField} onChange={handleEditFieldChange}>
           <option value="">Select a field to edit</option>
           <option value="price">Price</option>
@@ -70,10 +69,14 @@ export const ProductEditCard  = ({ product, onEditProduct  }) => {
             placeholder={`Enter new ${editField}`}
           />
         )}
-        <Button variant="contained" onClick={handleProductEdit} disabled={!editField || !editedValue}>
+         <Stack direction="row" spacing={2}>
+        <Button
+          variant="outlined"
+          color="success"
+        onClick={handleProductEdit(product.documentId)} disabled={!editField || !editedValue}>
           Save Changes
         </Button>
+        </Stack>
       </div>
-    </div>
   );
 };

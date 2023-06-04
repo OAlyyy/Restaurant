@@ -9,7 +9,12 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
-import { createProduct, fetchProducts, removeProduct,editProduct } from "../firebase.js";
+import {
+  createProduct,
+  fetchProducts,
+  removeProduct,
+  editProduct,
+} from "../firebase.js";
 
 const initialValues = {
   name: "",
@@ -65,27 +70,32 @@ function Admin() {
         setShowAlert(true);
         setTimeout(() => {
           setShowAlert(null);
-        }, 1000); // Adjust the delay (in milliseconds) as needed
+        }, 3000); // Adjust the delay (in milliseconds) as needed
       })
       .catch(() => {
         setShowAlert(false);
       });
   };
+  console.log(products);
 
-  const RemoveProduct = (productId) => {
-    removeProduct(productId)
-      .then(() => {
-        setProducts(
-          products.filter((product) => product.documentId !== productId)
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+const RemoveProduct = (documentId) => {
+  console.log('Removing product with ID:', documentId);
+
+  removeProduct(documentId)
+    .then(() => {
+      console.log('Product removed with ID:', documentId);
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product.documentId !== documentId)
+      );
+    })
+    .catch((error) => {
+      console.log('Error removing product:', error);
+    });
+};
+
 
   const EditProduct = (productId) => {
-     editProduct(productId)
+    editProduct(productId)
       .then(() => {
         setProducts(
           products.filter((product) => product.documentId !== productId)
@@ -220,8 +230,6 @@ function Admin() {
                       product={product}
                       onEditProduct={EditProduct}
                     />
-
-
                   </div>
                 );
               })}
@@ -237,7 +245,7 @@ function Admin() {
               products.length > 0 &&
               products.map((product, index) => {
                 return (
-                  <div key={product.id}>
+                  <div key={product.documentId}>
                     <ProductRemoveCard
                       key={index}
                       product={product}

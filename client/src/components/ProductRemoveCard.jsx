@@ -7,9 +7,9 @@ import Stack from "@mui/material/Stack";
 export const ProductRemoveCard = ({ product, RemoveProduct }) => {
   const [deleteAlert, setDeleteAlert] = useState(null);
 
-  const handleRemoveProduct = (productId) => {
+  const handleRemoveProduct = (documentId) => {
     setDeleteAlert(true);
-    RemoveProduct(productId);
+    RemoveProduct(documentId);
   };
 
   return (
@@ -33,7 +33,7 @@ export const ProductRemoveCard = ({ product, RemoveProduct }) => {
           size="large"
           color="primary"
           aria-label="add to shopping cart"
-          onClick={() => handleRemoveProduct(product.id)}
+          onClick={() => handleRemoveProduct(product.documentId)}
         ></Button>
       </div>
     </div>

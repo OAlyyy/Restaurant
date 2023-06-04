@@ -1,16 +1,14 @@
-import React from 'react'
-import {Banner} from "../components/Banner.jsx";
-import {ProductsPreview} from '../components/ProductsPreview.jsx';
+import React from "react";
+import { Banner } from "../components/Banner.jsx";
+import { ProductsPreview } from "../components/ProductsPreview.jsx";
 
-
-const Home =()=> {
+const Home = () => {
   return (
-    <div className='homePage'>
-     <Banner/>
-     <ProductsPreview/>
-    </div>
-    
-  )
-}
+    <>
+      <Banner />
+      <ProductsPreview />
+    </>
+  );
+};
 
-export default Home
+export default Home;
