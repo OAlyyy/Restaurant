@@ -309,7 +309,6 @@ a {
   background-color: #2b2c30;
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
 }
 .aboveCarouselTitle {
   font-size: 1.2rem;
@@ -322,7 +321,6 @@ a {
 
 .carousel-container {
   flex: 1;
-  height: 500px;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -869,6 +867,9 @@ a {
     background-size: cover;
     background-repeat: no-repeat;
   }
+  .carouselParent {
+    height: 45vh;
+    }
 }
 
 /* Styles for tablet devices */
@@ -880,6 +881,9 @@ a {
     background-position: right;
     background-repeat: no-repeat;
   } 
+  .carouselParent {
+    height: 30vh;
+    }
 }
 
 /* Styles for desktop devices */
@@ -890,6 +894,9 @@ a {
     background-position: right;
     background-size: contain;
     background-repeat: no-repeat;
+  }
+  .carouselParent {
+    height:38vh
   }
 }
 
