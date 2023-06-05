@@ -23,6 +23,7 @@
   padding-bottom: 5px;
   margin-bottom: 5px;
   max-width: 100vw;
+  max-height: 90vh ;
 }
 
 .homePage{
@@ -184,6 +185,10 @@ a {
   justify-content: center;
   position: relative;
 }
+.bannerBttn {
+  background-color: red;
+  color: black;
+}
 
 .banner-left-side {
   position: absolute;
@@ -198,14 +203,6 @@ a {
   color: red;
   margin-bottom: 40px;
 }
-
-.bannerBttn {
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: red;
-}
-
 
 
 .banner-right-side {
@@ -851,7 +848,7 @@ a {
 /* Styles for mobile devices */
 @media screen and (max-width: 600px) {
   .banner {
-    height: 45vh;
+    height: 40vh;
     display: flex;
     background-size: cover;
     background-repeat: no-repeat;

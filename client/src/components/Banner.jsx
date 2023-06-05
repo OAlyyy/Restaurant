@@ -28,9 +28,9 @@ export const Banner = () => {
         <div className="bannerRedAlert">Order Now!</div>
         <div>
           <Button
+          variant="contained"
             className="bannerBttn"
-            color="secondary"
-            style={{ fontWeight: "bold", fontSize: "1.2rem", color: "red" }}
+            style={{ fontWeight: "bold", fontSize: "1.2rem", color: "white" , backgroundColor:"red"}}
             href="/menu"
           >
             MENU
