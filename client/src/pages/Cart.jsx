@@ -60,84 +60,34 @@ const Cart = () => {
       </div>
     );
   }
-  let tabContent;
-  switch (currentTab) {
-    case 0:
-      return false;
-
-    case "Summary":
-      tabContent = (
-        <div className="cartPage">
-          <ProductsSummary />
-
-          <div className="summaryEnd">
-            <div className="total-price">
-              Total : €
-              {cart
-                .reduce((acc, product) => acc + totalPrice(product), 0)
-                .toFixed(2)}
-            </div>
-            <div className="summaryButtons">
-              <Button variant="contained" onClick={placeOrder}>
-                Pay at Cashier
-              </Button>
-
-              <Button
-                onClick={() => handleTabSwitch("Delivery")}
-                endIcon={<SendIcon />}
-              >
-                Pay Online
-              </Button>
-            </div>
-          </div>
-        </div>
-      );
-      break;
-
-    case "Delivery":
-      tabContent = (
-        <div className="Delivery-content">
-          <AddressForm onTabSwitch={handleTabSwitch} />
-          <Button
-            variant="contained"
-            onClick={() => handleTabSwitch("Payment")}
-            endIcon={<SendIcon />}
-          >
-            Next
-          </Button>
-        </div>
-      );
-      break;
-
-    case "Payment":
-      tabContent = (
-        <div className="tab-content">
-          <h1>Payment Tab - Only Stripe API needed</h1>
-        </div>
-      );
-      break;
-
-    default:
-      tabContent = null;
-  }
+  
 
   return (
-    <div>
-      <Tabs
-        value={currentTab}
-        onChange={onTabSwitch}
-        textColor="primary"
-        indicatorColor="primary"
-        variant="scrollable"
-        scrollButtons="auto"
-        aria-label="scrollable auto tabs example"
-      >
-        <Tab label="Summary" value="Summary" />
-        <Tab label="Payment" value="Payment" />
-      </Tabs>
+    <div className="cartPage">
+    <ProductsSummary />
 
-      {tabContent}
+    <div className="summaryEnd">
+      <div className="total-price">
+        Total : €
+        {cart
+          .reduce((acc, product) => acc + totalPrice(product), 0)
+          .toFixed(2)}
+      </div>
+      <div className="summaryButtons">
+        <Button variant="contained" onClick={placeOrder}>
+          Pay at Cashier
+        </Button>
+
+        <Button
+          onClick={() => handleTabSwitch("Delivery")}
+          endIcon={<SendIcon />}
+        >
+          Pay Online
+        </Button>
+      </div>
     </div>
+  </div>
+
   );
 };
 

@@ -37,6 +37,7 @@ function Admin() {
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState(null);
   const [products, setProducts] = useState([]);
+
   //Step number #6
   // eslint-disable-next-line
   const [categoryTypes, setCategoryTypes] = useState([
@@ -78,28 +79,25 @@ function Admin() {
   };
   console.log(products);
 
-const RemoveProduct = (documentId) => {
-  console.log('Removing product with ID:', documentId);
+  const RemoveProduct = (documentId) => {
+    console.log("Removing product with ID:", documentId);
 
-  removeProduct(documentId)
-    .then(() => {
-      console.log('Product removed with ID:', documentId);
-      setProducts((prevProducts) =>
-        prevProducts.filter((product) => product.documentId !== documentId)
-      );
-    })
-    .catch((error) => {
-      console.log('Error removing product:', error);
-    });
-};
-
-
-  const EditProduct = (productId) => {
-    editProduct(productId)
+    removeProduct(documentId)
       .then(() => {
-        setProducts(
-          products.filter((product) => product.documentId !== productId)
+        console.log("Product removed with ID:", documentId);
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product.documentId !== documentId)
         );
+      })
+      .catch((error) => {
+        console.log("Error removing product:", error);
+      });
+  };
+
+  const EditProduct = (documentId, field, newData) => {
+    editProduct(documentId, { [field]: newData })
+      .then(() => {
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -159,10 +157,7 @@ const RemoveProduct = (documentId) => {
               component="span"
               style={{ color: "red" }}
             />
-            <Field
-              id="AddingProduct"
-              name="name"
-              placeholder="(Ex. Burger, Pizza ...)"
+            <Field id="AddingProduct" name="name" placeholder="(Ex. Burger, Pizza ...)" style={{ width: "300px" }} 
             />
             <label htmlFor="type">Category:</label>
             <ErrorMessage
@@ -170,7 +165,7 @@ const RemoveProduct = (documentId) => {
               component="span"
               style={{ color: "red" }}
             />
-            <Field name="categoryId" as="select" id="AddingProduct">
+            <Field  id="AddingProduct" name="categoryId" as="select"    style={{ width: "300px" }} >
               <option value="">Select a category</option>
               {categoryTypes.map((category, index) => (
                 <option key={index} value={category}>
@@ -188,6 +183,7 @@ const RemoveProduct = (documentId) => {
               id="AddingProduct"
               name="description"
               placeholder="Components for Ex. Rice, Macaroni ..."
+              style={{ width: "300px" }}
             />
             <label> Price:</label>
             <ErrorMessage
@@ -210,6 +206,7 @@ const RemoveProduct = (documentId) => {
               id="AddingProduct"
               name="imageUrl"
               placeholder="(https://photo.com)"
+              style={{ width: "80%" }}
             />
             <button type="submit">Add</button>
           </Form>
@@ -224,7 +221,7 @@ const RemoveProduct = (documentId) => {
               products.length > 0 &&
               products.map((product, index) => {
                 return (
-                  <div key={product.id}>
+                  <div key={product.documentId}>
                     <ProductEditCard
                       key={index}
                       product={product}
@@ -243,11 +240,11 @@ const RemoveProduct = (documentId) => {
           <Carousel responsive={responsive}>
             {Array.isArray(products) &&
               products.length > 0 &&
-              products.map((product, index) => {
+              products.map((product) => {
                 return (
                   <div key={product.documentId}>
                     <ProductRemoveCard
-                      key={index}
+                      key={product.documentId}
                       product={product}
                       RemoveProduct={RemoveProduct}
                     />

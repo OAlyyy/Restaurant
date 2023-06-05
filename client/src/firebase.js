@@ -151,15 +151,16 @@ const updateOrderStatus = async (orderId, newStatus) => {
   await updateDoc(orderRef, { status: newStatus });
 };
 
-const editProduct = async (productId, updatedData) => {
-  const productRef = doc(db, "Products", productId);
+const editProduct = async (documentId, updatedData) => {
+  const productRef = doc(db, "Products", documentId);
 
   try {
     await updateDoc(productRef, updatedData);
-    console.log("Product edited with ID:", productId);
+    console.log("Product edited with ID:", documentId);
+
   } catch (error) {
     console.error("Error editing product:", error);
-    throw error;
+
   }
 };
 

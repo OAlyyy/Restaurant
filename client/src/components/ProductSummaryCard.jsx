@@ -5,7 +5,10 @@ import {
 } from "../store/cart/cartSlice";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import IconButton from "@mui/material/IconButton";
 
 export function totalPrice(product) {
   const ind = product.price * product.amount;
@@ -16,53 +19,47 @@ export const ProductsSummaryCard = ({ product }) => {
   const dispatch = useDispatch();
 
   const buttons = [
-    <Button key="+" onClick={() => dispatch(incrementProductAmount(product))}>
-      +
-    </Button>,
-    <Button
-      key="-"
+    <IconButton onClick={() => dispatch(incrementProductAmount(product))}>
+      <AddIcon />
+    </IconButton>,
+    <IconButton
       disabled={product.amount <= 0}
       onClick={() => dispatch(decrementProductAmount(product))}
     >
-      -
-    </Button>,
+      <RemoveIcon />
+    </IconButton>,
   ];
 
   if (product.amount === 0) {
     return null;
   }
   return (
-    <>
-      <div className="product-summary-card ">
-        <div className="product-summary-image">
-          <img src={product.imageUrl} alt={product.name} />
-        </div>
-        <div className="product-summary-info">
-          <h3>{product.name}</h3>
-          <p>Price: {product.price}</p>
-          <p>Qty: {product.amount}</p>
-        </div>
-        <div className="product-price-qt">
-          <div className="price">{`${product.price * product.amount}$`}</div>
-          <div className="quantity flex">
-            <Box
-              sx={{
-                display: "flex",
-                "& > *": {
-                  m: 1,
-                },
-              }}
-            >
-              <ButtonGroup
-                orientation="vertical"
-                aria-label="vertical outlined button group"
-              >
-                {buttons}
-              </ButtonGroup>
-            </Box>
-          </div>
-        </div>
-      </div>
-    </>
+    <Grid container spacing={1} className="productsSummary">
+      <Grid item xs={6} className="product-image-container">
+        <img
+          className="product-image"
+          src={product.imageUrl}
+          alt={product.name}
+        />
+      </Grid>
+
+      <Grid item xs={3}>
+        <h3>{product.name}</h3>
+        <p>Qty: {product.amount}</p>
+        <p>Price: {product.price * product.amount}</p>
+      </Grid>
+
+      <Grid item xs={3}>
+      <IconButton onClick={() => dispatch(incrementProductAmount(product))}>
+      <AddIcon />
+    </IconButton>,
+    <IconButton
+      disabled={product.amount <= 0}
+      onClick={() => dispatch(decrementProductAmount(product))}
+    >
+      <RemoveIcon />
+    </IconButton>
+      </Grid>
+    </Grid>
   );
 };
