@@ -84,7 +84,7 @@ const Menu = () => {
               aria-label="scrollable auto tabs example"
               style={{
                 position: "fixed",
-                top: "98px",
+                top: "75px",
                 backgroundColor: "pink",
                 width: "100%",
               }}
