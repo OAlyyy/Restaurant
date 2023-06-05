@@ -889,7 +889,7 @@ a {
 /* Styles for desktop devices */
 @media screen and (min-width: 1024px) {
   .banner {
-    height: 50vh;
+    height: 52vh;
     display: flex;
     background-position: right;
     background-size: contain;
