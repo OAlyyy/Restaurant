@@ -5,7 +5,7 @@ export const AddProduct = ({ onAddProduct }) => {
   return (
     <div>
       <IconButton
-        size="large"
+        size="small"
         color="primary"
         aria-label="add to shopping cart"
         onClick={onAddProduct}

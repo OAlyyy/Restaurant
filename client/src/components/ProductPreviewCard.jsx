@@ -7,13 +7,15 @@ export const ProductPreviewCard = ({ product, onAddProduct }) => {
 
   return (
     <div className="carousel-element">
-      <img
-        className="carousel-image"
-        src={product.imageUrl}
-        alt={product.imageUrl}
-      />
+      <a href="#" onClick={addProduct}>
+        <img
+          className="carousel-image"
+          src={product.imageUrl}
+          alt={product.imageUrl}
+        />
+      </a>
       <h2 className="carousel-title">{product.name}</h2>
-      <AddProduct className="addProdctBttn" onAddProduct={addProduct} />
+      <p className="carousel-title">{product.price} €</p>
     </div>
   );
 };
