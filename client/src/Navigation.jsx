@@ -45,9 +45,10 @@ const Navigation = () => {
 
   return (
     <div className="Navigation">
+       <NavMenu className="Header" cartCount={productsInCart ? productsInCart.length : 0} />
      <div className="InApp">
     <AuthContext.Provider value={{ authState, setAuthState }}>
-      <NavMenu cartCount={productsInCart ? productsInCart.length : 0} />
+     
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
