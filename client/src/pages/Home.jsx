@@ -5,9 +5,9 @@ import { Grid } from "@mui/material";
 
 const Home = () => {
   return (
-    <Grid container spacing={0}>
+    <Grid container spacing={0} className="homePage">
       <Grid item xs={12}>
-        <Banner />
+        <Banner/>
       </Grid>
       <Grid item xs={12}>
         <ProductsPreview />

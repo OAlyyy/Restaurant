@@ -25,7 +25,9 @@
   max-width: 100vw;
 }
 
-
+.homePage{
+ max-height: 100vh;
+}
 
 .tabLabel{
   text-align: center;
@@ -175,6 +177,7 @@ a {
 
 /* Banner  FDBF50 */
 .banner {
+  margin-top: 25px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -854,7 +857,7 @@ a {
     background-repeat: no-repeat;
   }
   .carouselParent {
-    height: 45vh;
+    height: 40vh;
     }
 }
 
@@ -882,9 +885,11 @@ a {
     background-repeat: no-repeat;
   }
   .carouselParent {
-    height:38vh
+    height:40vh
   }
 }
+
+
 
 .footer {
   width: 100%;
