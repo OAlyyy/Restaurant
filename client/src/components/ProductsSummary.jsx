@@ -6,7 +6,7 @@ export const ProductsSummary = () => {
   const cart = useSelector(cartProducts);
 
   return (
-    <div className="products-summary">
+    <div >
       {cart.map((product) => (
         <ProductsSummaryCard key={product.documentId} product={product} />
       ))}

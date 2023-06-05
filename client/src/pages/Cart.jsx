@@ -64,7 +64,7 @@ const Cart = () => {
 
   return (
     <div className="cartPage">
-    <ProductsSummary />
+    <ProductsSummary/>
 
     <div className="summaryEnd">
       <div className="total-price">
