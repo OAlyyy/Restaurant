@@ -7,7 +7,7 @@ export const ProductPreviewCard = ({ product, onAddProduct }) => {
 
   return (
     <div className="carousel-element">
-      <a href="#" onClick={addProduct}>
+      <a onClick={addProduct}>
         <img
           className="carousel-image"
           src={product.imageUrl}
