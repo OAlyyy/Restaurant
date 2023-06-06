@@ -28,7 +28,7 @@ const OrderDetail = () => {
   }, [order, orderNumber]);
 
   if (!order) {
-    return <div>Loading...</div>;
+    return <div>Loading Your Order</div>;
   }
 
   return (
@@ -53,7 +53,7 @@ const OrderDetail = () => {
           </div>
         </div>
       ))}
-      <div className="myorderPrice"> Total :  {order.totalPrice}  €</div>
+      <div className="myorderTotalPrice"> Total :  {order.totalPrice}  €</div>
     </div>
   );
 };

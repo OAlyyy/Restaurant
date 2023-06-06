@@ -55,8 +55,8 @@ const Cart = () => {
 
   if (!cart || cart.length === 0) {
     return (
-      <div className="bg-white h-full text-black flex justify-center p-4">
-        <h1>Your Cart is empty</h1>
+      <div className="emptyCart">
+        <h1>Your Cart Is Still Empty</h1>
       </div>
     );
   }

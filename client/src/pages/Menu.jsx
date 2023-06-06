@@ -9,7 +9,7 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useNavigate } from "react-router-dom";
 import { fetchProducts } from '../firebase';
-import { Grid } from "@mui/material";
+
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -45,6 +45,7 @@ const Menu = () => {
   console.log("products =>",products)
   // Step number #5 add cases or remove if necessary fort categories
    // Step number #6, line 76, change tabs names if neccessary 
+   // menu pohotos 250px x 250px
   const filteredProducts = products.filter((product) => {
     const categoryId = product.categoryId;
     switch (activeTabIndex) {

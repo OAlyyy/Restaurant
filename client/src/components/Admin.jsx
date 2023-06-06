@@ -233,7 +233,7 @@ function Admin() {
           </Carousel>
         </div>
       </div>
-
+ {/* Divider */}  <hr/> <hr/> <hr/> 
       <div className="carouselParent">
         <div className="aboveCarouselTitle">Click to delete a Product</div>
         <div className="carousel-container">
@@ -254,6 +254,7 @@ function Admin() {
           </Carousel>
         </div>
       </div>
+       {/* Divider */} <hr/> <hr/> <hr/> 
     </>
   );
 }

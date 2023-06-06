@@ -36,8 +36,8 @@ export const ProductEditCard = ({ product, onEditProduct }) => {
         alt={product.name}
       />
       <h2 className="carousel-title">{product.name}</h2>
-      <div className="carousel-title">{product.description}</div>
-      <div className="carousel-title">{product.price}</div>
+      <div className="carousel-description">{product.description}</div>
+      <div className="carousel-title">{product.price} €</div>
 
       <select value={editField} onChange={handleEditFieldChange}>
         <option value="">Select a field to edit</option>
