@@ -9,14 +9,16 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useNavigate } from "react-router-dom";
 import { fetchProducts } from '../firebase';
-
+import ExtrasDialog from "../components/ExtrasDialog";
 
 const Menu = () => {
   const dispatch = useDispatch();
   // const products = useSelector(selectAllProducts);
   const [products, setProducts] = useState([]);
   const [activeTabIndex, setActiveTabIndex] = useState(1);
+    const [selectedProduct, setSelectedProduct] = useState(null);
   const navigate = useNavigate();
+
 
   // useEffect(() => {
   //   dispatch(fetchProducts());
@@ -36,13 +38,13 @@ const Menu = () => {
 
   const onAddProduct = (product) => (event) => {
     dispatch(addToCart(product));
+    setSelectedProduct(product);
   };
 
   const onTabSwitch = (event, activeTabIndex) => {
     setActiveTabIndex(activeTabIndex);
   };
 
-  console.log("products =>",products)
   // Step number #5 add cases or remove if necessary fort categories
    // Step number #6, line 76, change tabs names if neccessary 
    // menu pohotos 250px x 250px
@@ -66,6 +68,14 @@ const Menu = () => {
 
   const cartMenuButton = () => {
     navigate("/cart");
+  };
+
+  const onExtrasSelected = (extras) => {
+    if (selectedProduct) {
+      const productWithExtras = { ...selectedProduct, extras };
+      dispatch(addToCart(productWithExtras));
+      setSelectedProduct(null);
+    }
   };
 
   return (
@@ -126,6 +136,12 @@ const Menu = () => {
           />
         </Fab>
       </div>
+
+      <ExtrasDialog
+        open={!!selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+        onExtrasSelected={onExtrasSelected}
+      />
     </div>
   );
 };
