@@ -30,7 +30,10 @@
 .bannerContainer{
   background-color: #ccc;
 }
-
+.addProductBttnHomePage{
+  color: white;
+  width: 80px;
+}
 .tabLabel{
   text-align: center;
 }
@@ -308,15 +311,21 @@ a {
   font-size: 1rem;
   color: green;
 }
-
-.addProdctBttn {
-  background-color: black;
-  border: 1px solid white;
-  border-radius: 0.5px;
+.carouselFooter{
+  display: flex;
+  justify-content: space-between; /* Items will be evenly spaced horizontally */
+  flex-direction: row;
+  align-items: center;
+  height: 50px;
 }
 
-.addProdctBttn :hover {
-  background-color: red;
+.carousel-name {
+  font-size: 1rem;
+  color:yellow;
+}
+.carousel-price{
+  color: #ccc;
+  font-size: 1.3rem ;
 }
 
 /* added styles for full width */

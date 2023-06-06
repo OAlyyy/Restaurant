@@ -14,9 +14,11 @@ export const ProductPreviewCard = ({ product, onAddProduct }) => {
           alt={product.imageUrl}
         />
       </a>
-      <h2 className="carousel-title">{product.name}</h2>
-      <p className="carousel-title">{product.price} €</p>
-      <AddProduct className="addProdctBttn" onAddProduct={addProduct} />
+      <h2 className="carousel-name">{product.name}</h2>
+      <div className="carouselFooter">
+        <p className="carousel-price">{product.price} €</p>
+        <AddProduct onAddProduct={addProduct} />
+      </div>
     </div>
   );
 };

@@ -65,7 +65,7 @@ export const ProductsPreview = () => {
     <div className="carouselParent">
       <div className="aboveCarouselTitle">Popular Products</div>
       <div className="carousel-container">
-        <Carousel responsive={responsive}>
+        <Carousel responsive={responsive} infinite={false}>
           {Array.isArray(products) &&
             products.length > 0 &&
             products.map((product, index) => {
