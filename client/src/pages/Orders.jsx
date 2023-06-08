@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { fetchOrders, updateOrderStatus } from "../firebase";
 
+
 const Orders = () => {
   const cookies = new Cookies();
   const jwtToken = cookies.get("jwt_authorization");
@@ -32,11 +33,9 @@ const Orders = () => {
         console.error("Error fetching orders:", error);
       }
     };
-
     getOrders();
   }, []);
- console.log("Error fetching orders:", orders);
-
+  console.log("Error fetching orders:", orders);
 
   const handleOrderReady = async (orderId) => {
     try {
@@ -47,7 +46,6 @@ const Orders = () => {
       console.log(error);
     }
   };
-  
 
   return (
     <div className="ordersContainer">
@@ -72,6 +70,14 @@ const Orders = () => {
                 <div className="orderDetails">
                   <div className="orderAmount">{product.amount}</div>
                   <div className="orderName">{product.name}</div>
+
+ <div className="orderSize"><span className="label">Size:</span> {product.size}</div>
+ 
+                  <div className="orderExtras">
+                  <span className="label">Add:</span>  {product.extras ? product.extras.join(", ") : ""}
+                  </div>
+                 
+
                 </div>
               </div>
             ))}

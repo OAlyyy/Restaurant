@@ -11,10 +11,9 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
-  limit
+  limit,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyDKJ9Kb9RdlINdYv09FR6Bs7rOvqFZem8g",
@@ -47,20 +46,20 @@ const fetchProducts = async () => {
 };
 // Create Products
 const createProduct = async (productData) => {
-  const colRef = collection(db, 'Products');
+  const colRef = collection(db, "Products");
 
   try {
     const docRef = await addDoc(colRef, productData);
-    console.log('Product added with ID:', docRef.id);
+    console.log("Product added with ID:", docRef.id);
     return docRef.id;
   } catch (error) {
-    console.error('Error adding product:', error);
+    console.error("Error adding product:", error);
     throw error;
   }
 };
 // Delete Products
 const removeProduct = async (productId) => {
-  const productRef = doc(db, 'Products', productId);
+  const productRef = doc(db, "Products", productId);
 
   try {
     await deleteDoc(productRef);
@@ -71,11 +70,10 @@ const removeProduct = async (productId) => {
   }
 };
 
-
 // Fetch all orders
 const fetchOrders = async () => {
   try {
-    const colRef = collection(db,"Orders");
+    const colRef = collection(db, "Orders");
     const docsSnap = await getDocs(colRef);
     const orders = [];
     docsSnap.forEach((doc) => {
@@ -115,6 +113,15 @@ const createOrder = async (orderData) => {
     // Set the order number in the order data
     orderData.orderNumber = newOrderNumber;
 
+    // Update the product array to include extras and size
+    const updatedProducts = orderData.items.map((product) => ({
+      ...product,
+      extras: product.extras, // Set the extras from the selectedData
+      size: product.size, // Set the size from the selectedData
+    }));
+
+    orderData.items = updatedProducts;
+
     // Create the new order document with the order number as the document ID
     const docRef = doc(db, "Orders", newOrderNumber.toString());
     await setDoc(docRef, orderData);
@@ -129,13 +136,13 @@ const createOrder = async (orderData) => {
 
 // Fetch a specific order based on order number
 const fetchOrder = async (orderNumber) => {
-  const orderRef = doc(db, "Orders",orderNumber);
+  const orderRef = doc(db, "Orders", orderNumber);
   try {
     const docSnapshot = await getDoc(orderRef);
     if (!docSnapshot.exists()) {
       return null; // Order not found
     }
-  
+
     const order = docSnapshot.data();
     const documentId = docSnapshot.id; // Retrieve the document ID
     return { documentId, ...order }; // Include the document ID in the order object
@@ -145,7 +152,7 @@ const fetchOrder = async (orderNumber) => {
   }
 };
 
-// Update order status of a specific order 
+// Update order status of a specific order
 const updateOrderStatus = async (orderId, newStatus) => {
   const orderRef = doc(db, "Orders", orderId);
   await updateDoc(orderRef, { status: newStatus });
@@ -157,13 +164,10 @@ const editProduct = async (documentId, updatedData) => {
   try {
     await updateDoc(productRef, updatedData);
     console.log("Product edited with ID:", documentId);
-
   } catch (error) {
     console.error("Error editing product:", error);
-
   }
 };
-
 
 export {
   app,
@@ -175,5 +179,5 @@ export {
   fetchOrder,
   getLastOrderNumber,
   updateOrderStatus,
-  editProduct
+  editProduct,
 };

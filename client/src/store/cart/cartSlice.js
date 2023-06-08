@@ -10,12 +10,13 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
-            const { documentId, name, price, imageUrl } = action.payload;
+            console.log("Adding to cart:", action.payload);
+            const { documentId, name, price, imageUrl, size, extras } = action.payload;
             const existingProduct = state.products.find(product => product.documentId === documentId);
             if (existingProduct) {
               return { products: state.products.map(product => product.documentId === documentId ? { ...product, amount: product.amount + 1 } : product) };
             } else {
-              const newProduct = { documentId, name, price, imageUrl, amount: 1 };
+              const newProduct = { documentId, name, price, imageUrl, amount: 1,size, extras };
               return { products: [...state.products, newProduct] };
             }
           }

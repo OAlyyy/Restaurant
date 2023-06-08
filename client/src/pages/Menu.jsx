@@ -9,14 +9,13 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useNavigate } from "react-router-dom";
 import { fetchProducts } from '../firebase';
-import ExtrasDialog from "../components/ExtrasDialog";
+
 
 const Menu = () => {
   const dispatch = useDispatch();
   // const products = useSelector(selectAllProducts);
   const [products, setProducts] = useState([]);
   const [activeTabIndex, setActiveTabIndex] = useState(1);
-    const [selectedProduct, setSelectedProduct] = useState(null);
   const navigate = useNavigate();
 
 
@@ -36,9 +35,10 @@ const Menu = () => {
     fetchProductsData();
   }, []);
 
-  const onAddProduct = (product) => (event) => {
+  const onAddProduct = (product) => {
+    console.log("Adding product to cart:", product);
     dispatch(addToCart(product));
-    setSelectedProduct(product);
+
   };
 
   const onTabSwitch = (event, activeTabIndex) => {
@@ -70,13 +70,6 @@ const Menu = () => {
     navigate("/cart");
   };
 
-  const onExtrasSelected = (extras) => {
-    if (selectedProduct) {
-      const productWithExtras = { ...selectedProduct, extras };
-      dispatch(addToCart(productWithExtras));
-      setSelectedProduct(null);
-    }
-  };
 
   return (
     <div className="menuPage">
@@ -137,11 +130,7 @@ const Menu = () => {
         </Fab>
       </div>
 
-      <ExtrasDialog
-        open={!!selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        onExtrasSelected={onExtrasSelected}
-      />
+   
     </div>
   );
 };

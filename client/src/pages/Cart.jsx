@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { cartProducts } from "../store/cart/cartSlice.js";
-import { AddressForm } from "../components/AddressForm";
 import { ProductsSummary } from "../components/ProductsSummary";
 // import { StripeWrapper } from "../components/PaymentForm";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
 import { totalPrice } from "../components/ProductSummaryCard.jsx";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../store/cart/cartSlice.js";
 import { useDispatch } from "react-redux";
-import {  createOrder, getLastOrderNumber } from "../firebase.js";
+import { createOrder, getLastOrderNumber } from "../firebase.js";
 
 const Cart = () => {
   const cart = useSelector(cartProducts);
@@ -47,10 +44,6 @@ const Cart = () => {
     }
   };
 
-  const onTabSwitch = (event, currentTab) => {
-    handleTabSwitch(currentTab);
-  };
-
   useEffect(() => {}, [currentTab]);
 
   if (!cart || cart.length === 0) {
@@ -60,34 +53,32 @@ const Cart = () => {
       </div>
     );
   }
-  
 
   return (
     <div className="cartPage">
-    <ProductsSummary/>
+      <ProductsSummary />
 
-    <div className="summaryEnd">
-      <div className="total-price">
-        Total : €
-        {cart
-          .reduce((acc, product) => acc + totalPrice(product), 0)
-          .toFixed(2)}
-      </div>
-      <div className="summaryButtons">
-        <Button variant="contained" onClick={placeOrder}>
-          Pay at Cashier
-        </Button>
+      <div className="summaryEnd">
+        <div className="total-price">
+          Total : €
+          {cart
+            .reduce((acc, product) => acc + totalPrice(product), 0)
+            .toFixed(2)}
+        </div>
+        <div className="summaryButtons">
+          <Button variant="contained" onClick={placeOrder}>
+            Pay at Cashier
+          </Button>
 
-        <Button
-          onClick={() => handleTabSwitch("Delivery")}
-          endIcon={<SendIcon />}
-        >
-          Pay Online
-        </Button>
+          <Button
+            onClick={() => handleTabSwitch("Delivery")}
+            endIcon={<SendIcon />}
+          >
+            Pay Online
+          </Button>
+        </div>
       </div>
     </div>
-  </div>
-
   );
 };
 

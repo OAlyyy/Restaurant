@@ -12,6 +12,7 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -50,9 +51,10 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 const ExtrasDialog = ({ open, onClose, onExtrasSelected }) => {
+  const [selectedSize, setSelectedSize] = useState("");
   const [selectedExtras, setSelectedExtras] = useState([]);
 
-  const handleCheckboxChange = (event) => {
+  const handleExtrasChange = (event) => {
     const extra = event.target.name;
     if (event.target.checked) {
       setSelectedExtras((prevSelectedExtras) => [...prevSelectedExtras, extra]);
@@ -63,73 +65,104 @@ const ExtrasDialog = ({ open, onClose, onExtrasSelected }) => {
     }
   };
 
+  const handleSizeChange = (event) => {
+    setSelectedSize(event.target.value);
+  };
+
   const handleSave = () => {
-    onExtrasSelected(selectedExtras);
+    const selectedData = {
+      extras: selectedExtras,
+      size: selectedSize,
+    };
+    console.log("selectedData",selectedData)
+    onExtrasSelected(selectedData);
+    setSelectedExtras([]); // Empty the selectedExtras
+    setSelectedSize(""); // Clear the selectedSize
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Select Extras</DialogTitle>
       <DialogContent>
-
-        <Accordion>
+        <Accordion defaultExpanded>
           <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography>Extra 1</Typography>
+            <Typography>Sizes</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedExtras.includes("Extra 1")}
-                  onChange={handleCheckboxChange}
-                  name="Extra 1"
-                />
-              }
-              label="Extra 1"
-            />
-            {/* Add additional content for Extra 1 */}
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={selectedSize === "small"}
+                    onChange={handleSizeChange}
+                    value="small"
+                  />
+                }
+                label={
+                  <Typography style={{ color: "black" }}>Small</Typography>
+                }
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={selectedSize === "medium"}
+                    onChange={handleSizeChange}
+                    value="medium"
+                  />
+                }
+                label={
+                  <Typography style={{ color: "black" }}>Medium</Typography>
+                }
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={selectedSize === "large"}
+                    onChange={handleSizeChange}
+                    value="large"
+                  />
+                }
+                label={
+                  <Typography style={{ color: "black" }}>Large</Typography>
+                }
+              />
+            </FormGroup>
           </AccordionDetails>
         </Accordion>
 
-        <Accordion>
-          <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography>Extra 2</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedExtras.includes("Extra 2")}
-                  onChange={handleCheckboxChange}
-                  name="Extra 2"
-                />
-              }
-              label="Extra 2"
-            />
-            {/* Add additional content for Extra 2 */}
-          </AccordionDetails>
-        </Accordion>
-
-
-        <Accordion>
+        <Accordion defaultExpanded>
           <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography>Extra 3</Typography>
+            <Typography >Extras</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedExtras.includes("Extra 3")}
-                  onChange={handleCheckboxChange}
-                  name="Extra 3"
-                />
-              }
-              label="Extra 3"
-            />
-            {/* Add additional content for Extra 3 */}
+            <FormGroup>
+              <FormControlLabel
+                control={<Checkbox />}
+                label={
+                  <Typography style={{ color: "black" }}>Ketchub</Typography>
+                }
+                name="Extra 1"
+                onChange={handleExtrasChange}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label={
+                  <Typography style={{ color: "black" }}>Mayonnaise</Typography>
+                }
+                name="Extra 2"
+                onChange={handleExtrasChange}
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label={
+                  <Typography style={{ color: "black" }}>Chilli</Typography>
+                }
+                name="Extra 3"
+                onChange={handleExtrasChange}
+              />
+            </FormGroup>
           </AccordionDetails>
         </Accordion>
-
       </DialogContent>
       <DialogActions>
         <Button onClick={handleSave}>Add to Cart</Button>
