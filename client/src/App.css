@@ -982,11 +982,10 @@ max-width: 100vw;
 .MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeSmall {
 width: 50px;
 }
-.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorError.MuiIconButton-sizeMedium.css-1jo1f9u-MuiButtonBase-root-MuiIconButton-root {
+
+.productPreviewBttn{
   width: 50px;
 }
-
-
 .label {
   color: blue;
   font-weight: bold;

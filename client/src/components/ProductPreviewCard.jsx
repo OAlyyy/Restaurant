@@ -43,7 +43,7 @@ export const ProductPreviewCard = ({ product, onAddProduct }) => {
         <p className="carousel-price">{product.price} €</p>
 
 
-        <IconButton color="error" onClick={() => setSelectedProduct(product)}>
+        <IconButton className="productPreviewBttn" color="error" onClick={() => setSelectedProduct(product)}>
   <ShoppingCartIcon />
 </IconButton>
 
