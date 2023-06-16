@@ -173,7 +173,6 @@ export default function PersistentDrawerLeft() {
               <div className="cart-icon-container">
                 <ShoppingCartCheckoutIcon
                   alt="ShoppingCartCheckoutIcon"
-                  fontSize="large"
                   className="cart-icon"
                 />
               </div>
