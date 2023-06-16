@@ -24,8 +24,9 @@
 
 .homePage{
   margin-top: 12px;
-  max-height: 90vh ;
+  height: 90vh;
   min-width: 100vw;
+  background-color: #2b2c30;
 }
 .bannerContainer{
   background-color: #ccc;
