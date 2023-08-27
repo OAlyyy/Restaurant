@@ -50,34 +50,73 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
+const priceData = {
+
+  extras: [
+    { name: "Ketchub", price: 1 },
+    { name: "Mayonnaise", price: 1 },
+    { name: "Chilli", price: 1 },
+  ],
+
+  sizes: [
+ { name: "Small", price: 0 },
+    { name: "Medium", price: 3 },
+    { name: "Large", price: 5 },
+  ]
+    
+  
+};
+
+
 const ExtrasDialog = ({ open, onClose, onExtrasSelected }) => {
-  const [selectedSize, setSelectedSize] = useState("");
+
+  const [selectedSize, setSelectedSize] = useState([]);
   const [selectedExtras, setSelectedExtras] = useState([]);
 
   const handleExtrasChange = (event) => {
-    const extra = event.target.name;
-    if (event.target.checked) {
-      setSelectedExtras((prevSelectedExtras) => [...prevSelectedExtras, extra]);
+    const { name, checked } = event.target;
+    const extra = priceData.extras.find((item) => item.name === name);
+    const selectedExtra = extra ? { name: extra.name, price: extra.price } : null;
+  
+    if (checked) {
+      setSelectedExtras((prevSelectedExtras) => [...prevSelectedExtras, selectedExtra]);
     } else {
       setSelectedExtras((prevSelectedExtras) =>
-        prevSelectedExtras.filter((selectedExtra) => selectedExtra !== extra)
+        prevSelectedExtras.filter((selectedExtra) => selectedExtra.name !== name)
       );
     }
   };
 
   const handleSizeChange = (event) => {
-    setSelectedSize(event.target.value);
+    const { name, value } = event.target;
+    const selectedSize = { name, price: parseFloat(value) };
+    setSelectedSize([selectedSize]); 
   };
 
   const handleSave = () => {
+    
     const selectedData = {
       extras: selectedExtras,
       size: selectedSize,
-    };
+      totalExtrasPrice:
+      selectedExtras.reduce((acc, extra) => acc + (extra ? extra.price : 0), 0) +
+      selectedSize.reduce((acc, size) => acc + (size ? size.price : 0), 0), // Calculate total price for both extras and size
+  };
+
+    console.log("selectedExtras:", selectedExtras);
+    console.log("selectedSize:", selectedSize);
+    console.log("totalExtrasPrice:", selectedData.totalExtrasPrice);
     console.log("selectedData",selectedData)
+
+    
     onExtrasSelected(selectedData);
     setSelectedExtras([]); // Empty the selectedExtras
     setSelectedSize(""); // Clear the selectedSize
+  };
+
+  const handleCancel = () => {
+    setSelectedExtras([]); // Reset selectedExtras when Cancel is clicked
+    onClose();
   };
 
   return (
@@ -90,42 +129,28 @@ const ExtrasDialog = ({ open, onClose, onExtrasSelected }) => {
           </AccordionSummary>
           <AccordionDetails>
             <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={selectedSize === "small"}
-                    onChange={handleSizeChange}
-                    value="small"
-                  />
-                }
-                label={
-                  <Typography style={{ color: "black" }}>Small</Typography>
-                }
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={selectedSize === "medium"}
-                    onChange={handleSizeChange}
-                    value="medium"
-                  />
-                }
-                label={
-                  <Typography style={{ color: "black" }}>Medium</Typography>
-                }
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={selectedSize === "large"}
-                    onChange={handleSizeChange}
-                    value="large"
-                  />
-                }
-                label={
-                  <Typography style={{ color: "black" }}>Large</Typography>
-                }
-              />
+
+            {priceData.sizes.map((size) => (
+        <FormControlLabel
+        key={size.name}
+        control={
+          <Checkbox
+          checked={selectedSize[0]?.name === size.name}
+          onChange={handleSizeChange}
+          name={size.name}
+          value={size.price}
+        />
+      }
+        label={
+              <Typography style={{ color: "black" }}>
+                {size.name} (+${size.price})
+              </Typography>
+           
+          }
+          
+        />
+      ))}
+
             </FormGroup>
           </AccordionDetails>
         </Accordion>
@@ -136,37 +161,30 @@ const ExtrasDialog = ({ open, onClose, onExtrasSelected }) => {
           </AccordionSummary>
           <AccordionDetails>
             <FormGroup>
-              <FormControlLabel
-                control={<Checkbox />}
-                label={
-                  <Typography style={{ color: "black" }}>Ketchub</Typography>
-                }
-                name="Extra 1"
-                onChange={handleExtrasChange}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label={
-                  <Typography style={{ color: "black" }}>Mayonnaise</Typography>
-                }
-                name="Extra 2"
-                onChange={handleExtrasChange}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label={
-                  <Typography style={{ color: "black" }}>Chilli</Typography>
-                }
-                name="Extra 3"
-                onChange={handleExtrasChange}
-              />
+
+
+             {priceData.extras.map((extra) => (
+  <FormControlLabel
+    key={extra.name}
+    control={<Checkbox />}
+    label={
+      <Typography style={{ color: "black" }}>
+        {extra.name} (+${extra.price})
+      </Typography>
+    }
+    name={extra.name}
+    onChange={handleExtrasChange}
+  />
+))}
+
+
             </FormGroup>
           </AccordionDetails>
         </Accordion>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleSave}>Add to Cart</Button>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </DialogActions>
     </Dialog>
   );
