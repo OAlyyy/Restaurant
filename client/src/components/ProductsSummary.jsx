@@ -7,8 +7,8 @@ export const ProductsSummary = () => {
 
   return (
     <div >
-      {cart.map((product) => (
-        <ProductsSummaryCard key={product.documentId} product={product} />
+      {cart.map((product, index) => (
+        <ProductsSummaryCard key={`${product.documentId}-${index}`} product={product} />
       ))}
     </div>
   );

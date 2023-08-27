@@ -5,11 +5,13 @@ import { ProductsSummary } from "../components/ProductsSummary";
 // import { StripeWrapper } from "../components/PaymentForm";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
-import { totalPrice } from "../components/ProductSummaryCard.jsx";
+import { totalProductPrice } from "../components/ProductSummaryCard.jsx";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../store/cart/cartSlice.js";
 import { useDispatch } from "react-redux";
 import { createOrder, getLastOrderNumber } from "../firebase.js";
+
+
 
 const Cart = () => {
   const cart = useSelector(cartProducts);
@@ -18,7 +20,8 @@ const Cart = () => {
   const [currentTab, handleTabSwitch] = useState("Summary");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+ 
+  
   const placeOrder = async () => {
     const updatedCart = cart.filter((product) => product.amount > 0); // Remove products with amount zero
     try {
@@ -29,7 +32,7 @@ const Cart = () => {
         orderNumber: newOrderId, // Use the new order ID here
         status: "pending",
         items: updatedCart, // Use the updated cart without products with amount zero
-        totalPrice: cart.reduce((acc, product) => acc + totalPrice(product), 0),
+        totalPrice: cart.reduce((acc, product) => acc + totalProductPrice(product), 0),
         shippingAddress: "",
         paymentMethod: "cash",
       };
@@ -54,16 +57,15 @@ const Cart = () => {
     );
   }
 
+  const cartTotalPrice = parseFloat(cart.reduce((total, product) => total + totalProductPrice(product), 0).toFixed(2));
+
   return (
     <div className="cartPage">
       <ProductsSummary />
 
       <div className="summaryEnd">
         <div className="total-price">
-          Total : €
-          {cart
-            .reduce((acc, product) => acc + totalPrice(product), 0)
-            .toFixed(2)}
+        Total : € {cartTotalPrice.toFixed(2)} 
         </div>
         <div className="summaryButtons">
           <Button variant="contained" onClick={placeOrder}>

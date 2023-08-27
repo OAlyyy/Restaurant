@@ -94,13 +94,14 @@ const ExtrasDialog = ({ open, onClose, onExtrasSelected }) => {
   };
 
   const handleSave = () => {
+    const totalExtrasPrice =
+    selectedExtras.reduce((acc, extra) => acc + extra.price, 0) +
+    selectedSize.reduce((acc, size) => acc + size.price, 0);
     
     const selectedData = {
       extras: selectedExtras,
       size: selectedSize,
-      totalExtrasPrice:
-      selectedExtras.reduce((acc, extra) => acc + (extra ? extra.price : 0), 0) +
-      selectedSize.reduce((acc, size) => acc + (size ? size.price : 0), 0), // Calculate total price for both extras and size
+      totalExtrasPrice: totalExtrasPrice,
   };
 
     console.log("selectedExtras:", selectedExtras);

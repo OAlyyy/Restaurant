@@ -4,24 +4,27 @@ import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 
-export const ProductPreviewCard = ({ product, onAddProduct }) => {
+export const ProductPreviewCard = ({ product, onAddProduct}) => {
  
 
   const [selectedProduct, setSelectedProduct] = useState(null);
 
 
   const handleExtrasSelected = (selectedData) => {
-    handleAddToCart(selectedData.extras, selectedData.size);
-    console.log("selectedData",selectedData)
+    handleAddToCart(selectedData.extras, selectedData.size,selectedData.totalExtrasPrice);
+    console.log("selectedDataHOOME",selectedData)
 
   };
 
-  const handleAddToCart = (extras, size)  => {
+  const handleAddToCart = (extras, size, totalExtrasPrice )  => {
     if (product) {
+      console.log("hoooooooooooooooooome",totalExtrasPrice)
+
       const productWithExtras = {
         ...product,
         extras: extras,
         size: size,
+        totalExtrasPrice:totalExtrasPrice,
       };
       console.log("productWithExtras",productWithExtras)
       onAddProduct(productWithExtras);

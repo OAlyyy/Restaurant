@@ -23,9 +23,11 @@ import Cookies from "universal-cookie";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { cartProducts } from "../store/cart/cartSlice";
-import { totalPrice } from "./ProductSummaryCard";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
+import { totalProductPrice } from './ProductSummaryCard'; 
+
+
 
 const drawerWidth = 240;
 
@@ -113,6 +115,9 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
+  const cartTotalPrice = parseFloat(cart.reduce((total, product) => total + totalProductPrice(product), 0).toFixed(2));
+
+
   return (
     <Box sx={{ display: "flex" }} className="Header">
       <CssBaseline />
@@ -164,10 +169,7 @@ export default function PersistentDrawerLeft() {
           ) : (
             <Link className="price-cart-icon" to="/cart">
               <div className="price">
-                {cart
-                  .reduce((acc, product) => acc + totalPrice(product), 0)
-                  .toFixed(2)}{" "}
-                €
+              {cartTotalPrice.toFixed(2)} €
               </div>
 
               <div className="cart-icon-container">
@@ -229,9 +231,7 @@ export default function PersistentDrawerLeft() {
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/cart">
               <ListItemText
-                primary={`${cart
-                  .reduce((acc, product) => acc + totalPrice(product), 0)
-                  .toFixed(2)} $`}
+                primary={`${cartTotalPrice.toFixed(2)} €`}  
                 secondary="View your cart"
                 primaryTypographyProps={{ color: "textPrimary" }}
                 secondaryTypographyProps={{ color: "textPrimary" }}

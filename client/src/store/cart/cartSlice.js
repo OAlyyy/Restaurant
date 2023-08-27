@@ -11,12 +11,12 @@ export const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action) => {
             console.log("Adding to cart:", action.payload);
-            const { documentId, name, price, imageUrl, size, extras } = action.payload;
+            const { documentId, name, price, imageUrl, size, extras, totalExtrasPrice  } = action.payload;
             const existingProduct = state.products.find(product => product.documentId === documentId);
             if (existingProduct) {
               return { products: state.products.map(product => product.documentId === documentId ? { ...product, amount: product.amount + 1 } : product) };
             } else {
-              const newProduct = { documentId, name, price, imageUrl, amount: 1,size, extras };
+              const newProduct = { documentId, name, price, imageUrl, amount: 1,size, extras, totalExtrasPrice };
               return { products: [...state.products, newProduct] };
             }
           }
@@ -31,6 +31,7 @@ export const cartSlice = createSlice({
         decrementProductAmount: (state, action) => {
             return { products: state.products.map(product => product.documentId === action.payload.documentId ? {...product, amount: product.amount - 1} : product)}
         }
+
     }
 })
 

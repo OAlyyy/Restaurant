@@ -11,8 +11,8 @@ import Box from "@mui/material/Box";
 import Popper from "@mui/material/Popper";
 import * as React from "react";
 
-export function totalPrice(product) {
-  const ind = product.price * product.amount;
+export function totalProductPrice(product) {
+  const ind = (parseFloat(product.price) + parseFloat(product.totalExtrasPrice)) * product.amount;
   return ind;
 }
 
@@ -30,6 +30,10 @@ export const ProductsSummaryCard = ({ product }) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
+  // Calculate total price including extras
+  const totalProductPrice = (parseFloat(product.price) + parseFloat(product.totalExtrasPrice)) * product.amount;
+
+
   return (
     <div className="product-summary-card">
       <div className="product-summary-image">
@@ -44,7 +48,7 @@ export const ProductsSummaryCard = ({ product }) => {
         <div className="product-summary-info">
           <h3>{product.name}</h3>
           <p>Qty: {product.amount}</p>
-          <p>Price: {(product.price * product.amount).toFixed(2)}</p>
+         <p>Price: {totalProductPrice.toFixed(2)}</p>
           <div>
             <IconButton
               onClick={handleClick}

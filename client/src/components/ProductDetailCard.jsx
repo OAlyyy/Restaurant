@@ -8,30 +8,29 @@ const ProductDetailCard = ({ product, onAddProduct }) => {
 
   const handleExtrasSelected = (selectedData) => {
     handleAddToCart(selectedData.extras, selectedData.size,selectedData.totalExtrasPrice);
-    console.log("selectedData",selectedData)
+    console.log("selectedDataMENU",selectedData)
 
   };
 
   const handleAddToCart = (extras, size, totalExtrasPrice)  => {
      if (product) {
 
-     // Calculate the new price by adding the totalExtrasPrice to the original product price
-      // const newPrice = product.price + totalExtrasPrice;
+      console.log("menuuuuuuuuuuuuuuuuuuuuuuuuuuuuu",totalExtrasPrice)
 
-     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtotalExtrasPrice",product.price )
 
      // Create a new product object with the updated price and other properties
       const productWithExtras = {
         ...product,
         extras: extras,
         size: size,
-        price: +totalExtrasPrice,
+        totalExtrasPrice:totalExtrasPrice,
       };
       console.log("productWithExtras",productWithExtras)
       onAddProduct(productWithExtras);
       setSelectedProduct(null);
     }
   };
+
 
   return (
     <div className="product-card">
