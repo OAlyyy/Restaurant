@@ -59,8 +59,23 @@ export const ProductsSummaryCard = ({ product }) => {
             </IconButton>
             <Popper id={id} open={open} anchorEl={anchorEl}>
               <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
-                <p>Extras: {product.extras.join(", ")}</p>
-                <p>Size: {product.size}</p>
+              <p>Size:</p>
+              <ul>
+                {product.size.map((size, index) => (
+                  <li key={index}>
+                    Basic: {product.price} € <br/>
+                    {size.name}: {size.price} €
+                  </li>
+                ))}
+              </ul>
+              <p>Extras:</p>
+              <ul>
+                {product.extras.map((extra, index) => (
+                  <li key={index}>
+                    {extra.name}: {extra.price} €
+                  </li>
+                ))}
+              </ul>
               </Box>
             </Popper>
           </div>

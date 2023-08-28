@@ -91,6 +91,7 @@ const OrderItem = ({ product }) => {
               <ul>
                 {product.size.map((size, index) => (
                   <li key={index}>
+                    Basic: {product.price} € <br/>
                     {size.name}: {size.price} €
                   </li>
                 ))}
