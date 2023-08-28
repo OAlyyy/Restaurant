@@ -76,7 +76,9 @@ const OrderItem = ({ product }) => {
         <div className="myorderName">{product.name}</div>
         <div className="myorderAmount">Qty: {product.amount}</div>
         <div className="myorderprice">
-          Sum: €{product.price * product.amount}
+          Sum: €
+          {parseFloat(product.price) +
+            parseFloat(product.totalExtrasPrice) * product.amount}
         </div>
 
         <div>
@@ -85,8 +87,22 @@ const OrderItem = ({ product }) => {
           </IconButton>
           <Popper id={id} open={open} anchorEl={anchorEl}>
             <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
-               <p>Size: {product.size}</p>
-              <p>Extras: {product.extras.join(", ")}</p>
+              <p>Size:</p>
+              <ul>
+                {product.size.map((size, index) => (
+                  <li key={index}>
+                    {size.name}: {size.price} €
+                  </li>
+                ))}
+              </ul>
+              <p>Extras:</p>
+              <ul>
+                {product.extras.map((extra, index) => (
+                  <li key={index}>
+                    {extra.name}: {extra.price} €
+                  </li>
+                ))}
+              </ul>
             </Box>
           </Popper>
         </div>
