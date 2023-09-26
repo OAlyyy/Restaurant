@@ -1,12 +1,13 @@
-import Image1 from "../assets/images/Image1.png";
-import Image2 from "../assets/images/Image2.png";
-import Image3 from "../assets/images/Image3.png";
-import Image4 from "../assets/images/Image4.png";
+import Image1 from "../assets/images/1.png";
+import Image2 from "../assets/images/2.png";
+import Image3 from "../assets/images/3.png";
+import Image4 from "../assets/images/4.png";
+import Image5 from "../assets/images/5.png";
 import Button from "@mui/material/Button";
 import React, { useState, useEffect } from "react";
 
 export const Banner = () => {
-  const images = [Image1, Image2, Image3, Image4];
+  const images = [Image1, Image2, Image3, Image4, Image5];
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export const Banner = () => {
     <div className="banner" style={{ 
       backgroundImage: `url(${images[currentImage]})`,}}>
       <div className="banner-left-side">
-        <div className="bannerRedAlert">Order Now!</div>
+       {/*  <div className="bannerRedAlert">Order Now!</div> */}
         <div>
           <Button
           variant="contained"

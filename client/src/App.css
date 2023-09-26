@@ -18,6 +18,7 @@
 
 .InApp {
   flex-grow: 1;
+  margin-top: 15px;
   max-width: 100vw;
   max-height: 90vh ;
 }
@@ -26,10 +27,13 @@
   margin-top: 12px;
   height: 90vh;
   min-width: 100vw;
-  background-color: #2b2c30;
+  background-color: #DEDEDE;
 }
 .bannerContainer{
-  background-color: #ccc;
+  background-color: #DEDEDE;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .addProductBttnHomePage{
   color: white;
@@ -163,7 +167,6 @@ a {
 
 .logo {
   width: 75px;
-
   height: 75px;
 }
 
@@ -191,7 +194,7 @@ a {
 
 /* Banner  FDBF50 */
 .banner {
-  margin-top: 14px;
+  margin-top: 16px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -267,15 +270,18 @@ a {
 
 /* Carousel */
 .carouselParent {
-  background-color: #2b2c30;
+  background-color: #DEDEDE;
   display: flex;
   flex-direction: column;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; 
+
 }
 .aboveCarouselTitle {
   font-size: 1.2rem;
   line-height: 1.5;
   text-align: center; /* Add center alignment */
-  color: white;
+  color: black;
   margin: auto;
   padding: 10px;
 }
@@ -286,8 +292,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #2b2c30;
-  height: 100%;
+  background-color: #CC8721;
 }
 
 .carousel-element {
@@ -879,10 +884,11 @@ a {
 /* Styles for mobile devices */
 @media screen and (max-width: 600px) {
   .banner {
-    height: 40vh;
+    height: 48vh;
     display: flex;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
+    background-position: right; 
   }
   .carouselParent {
     height: 40vh;
@@ -906,7 +912,7 @@ a {
 /* Styles for desktop devices */
 @media screen and (min-width: 1024px) {
   .banner {
-    height: 52vh;
+    height: 48vh;
     display: flex;
     background-position: right;
     background-size: contain;
@@ -933,7 +939,7 @@ a {
 }
 
 .footer a {
-  color: pink;
+  color: #CC8721;
   text-decoration: none;
 }
 

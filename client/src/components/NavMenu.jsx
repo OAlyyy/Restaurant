@@ -15,8 +15,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-// Step number #1 Change Logo Img
-import foody from "../assets/images/foody.png";
+// Step number #1 Change Logo Img    CC8721 dedede
+import foody from "../assets/images/omarfoodlogo.png";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -53,7 +53,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
-  background: "black",
+  background: "#CC8721",
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
