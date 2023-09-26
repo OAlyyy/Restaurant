@@ -27,10 +27,10 @@
   margin-top: 12px;
   height: 90vh;
   min-width: 100vw;
-  background-color: #DEDEDE;
+  background-color: #FDFDFD;
 }
 .bannerContainer{
-  background-color: #DEDEDE;
+  background-color: #FDFDFD;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -179,6 +179,7 @@ a {
   text-decoration: none;
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .price {
@@ -360,7 +361,7 @@ a {
 
 /* Menu */
 .menuPage {
-  background-color: white;
+  background-color: #FDFDFD;
   min-height: 90vh;
   width: 100vw;
 }
@@ -884,14 +885,14 @@ a {
 /* Styles for mobile devices */
 @media screen and (max-width: 600px) {
   .banner {
-    height: 48vh;
+    height: 35vh;
     display: flex;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right; 
   }
   .carouselParent {
-    height: 40vh;
+    height: 50vh;
     }
 }
 

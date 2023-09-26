@@ -31,7 +31,7 @@ export const Banner = () => {
           <Button
           variant="contained"
             className="bannerBttn"
-            style={{ fontWeight: "bold", fontSize: "1.2rem", color: "white" , backgroundColor:"red"}}
+            style={{ fontWeight: "bold", fontSize: "1.2rem", color: "white" , backgroundColor:"#CC8721"}}
             href="/menu"
           >
             MENU

@@ -89,7 +89,7 @@ const Menu = () => {
               style={{
                 position: "fixed",
                 top: "75px",
-                backgroundColor: "pink",
+                backgroundColor: "#FDFDFD",
                 width: "100%",
               }}
             >

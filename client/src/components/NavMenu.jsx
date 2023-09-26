@@ -192,6 +192,7 @@ export default function PersistentDrawerLeft() {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
+            backgroundColor:"#CC8721"
           },
         }}
         variant="persistent"
@@ -213,8 +214,7 @@ export default function PersistentDrawerLeft() {
             <ListItemButton component={Link} to="/">
               <ListItemText
                 primary="Home"
-                primaryTypographyProps={{ color: "textPrimary" }}
-                secondaryTypographyProps={{ color: "textPrimary" }}
+                primaryTypographyProps={{ color: "white" }}
               />
             </ListItemButton>
           </ListItem>
@@ -222,8 +222,7 @@ export default function PersistentDrawerLeft() {
             <ListItemButton component={Link} to="/menu">
               <ListItemText
                 primary="Menu"
-                primaryTypographyProps={{ color: "textPrimary" }}
-                secondaryTypographyProps={{ color: "textPrimary" }}
+                primaryTypographyProps={{ color: "white" }}
               />
             </ListItemButton>
           </ListItem>
@@ -233,13 +232,14 @@ export default function PersistentDrawerLeft() {
               <ListItemText
                 primary={`${cartTotalPrice.toFixed(2)} €`}  
                 secondary="View your cart"
-                primaryTypographyProps={{ color: "textPrimary" }}
-                secondaryTypographyProps={{ color: "textPrimary" }}
+                primaryTypographyProps={{ color: "white" }}
+                secondaryTypographyProps={{ color: "white" }}
               />
               <ListItemIcon>
                 <ShoppingCartCheckoutIcon
                   alt="ShoppingCartCheckoutIcon"
                   fontSize="large"
+                  sx={{ color: "white" }}
                 />
               </ListItemIcon>
             </ListItemButton>
@@ -254,8 +254,8 @@ export default function PersistentDrawerLeft() {
               <ListItemButton component={Link} to="/Admin">
                 <ListItemText
                   primary="Admin"
-                  primaryTypographyProps={{ color: "textPrimary" }}
-                  secondaryTypographyProps={{ color: "textPrimary" }}
+                  primaryTypographyProps={{ color: "white" }}
+                  secondaryTypographyProps={{ color: "white" }}
                 />
               </ListItemButton>
             </ListItem>
@@ -264,8 +264,8 @@ export default function PersistentDrawerLeft() {
               <ListItemButton onClick={logout}>
                 <ListItemText
                   primary="Logout"
-                  primaryTypographyProps={{ color: "textPrimary" }}
-                  secondaryTypographyProps={{ color: "textPrimary" }}
+                  primaryTypographyProps={{ color: "white" }}
+                  secondaryTypographyProps={{ color: "white" }}
                 />
               </ListItemButton>
             </ListItem>
@@ -276,8 +276,8 @@ export default function PersistentDrawerLeft() {
               <ListItemText
                 primary="Log In"
                 secondary="Administration Only"
-                primaryTypographyProps={{ color: "textPrimary" }}
-                secondaryTypographyProps={{ color: "textPrimary" }}
+                primaryTypographyProps={{ color: "white" }}
+                secondaryTypographyProps={{ color: "white" }}
               />
             </ListItemButton>
           </ListItem>
