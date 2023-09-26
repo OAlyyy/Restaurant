@@ -306,7 +306,7 @@ a {
 
 .carousel-image {
   width: 150px;
-  height: 150px;
+  height: 130px;
 }
 
 .carousel-title {
@@ -892,7 +892,7 @@ a {
     background-position: right; 
   }
   .carouselParent {
-    height: 50vh;
+    height: 40vh;
     }
 }
 
@@ -975,7 +975,7 @@ color: white;
 .product-image {
   position: absolute;
   width: 150px;
-  height: 150px;
+  height: 120px;
 }
 
 .productsSummary{

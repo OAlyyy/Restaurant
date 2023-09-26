@@ -120,7 +120,7 @@ const Menu = () => {
       
 
       <div className="fab-container" onClick={cartMenuButton}>
-        <Fab size="medium" color="secondary" aria-label="add">
+        <Fab size="medium" style={{ backgroundColor: '#CC8721' }} aria-label="add">
           <SvgIcon
             fontSize="large"
             component={ShoppingCartCheckoutIcon}
