@@ -61,9 +61,6 @@ function Login() {
         <button onClick={login}> Login </button>
       </div>
 
-      <div>
-        Don't have an account yet? Click <a href="/register">here</a>{" "}
-      </div>
     </div>
   );
 }
