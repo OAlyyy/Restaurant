@@ -32,6 +32,9 @@ const ProductDetailCard = ({ product, onAddProduct }) => {
   };
 
 
+  // Calculate isDrinksCategory based on the product's category
+const isDrinksCategory = product && product.categoryId === "drinks";
+
   return (
     <div className="product-card">
       <h2>{product.name}</h2>
@@ -48,6 +51,7 @@ const ProductDetailCard = ({ product, onAddProduct }) => {
         open={!!selectedProduct}
         onClose={() => setSelectedProduct(null)}
         onExtrasSelected={handleExtrasSelected}
+        isDrinksCategory={isDrinksCategory}
       />
 
       </div>

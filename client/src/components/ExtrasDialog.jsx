@@ -68,7 +68,7 @@ const priceData = {
 };
 
 
-const ExtrasDialog = ({ open, onClose, onExtrasSelected }) => {
+const ExtrasDialog = ({ open, onClose, onExtrasSelected, isDrinksCategory  }) => {
 
   const [selectedSize, setSelectedSize] = useState([]);
   const [selectedExtras, setSelectedExtras] = useState([]);
@@ -156,6 +156,9 @@ const ExtrasDialog = ({ open, onClose, onExtrasSelected }) => {
           </AccordionDetails>
         </Accordion>
 
+{/* Conditionally render the "Extras" accordion */}
+{!isDrinksCategory && (
+
         <Accordion defaultExpanded>
           <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
             <Typography >Extras</Typography>
@@ -182,6 +185,7 @@ const ExtrasDialog = ({ open, onClose, onExtrasSelected }) => {
             </FormGroup>
           </AccordionDetails>
         </Accordion>
+         )}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleSave}>Add to Cart</Button>
