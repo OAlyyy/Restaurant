@@ -278,6 +278,15 @@ a {
   align-items: center; 
 
 }
+.carouselParentadmin {
+  background-color: #DEDEDE;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; 
+  height: 45vh;
+}
+
 .aboveCarouselTitle {
   font-size: 1.2rem;
   line-height: 1.5;
@@ -285,6 +294,14 @@ a {
   color: black;
   margin: auto;
   padding: 10px;
+}
+
+.aboveCarouselTitleadmin {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  text-align: center; /* Add center alignment */
+  color: black;
+  padding: 5px;
 }
 
 .carousel-container {
@@ -296,6 +313,21 @@ a {
   background-color: #CC8721;
 }
 
+.carousel-containeradmin {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #CC8721;
+}
+.addProdctBttn{
+padding-bottom: 10px;
+}
+
+.editdropdownadmin{
+  padding-bottom: 10px;
+}
 .carousel-element {
   display: flex;
   flex-direction: column;
@@ -661,7 +693,6 @@ a {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  margin-bottom: 20px;
   background-color: #f9f9f9;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -894,6 +925,7 @@ a {
   .carouselParent {
     height: 45vh;
     }
+
 }
 
 /* Styles for tablet devices */

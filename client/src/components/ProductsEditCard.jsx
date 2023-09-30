@@ -39,7 +39,7 @@ export const ProductEditCard = ({ product, onEditProduct }) => {
       <div className="carousel-description">{product.description}</div>
       <div className="carousel-title">{product.price} €</div>
 
-      <select value={editField} onChange={handleEditFieldChange}>
+      <select value={editField} onChange={handleEditFieldChange} >
         <option value="">Select a field to edit</option>
         <option value="price">Price</option>
         <option value="description">Description</option>
@@ -47,14 +47,18 @@ export const ProductEditCard = ({ product, onEditProduct }) => {
         <option value="categoryId">Category</option>
         <option value="imageUrl">Image URL</option>
       </select>
-      {editField && (
+      <div className="editdropdownadmin">
+         {editField && (
         <input
           type="text"
           value={editedValue}
           onChange={handleEditedValueChange}
-          placeholder={`Enter new ${editField}`}
+          placeholder={`New ${editField}`}
+  
         />
       )}
+      </div>
+     
       <Stack direction="row" spacing={2}>
         <Button
           variant="outlined"

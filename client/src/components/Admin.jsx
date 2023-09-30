@@ -192,7 +192,8 @@ function Admin() {
               style={{ color: "red" }}
             />
             <Field id="AddingProduct" name="price" placeholder=" € " />
-            {/* Divider */} <hr />
+
+
             <label className="attachment-label"> Picture Url in Cloud:</label>
             <div className="urlExample">
               Url Ex. https://drive.google.com/uc?id= "put id here"
@@ -213,9 +214,9 @@ function Admin() {
         </Formik>
       </div>
 
-      <div className="carouselParent">
-        <div className="aboveCarouselTitle">Click to Edit a Product</div>
-        <div className="carousel-container">
+      <div className="carouselParentadmin">
+        <div className="aboveCarouselTitleadmin">Edit a Product</div>
+        <div className="carousel-containeradmin">
           <Carousel responsive={responsive}>
             {Array.isArray(products) &&
               products.length > 0 &&
@@ -233,10 +234,9 @@ function Admin() {
           </Carousel>
         </div>
       </div>
- {/* Divider */}  <hr/> <hr/> <hr/> 
-      <div className="carouselParent">
-        <div className="aboveCarouselTitle">Click to delete a Product</div>
-        <div className="carousel-container">
+      <div className="carouselParentadmin">
+        <div className="aboveCarouselTitleadmin">Delete a Product</div>
+        <div className="carousel-containeradmin">
           <Carousel responsive={responsive}>
             {Array.isArray(products) &&
               products.length > 0 &&
@@ -254,7 +254,6 @@ function Admin() {
           </Carousel>
         </div>
       </div>
-       {/* Divider */} <hr/> <hr/> <hr/> 
     </>
   );
 }

@@ -25,11 +25,11 @@ export const ProductRemoveCard = ({ product, RemoveProduct }) => {
         alt={product.name}
       />
       <h2 className="carousel-title">{product.name}</h2>
-      <div>
+      <div className="addProdctBttn">
         <Button
           variant="outlined"
           startIcon={<DeleteIcon />}
-          className="addProdctBttn"
+        
           size="large"
           color="primary"
           aria-label="add to shopping cart"
