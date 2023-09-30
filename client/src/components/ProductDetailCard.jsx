@@ -43,7 +43,7 @@ const isDrinksCategory = product && product.categoryId === "drinks";
       <div className="product-cart">
         <div className="product-price">{product.price} €</div>
 
-        <Button variant="contained" color="error" onClick={() => setSelectedProduct(product)}>
+        <Button variant="contained" style={{ backgroundColor: '#CC8721' }} onClick={() => setSelectedProduct(product)}>
           Add to Cart
         </Button>
 
