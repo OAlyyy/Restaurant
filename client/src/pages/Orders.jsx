@@ -5,21 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { fetchOrders, updateOrderStatus } from "../firebase";
 
-
 const Orders = () => {
   const cookies = new Cookies();
   const jwtToken = cookies.get("jwt_authorization");
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 
-  useEffect(
-    () => {
-      if (!jwtToken) {
-        navigate("/login");
-      }
-    }, // eslint-disable-next-line
-    []
-  );
+  useEffect(() => {
+    if (!jwtToken) {
+      navigate("/login");
+    }
+  }, [jwtToken, navigate]);
 
   useEffect(() => {
     const getOrders = async () => {
@@ -35,7 +31,6 @@ const Orders = () => {
     };
     getOrders();
   }, []);
-  console.log("Error fetching orders:", orders);
 
   const handleOrderReady = async (orderId) => {
     try {
@@ -43,7 +38,7 @@ const Orders = () => {
       console.log(`Order ${orderId} is now ready!`);
       navigate(0);
     } catch (error) {
-      console.log(error);
+      console.error("Error updating order status:", error);
     }
   };
 
@@ -64,24 +59,22 @@ const Orders = () => {
               {order.status}
             </div>
           </div>
-          {Array.isArray(order.items) &&
+          {Array.isArray(order.items) && order.items.length > 0 ? (
             order.items.map((product, index) => (
               <div key={index}>
                 <div className="orderDetails">
-                  <div className="orderAmount">{product.amount}</div>
-                  <div className="orderName">{product.name}</div>
-
- <div className="orderSize"><span className="label">Size:</span> {product.size}</div>
- 
+                  <div className="orderAmount">{String(product.amount)}</div>
+                  <div className="orderName">{String(product.name)}</div>
+                  <div className="orderSize"><span className="label">Size:</span> {String(product.size)}</div>
                   <div className="orderExtras">
-                  <span className="label">Add:</span>  {product.extras ? product.extras.join(", ") : ""}
+                    <span className="label">Add:</span> {product.extras ? product.extras.join(", ") : ""}
                   </div>
-                 
-
                 </div>
               </div>
-            ))}
-
+            ))
+          ) : (
+            <div>No items in this order.</div>
+          )}
           {order.status !== "ready" && (
             <Button
               variant="contained"

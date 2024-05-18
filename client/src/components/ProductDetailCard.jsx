@@ -1,6 +1,8 @@
 import Button from "@mui/material/Button";
 import ExtrasDialog from "../components/ExtrasDialog";
 import { useState } from "react";
+import './product.css';
+
 
 const ProductDetailCard = ({ product, onAddProduct }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
