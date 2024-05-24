@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, useRef } from "react";
+import { useLayoutEffect, useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import ProductDetailCard from "../components/ProductDetailCard.jsx";
 import { addToCart } from "../store/cart/cartSlice";
@@ -45,15 +45,24 @@ const Menu = () => {
     dispatch(addToCart(product));
   };
 
+  useEffect(() => {
+    // Scroll to the desired section after the component mounts
+    const initialSection = window.location.hash.slice(1); // Get the section from the URL hash
+    if (initialSection) {
+      const sectionRef = { breakfast: breakfastRef, lunch: lunchRef, dinner: dinnerRef, drinks: drinksRef }[initialSection];
+      if (sectionRef && sectionRef.current) {
+        scrollToSection(sectionRef);
+      }
+    }
+  }, []);
+
+  
   const scrollToSection = (sectionRef) => {
     if (sectionRef.current) {
-      const topPos = sectionRef.current.offsetTop - 70; // Adjusted for fixed header height
-      window.scrollTo({
-        top: topPos,
-        behavior: 'smooth',
-      });
+      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
+  
 
   const cartMenuButton = () => {
     navigate("/cart");
@@ -70,6 +79,7 @@ const Menu = () => {
         />
       ));
   };
+  
 
   return (
     <div className="menuPage">
