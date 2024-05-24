@@ -56,29 +56,32 @@ const Menu = () => {
     }
   }, []);
 
-  
   const scrollToSection = (sectionRef) => {
     if (sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  
 
   const cartMenuButton = () => {
     navigate("/cart");
   };
 
   const renderProductsByCategory = (categoryId) => {
-    return products
-      .filter(product => product.categoryId === categoryId)
-      .map((product, index) => (
-        <ProductDetailCard
-          key={index}
-          product={product}
-          onAddProduct={onAddProduct}
-        />
-      ));
+    return (
+      <div className="product-list">
+        {products
+          .filter(product => product.categoryId === categoryId)
+          .map((product, index) => (
+            <ProductDetailCard
+              key={index}
+              product={product}
+              onAddProduct={onAddProduct}
+            />
+          ))}
+      </div>
+    );
   };
+
   
 
   return (
@@ -91,20 +94,22 @@ const Menu = () => {
       </div>
 
       <div className="products-container">
-        <div ref={breakfastRef} className="menu-section">
+        <div className="menu-section">
+        <div style={{ height: '100px' }} ref={breakfastRef} id="breakfast" className="menu-section-divider"></div>
+
           <div className="menu-section-category">Breakfast</div>
           {renderProductsByCategory('breakfast')}
         </div>
-        <div ref={lunchRef} className="menu-section">
-          <div className="menu-section-category" >Lunch</div>
+        <div className="menu-section">
+          <div ref={lunchRef} id="lunch" className="menu-section-category">Lunch</div>
           {renderProductsByCategory('lunch')}
         </div>
-        <div ref={dinnerRef} className="menu-section">
-          <div className="menu-section-category">Dinner</div>
+        <div className="menu-section">
+          <div ref={dinnerRef} id="dinner" className="menu-section-category">Dinner</div>
           {renderProductsByCategory('dinner')}
         </div>
-        <div ref={drinksRef} className="menu-section">
-          <div className="menu-section-category">Drinks</div>
+        <div className="menu-section">
+          <div ref={drinksRef} id="drinks" className="menu-section-category">Drinks</div>
           {renderProductsByCategory('drinks')}
         </div>
       </div>
