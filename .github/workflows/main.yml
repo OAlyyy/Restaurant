@@ -43,7 +43,7 @@ jobs:
         with:
           args: deploy --only hosting
         env:
-          FIREBASE_TOKEN: --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RESTAURANT_12B3E }}
+         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
       - name: Install Dependencies for server
         run: npm install
         working-directory: server
@@ -52,5 +52,5 @@ jobs:
         with:
           args: deploy --only functions
         env:
-          FIREBASE_TOKEN: --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RESTAURANT_12B3E }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           
