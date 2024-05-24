@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "restaurant-12b3e"
+  },
+  "targets": {
+    "restaurant-12b3e": {
+      "hosting": {
+        "default": [
+          "restaurant-12b3e"
+        ]
+      }
+    }
   }
 }

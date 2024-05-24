@@ -13,6 +13,7 @@
     }
   ],
   "hosting": {
+    "site": "restaurant-12b3e",
     "public": "./client/build",
     "ignore": [
       "firebase.json",
