@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ProductRemoveCard } from "./ProductRemoveCard.jsx";
-import { ProductEditCard } from "./ProductsEditCard.jsx";
+import { ProductRemoveCard } from "../components/ProductRemoveCard.jsx";
+import { ProductEditCard } from "../components/ProductsEditCard.jsx";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";

@@ -1,3 +1,4 @@
+import './Css/extras.css';
 import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -13,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
+import Slide from "@mui/material/Slide";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -51,25 +53,23 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 const priceData = {
-
   extras: [
-    { name: "Ketchub", price: 1 },
+    { name: "Ketchup", price: 1 },
     { name: "Mayonnaise", price: 1 },
-    { name: "Chilli", price: 1 },
+    { name: "Chili", price: 1 },
   ],
-
   sizes: [
- { name: "Small", price: 0 },
+    { name: "Small", price: 0 },
     { name: "Medium", price: 3 },
     { name: "Large", price: 5 },
-  ]
-    
-  
+  ],
 };
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
-const ExtrasDialog = ({ open, onClose, onExtrasSelected, isDrinksCategory  }) => {
-
+const ExtrasDialog = ({ open, onClose, onExtrasSelected, isDrinksCategory }) => {
   const [selectedSize, setSelectedSize] = useState([]);
   const [selectedExtras, setSelectedExtras] = useState([]);
 
@@ -77,7 +77,7 @@ const ExtrasDialog = ({ open, onClose, onExtrasSelected, isDrinksCategory  }) =>
     const { name, checked } = event.target;
     const extra = priceData.extras.find((item) => item.name === name);
     const selectedExtra = extra ? { name: extra.name, price: extra.price } : null;
-  
+
     if (checked) {
       setSelectedExtras((prevSelectedExtras) => [...prevSelectedExtras, selectedExtra]);
     } else {
@@ -90,39 +90,55 @@ const ExtrasDialog = ({ open, onClose, onExtrasSelected, isDrinksCategory  }) =>
   const handleSizeChange = (event) => {
     const { name, value } = event.target;
     const selectedSize = { name, price: parseFloat(value) };
-    setSelectedSize([selectedSize]); 
+    setSelectedSize([selectedSize]);
   };
 
   const handleSave = () => {
     const totalExtrasPrice =
-    selectedExtras.reduce((acc, extra) => acc + extra.price, 0) +
-    selectedSize.reduce((acc, size) => acc + size.price, 0);
-    
+      selectedExtras.reduce((acc, extra) => acc + extra.price, 0) +
+      selectedSize.reduce((acc, size) => acc + size.price, 0);
+
     const selectedData = {
       extras: selectedExtras,
       size: selectedSize,
       totalExtrasPrice: totalExtrasPrice,
-  };
+    };
 
     console.log("selectedExtras:", selectedExtras);
     console.log("selectedSize:", selectedSize);
     console.log("totalExtrasPrice:", selectedData.totalExtrasPrice);
-    console.log("selectedData",selectedData)
+    console.log("selectedData", selectedData);
 
-    
     onExtrasSelected(selectedData);
     setSelectedExtras([]); // Empty the selectedExtras
-    setSelectedSize(""); // Clear the selectedSize
+    setSelectedSize([]); // Clear the selectedSize
+    onClose();
   };
 
   const handleCancel = () => {
     setSelectedExtras([]); // Reset selectedExtras when Cancel is clicked
+    setSelectedSize([]); // Reset selectedSize when Cancel is clicked
     onClose();
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Select Extras</DialogTitle>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      TransitionComponent={Transition}
+      PaperProps={{
+        style: {
+          margin: 0,
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          height: '80vh',
+        },
+      }}
+    >
+       <div className="close-button" onClick={onClose}>X</div>
+
+      <DialogTitle>Select Extras </DialogTitle>
       <DialogContent>
         <Accordion defaultExpanded>
           <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -130,69 +146,59 @@ const ExtrasDialog = ({ open, onClose, onExtrasSelected, isDrinksCategory  }) =>
           </AccordionSummary>
           <AccordionDetails>
             <FormGroup>
-
-            {priceData.sizes.map((size) => (
-        <FormControlLabel
-        key={size.name}
-        control={
-          <Checkbox
-          checked={selectedSize[0]?.name === size.name}
-          onChange={handleSizeChange}
-          name={size.name}
-          value={size.price}
-        />
-      }
-        label={
-              <Typography style={{ color: "black" }}>
-                {size.name} (+${size.price})
-              </Typography>
-           
-          }
-          
-        />
-      ))}
-
+              {priceData.sizes.map((size) => (
+                <FormControlLabel
+                  key={size.name}
+                  control={
+                    <Checkbox
+                      checked={selectedSize[0]?.name === size.name}
+                      onChange={handleSizeChange}
+                      name={size.name}
+                      value={size.price}
+                    />
+                  }
+                  label={
+                    <Typography style={{ color: "black" }}>
+                      {size.name} (+${size.price})
+                    </Typography>
+                  }
+                />
+              ))}
             </FormGroup>
           </AccordionDetails>
         </Accordion>
 
-{/* Conditionally render the "Extras" accordion */}
-{!isDrinksCategory && (
-
-        <Accordion defaultExpanded>
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography >Extras</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <FormGroup>
-
-
-             {priceData.extras.map((extra) => (
-  <FormControlLabel
-    key={extra.name}
-    control={<Checkbox />}
-    label={
-      <Typography style={{ color: "black" }}>
-        {extra.name} (+${extra.price})
-      </Typography>
-    }
-    name={extra.name}
-    onChange={handleExtrasChange}
-  />
-))}
-
-
-            </FormGroup>
-          </AccordionDetails>
-        </Accordion>
-         )}
+        {!isDrinksCategory && (
+          <Accordion defaultExpanded>
+            <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+              <Typography>Extras</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <FormGroup>
+                {priceData.extras.map((extra) => (
+                  <FormControlLabel
+                    key={extra.name}
+                    control={<Checkbox />}
+                    label={
+                      <Typography style={{ color: "black" }}>
+                        {extra.name} (+${extra.price})
+                      </Typography>
+                    }
+                    name={extra.name}
+                    onChange={handleExtrasChange}
+                  />
+                ))}
+              </FormGroup>
+            </AccordionDetails>
+          </Accordion>
+        )}
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleSave}>Add to Cart</Button>
-        <Button onClick={handleCancel}>Cancel</Button>
+      <DialogActions className='addToCartHolder'>
+        <Button onClick={handleSave} className='addToCart'>Add to Cart</Button>
       </DialogActions>
     </Dialog>
   );
 };
 
 export default ExtrasDialog;
+

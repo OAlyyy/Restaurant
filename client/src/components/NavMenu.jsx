@@ -16,7 +16,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 // Step number #1 Change Logo Img    CC8721 dedede
-import foody from "../assets/images/omarfoodlogo.png";
+// import foody from "../assets/images/omarfoodlogo.png";
+import"./Css/header.css"
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -53,7 +54,8 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
-  background: "#CC8721",
+  background: "white",
+  boxShadow: "none",
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -121,10 +123,10 @@ export default function PersistentDrawerLeft() {
   return (
     <Box sx={{ display: "flex" }} className="Header">
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} >
         <Toolbar>
           <IconButton
-            color="inherit"
+            color="black"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -148,9 +150,11 @@ export default function PersistentDrawerLeft() {
               flexGrow: 1,
             }}
           >
-            <Link to="/">
+            {/* <Link to="/">
               <img src={foody} alt="logo" className="logo" />
-            </Link>
+            </Link> */}
+
+            Pizzeria Omar
           </div>
 
           {jwtToken ? (
@@ -158,7 +162,7 @@ export default function PersistentDrawerLeft() {
               <Link
                 to="/orders"
                 style={{
-                  color: "white",
+                  color: "black",
                   textDecoration: "none",
                   fontWeight: "bold",
                 }}
@@ -169,17 +173,13 @@ export default function PersistentDrawerLeft() {
           ) : (
             <Link className="price-cart-icon" to="/cart">
               <div className="price">
-              {cartTotalPrice.toFixed(2)} €
-              </div>
-
-              <div className="cart-icon-container">
-                <ShoppingCartCheckoutIcon
-                  alt="ShoppingCartCheckoutIcon"
-                  className="cart-icon"
-                />
+              €{cartTotalPrice.toFixed(2)}
               </div>
             </Link>
           )}
+
+
+
         </Toolbar>
       </AppBar>
       <Main open={open}>
@@ -192,7 +192,7 @@ export default function PersistentDrawerLeft() {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
-            backgroundColor:"#CC8721"
+            backgroundColor:"white"
           },
         }}
         variant="persistent"
@@ -210,39 +210,34 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
+       
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/">
               <ListItemText
-                primary="Home"
-                primaryTypographyProps={{ color: "white" }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/menu">
-              <ListItemText
                 primary="Menu"
-                primaryTypographyProps={{ color: "white" }}
+                primaryTypographyProps={{ color: "black" }}
               />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
+
             <ListItemButton component={Link} to="/cart">
               <ListItemText
-                primary={`${cartTotalPrice.toFixed(2)} €`}  
+                primary={`€${cartTotalPrice.toFixed(2)}`}  
                 secondary="View your cart"
-                primaryTypographyProps={{ color: "white" }}
-                secondaryTypographyProps={{ color: "white" }}
+                primaryTypographyProps={{ color: "black" }}
+                secondaryTypographyProps={{ color: "black" }}
               />
               <ListItemIcon>
                 <ShoppingCartCheckoutIcon
                   alt="ShoppingCartCheckoutIcon"
                   fontSize="large"
-                  sx={{ color: "white" }}
+                  sx={{ color: "black" }}
                 />
               </ListItemIcon>
             </ListItemButton>
+            
           </ListItem>
         </List>
 
@@ -254,8 +249,8 @@ export default function PersistentDrawerLeft() {
               <ListItemButton component={Link} to="/Admin">
                 <ListItemText
                   primary="Admin"
-                  primaryTypographyProps={{ color: "white" }}
-                  secondaryTypographyProps={{ color: "white" }}
+                  primaryTypographyProps={{ color: "black" }}
+                  secondaryTypographyProps={{ color: "black" }}
                 />
               </ListItemButton>
             </ListItem>
@@ -264,8 +259,8 @@ export default function PersistentDrawerLeft() {
               <ListItemButton onClick={logout}>
                 <ListItemText
                   primary="Logout"
-                  primaryTypographyProps={{ color: "white" }}
-                  secondaryTypographyProps={{ color: "white" }}
+                  primaryTypographyProps={{ color: "black" }}
+                  secondaryTypographyProps={{ color: "black" }}
                 />
               </ListItemButton>
             </ListItem>
@@ -276,8 +271,8 @@ export default function PersistentDrawerLeft() {
               <ListItemText
                 primary="Log In"
                 secondary="Administration Only"
-                primaryTypographyProps={{ color: "white" }}
-                secondaryTypographyProps={{ color: "white" }}
+                primaryTypographyProps={{ color: "black" }}
+                secondaryTypographyProps={{ color: "black" }}
               />
             </ListItemButton>
           </ListItem>

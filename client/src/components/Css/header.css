@@ -1,0 +1,43 @@
+/* NAVBAR */
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  height: 7vh; /* Adjust this height as needed */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #ffffff; /* Set background color to cover content behind */
+  z-index: 1000;
+}
+
+.logo-text {
+  color: black;
+  font-size: 20px; /* Adjust font size as needed */
+font-weight: 500;
+}
+
+.Header {
+  height: 5vh; /* Adjust this height as needed */
+}
+
+.price-cart-icon {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.price {
+  color: black;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.cart-icon-container {
+  margin-right: 10px;
+  margin-left: 10px;
+}

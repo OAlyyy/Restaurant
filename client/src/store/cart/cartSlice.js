@@ -19,19 +19,21 @@ export const cartSlice = createSlice({
         extras,
         totalExtrasPrice,
       } = action.payload;
-      const existingProduct = state.products.find(
-        (product) => product.documentId === documentId
+      
+      // Check if the product exists in the cart with the same size and extras
+      const existingProductIndex = state.products.findIndex(
+        (product) =>
+          product.documentId === documentId &&
+          product.size === size &&
+          JSON.stringify(product.extras) === JSON.stringify(extras)
       );
-      if (existingProduct) {
-        return {
-          products: state.products.map((product) =>
-            product.documentId === documentId
-              ? { ...product, amount: product.amount + 1 }
-              : product
-          ),
-        };
+    
+      if (existingProductIndex !== -1) {
+        // If the product exists, increment the amount by 1
+        state.products[existingProductIndex].amount += 1;
       } else {
-        const newProduct = {
+        // If the product does not exist, add it to the cart
+        state.products.push({
           documentId,
           name,
           price,
@@ -40,10 +42,9 @@ export const cartSlice = createSlice({
           size,
           extras,
           totalExtrasPrice,
-        };
-        return { products: [...state.products, newProduct] };
+        });
       }
-    },
+    },    
     clearCart: (state) => {
       return { products: [] };
     },

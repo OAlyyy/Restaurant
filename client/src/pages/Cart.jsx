@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { clearCart } from "../store/cart/cartSlice.js";
 import { useDispatch } from "react-redux";
 import { createOrder, getLastOrderNumber } from "../firebase.js";
-
+import"./Css/Cart.css"
 
 
 const Cart = () => {
@@ -64,18 +64,17 @@ const Cart = () => {
       <ProductsSummary />
 
       <div className="summaryEnd">
-        <div className="total-price">
-        Total : € {cartTotalPrice.toFixed(2)} 
+      <div className="total-price">
+          <span>Total :</span>
+          <span className="total-price-value">€ {cartTotalPrice.toFixed(2)}</span>
         </div>
         <div className="summaryButtons">
           <Button variant="contained" onClick={placeOrder}>
-            Pay at Cashier
+            Pay Onsite
           </Button>
 
           <Button
-            onClick={() => handleTabSwitch("Delivery")}
-            endIcon={<SendIcon />}
-          >
+            onClick={() => handleTabSwitch("Delivery")}>
             Pay Online
           </Button>
         </div>

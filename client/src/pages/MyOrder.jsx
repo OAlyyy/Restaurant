@@ -6,6 +6,9 @@ import Popper from "@mui/material/Popper";
 import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
+import"./Css/MyOrder.css"
+
+
 
 const OrderDetail = () => {
   const { orderNumber } = useParams();
@@ -60,17 +63,20 @@ const OrderItem = ({ product }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const id = open ? `simple-popper-${product.id}` : undefined;
+  const [imageError, setImageError] = useState(false);
 
+  
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
   return (
     <div className="myorderItem">
-      <img
-        className="myorder-image"
-        src={product.imageUrl}
-        alt={product.imageUrl}
+      <img 
+      className="myorder-image"
+        src={imageError ? "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=2742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" : product.imageUrl}
+        alt={product.name}
+        onError={() => setImageError(true)} 
       />
       <div className="myorderDetails">
         <div className="myorderName">{product.name}</div>

@@ -7,13 +7,14 @@ import Menu from "./pages/Menu";
 import Orders from "./pages/Orders";
 import MyOrder from "./pages/MyOrder";
 import Cart from "./pages/Cart";
-import Admin from "./components/Admin.jsx";
+import Admin from "./pages/Admin.jsx";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import { useSelector } from "react-redux";
 import { cartProducts } from "./store/cart/cartSlice";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
 import NavMenu from "./components/NavMenu";
+import Header from "./components/Header";
 import { auth } from "./firebase";
 
 
@@ -45,16 +46,16 @@ const Navigation = () => {
 
   return (
     <div className="Navigation">
-       <NavMenu className="Header" cartCount={productsInCart ? productsInCart.length : 0} />
+       <Header className="Header"/>
      <div className="InApp">
     <AuthContext.Provider value={{ authState, setAuthState }}>
      
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Menu/>} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register />} />
-        <Route path="/menu" element={<Menu />} />
+        <Route path="/menu" element={<Menu/>} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/orders/:orderNumber" element={<MyOrder />} />

@@ -1,28 +1,24 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import ProductDetailCard from "../components/ProductDetailCard.jsx";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import { addToCart } from "../store/cart/cartSlice";
-import Fab from "@mui/material/Fab";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import SvgIcon from "@mui/material/SvgIcon";
+import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { fetchProducts } from '../firebase';
-
+import './Css/Menu.css'; 
 
 const Menu = () => {
   const dispatch = useDispatch();
-  // const products = useSelector(selectAllProducts);
   const [products, setProducts] = useState([]);
-  const [activeTabIndex, setActiveTabIndex] = useState(1);
   const navigate = useNavigate();
 
+  // Refs for menu sections
+  const breakfastRef = useRef(null);
+  const lunchRef = useRef(null);
+  const dinnerRef = useRef(null);
+  const drinksRef = useRef(null);
 
-  // useEffect(() => {
-  //   dispatch(fetchProducts());
-  // }, [dispatch]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchProductsData = async () => {
       try {
         const fetchedProducts = await fetchProducts();
@@ -33,104 +29,85 @@ const Menu = () => {
     };
 
     fetchProductsData();
+
+    // Scroll to the desired section after the component mounts
+    const initialSection = window.location.hash.slice(1); // Get the section from the URL hash
+    if (initialSection) {
+      const sectionRef = { breakfast: breakfastRef, lunch: lunchRef, dinner: dinnerRef, drinks: drinksRef }[initialSection];
+      if (sectionRef && sectionRef.current) {
+        scrollToSection(sectionRef);
+      }
+    }
   }, []);
 
   const onAddProduct = (product) => {
     console.log("Adding product to cart:", product);
     dispatch(addToCart(product));
-
   };
 
-  const onTabSwitch = (event, activeTabIndex) => {
-    setActiveTabIndex(activeTabIndex);
-  };
-
-  // Step number #5 add cases or remove if necessary fort categories
-   // Step number #6, line 76, change tabs names if neccessary 
-   // menu pohotos 250px x 250px
-  const filteredProducts = products.filter((product) => {
-    const categoryId = product.categoryId;
-    switch (activeTabIndex) {
-      case 0:
-        return true
-      case 1:
-        return categoryId === "breakfast";
-      case 2:
-        return categoryId === "lunch";
-      case 3:
-        return categoryId === "dinner";
-      case 4:
-        return categoryId === "drinks";
-      default:
-        return false;
+  const scrollToSection = (sectionRef) => {
+    if (sectionRef.current) {
+      const topPos = sectionRef.current.offsetTop - 70; // Adjusted for fixed header height
+      window.scrollTo({
+        top: topPos,
+        behavior: 'smooth',
+      });
     }
-  });
+  };
 
   const cartMenuButton = () => {
     navigate("/cart");
   };
 
+  const renderProductsByCategory = (categoryId) => {
+    return products
+      .filter(product => product.categoryId === categoryId)
+      .map((product, index) => (
+        <ProductDetailCard
+          key={index}
+          product={product}
+          onAddProduct={onAddProduct}
+        />
+      ));
+  };
 
   return (
     <div className="menuPage">
-    
-        <div className="menu-wrapper">
-          {products.length > 0 && products && (
-            <div className="tabs-container">
-           <Tabs
-              value={activeTabIndex}
-              onChange={onTabSwitch}
-              textColor="primary"
-              indicatorColor="secondary"
-              variant="scrollable"
-              scrollButtons
-              allowScrollButtonsMobile
-              aria-label="scrollable auto tabs example"
-              style={{
-                position: "fixed",
-                top: "75px",
-                backgroundColor: "#FDFDFD",
-                width: "100%",
-              }}
-            >
-                  <Tab label="Breakfast" value={1} className="tabItem"/>             
-                  <Tab label="Lunch" value={2} className="tabItem"/>       
-                  <Tab label="Dinner" value={3} className="tabItem"/>
-                  <Tab label="Drinks" value={4} className="tabItem"/>
-
-            </Tabs>
-            </div>
-          )}
-          
-          <div className="products-container">
-            {products.length > 0 &&
-              filteredProducts.map((product, index) => {
-                 console.log("onAddProduct",onAddProduct)
-                return (
-                  <ProductDetailCard
-                    key={index}
-                    product={product}
-                    onAddProduct={onAddProduct}
-                  />
-                );
-               
-              })}
-          </div>
-        </div>
-      
-
-      <div className="fab-container" onClick={cartMenuButton}>
-        <Fab size="medium" style={{ backgroundColor: 'red' }} aria-label="add">
-          <SvgIcon
-            fontSize="large"
-            component={ShoppingCartCheckoutIcon}
-            alt="cart"
-            className="cart-icon"
-          />
-        </Fab>
+      <div className="tabs-container">
+        <div className="tab" onClick={() => scrollToSection(breakfastRef)}>Breakfast</div>
+        <div className="tab" onClick={() => scrollToSection(lunchRef)}>Lunch</div>
+        <div className="tab" onClick={() => scrollToSection(dinnerRef)}>Dinner</div>
+        <div className="tab" onClick={() => scrollToSection(drinksRef)}>Drinks</div>
       </div>
 
-   
+      <div className="products-container">
+        <div ref={breakfastRef} className="menu-section">
+          <div className="menu-section-category">Breakfast</div>
+          {renderProductsByCategory('breakfast')}
+        </div>
+        <div ref={lunchRef} className="menu-section">
+          <div className="menu-section-category" >Lunch</div>
+          {renderProductsByCategory('lunch')}
+        </div>
+        <div ref={dinnerRef} className="menu-section">
+          <div className="menu-section-category">Dinner</div>
+          {renderProductsByCategory('dinner')}
+        </div>
+        <div ref={drinksRef} className="menu-section">
+          <div className="menu-section-category">Drinks</div>
+          {renderProductsByCategory('drinks')}
+        </div>
+      </div>
+
+      <div className="button-container">
+        <Button 
+          variant="contained" 
+          color="primary" 
+          onClick={cartMenuButton}
+        >
+          View basket
+        </Button>
+      </div>
     </div>
   );
 };
