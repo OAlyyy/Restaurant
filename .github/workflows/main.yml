@@ -41,7 +41,7 @@ jobs:
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RESTAURANT_12B3E }}
+          args: deploy --only hosting
         env:
           FIREBASE_TOKEN: --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RESTAURANT_12B3E }}
       - name: Install Dependencies for server
@@ -50,7 +50,7 @@ jobs:
       - name: Deploy to Firebase Functions
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only functions --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RESTAURANT_12B3E }}
+          args: deploy --only functions
         env:
           FIREBASE_TOKEN: --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RESTAURANT_12B3E }}
           
