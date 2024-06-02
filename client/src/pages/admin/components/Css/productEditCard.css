@@ -1,0 +1,55 @@
+/* ProductEditCard component styles */
+.product-edit-card {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .product-edit-card img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    border-radius: 5px;
+  }
+  
+  .product-edit-card .product-info {
+    flex-grow: 1;
+  }
+  
+  .product-edit-card .product-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .product-edit-card .product-description {
+    margin-bottom: 5px;
+  }
+  
+  .product-edit-card .product-price {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .product-edit-card .product-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .product-edit-card .edit-button,
+  .product-edit-card .delete-button {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .product-edit-card .edit-button:hover,
+  .product-edit-card .delete-button:hover {
+    color: #007bff;
+  }
+
+  .bttn{
+    height: 30px;
+  }
+  

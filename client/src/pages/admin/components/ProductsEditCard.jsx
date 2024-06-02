@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import React, { useState } from "react";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import "./Css/productEditCard.css"; 
 
 export const ProductEditCard = ({ product, onEditProduct }) => {
   const [editField, setEditField] = useState("");
@@ -30,14 +31,6 @@ export const ProductEditCard = ({ product, onEditProduct }) => {
 
   return (
     <div className="carousel-element">
-      <img
-        className="carousel-image"
-        src={product.imageUrl}
-        alt={product.name}
-      />
-      <h2 className="carousel-title">{product.name}</h2>
-      <div className="carousel-description">{product.description}</div>
-      <div className="carousel-title">{product.price} €</div>
 
       <select value={editField} onChange={handleEditFieldChange} >
         <option value="">Select a field to edit</option>
@@ -47,6 +40,7 @@ export const ProductEditCard = ({ product, onEditProduct }) => {
         <option value="categoryId">Category</option>
         <option value="imageUrl">Image URL</option>
       </select>
+      
       <div className="editdropdownadmin">
          {editField && (
         <input
@@ -61,6 +55,7 @@ export const ProductEditCard = ({ product, onEditProduct }) => {
      
       <Stack direction="row" spacing={2}>
         <Button
+        className="bttn"
           variant="outlined"
           color="success"
           onClick={() => handleProductEdit(product.documentId, editField, editedValue)}

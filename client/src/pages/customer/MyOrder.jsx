@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchOrder } from "../firebase.js";
+import { fetchOrder } from "../../firebase.js";
 import Box from "@mui/material/Box";
 import Popper from "@mui/material/Popper";
 import * as React from "react";

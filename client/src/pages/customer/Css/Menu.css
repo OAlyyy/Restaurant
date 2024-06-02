@@ -2,8 +2,6 @@
 body, html {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -68,7 +66,7 @@ body, html {
 .menuPage {
   background-color: #FDFDFD;
   min-height: 90vh;
-  width: 100vw;
+  width: 98vw;
 }
 .menu-section {
   width: 100%;
@@ -149,4 +147,17 @@ body, html {
   bottom: 0;
   right: 0;
   margin-bottom: 10px;
+}
+
+
+.cart-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.pricee {
+  margin-left: 8px; 
+  color: white;
 }
