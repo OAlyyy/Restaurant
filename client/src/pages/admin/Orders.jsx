@@ -47,7 +47,7 @@ const Orders = () => {
   return (
     <div className="ordersContainer">
       {orders.map((order) => (
-        <div className="order" key={order.orderNumber}>
+        <div className="order" key={order.documentId}>
           <div className="orderHeader">
             <Link to={`/orders/${order.orderNumber}`}>
               <div className="orderNumber">Order #{order.orderNumber}</div>

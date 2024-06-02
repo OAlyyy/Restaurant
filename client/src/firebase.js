@@ -12,8 +12,10 @@ import {
   updateDoc,
   deleteDoc,
   limit,
+  serverTimestamp
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDKJ9Kb9RdlINdYv09FR6Bs7rOvqFZem8g",
@@ -113,6 +115,9 @@ const createOrder = async (orderData) => {
     // Set the order number in the order data
     orderData.orderNumber = newOrderNumber;
 
+    // Set the timestamp field to the current time
+    orderData.timestamp = serverTimestamp();
+
     // Update the product array to include extras and size
     const updatedProducts = orderData.items.map((product) => ({
       ...product,
@@ -169,6 +174,29 @@ const editProduct = async (documentId, updatedData) => {
   }
 };
 
+
+ const calculateSales = (orders) => {
+  // Initialize total sales to zero
+  let totalSales = 0;
+
+  // Iterate over each order to calculate total sales
+  orders.forEach((order) => {
+    // If the order has a totalPrice field, add it to total sales
+    if (order.totalPrice) {
+      totalSales += order.totalPrice;
+    } else if (order.items) {
+      // If there's no totalPrice field, calculate it from the items
+      order.items.forEach((item) => {
+        totalSales += item.price * item.quantity; // Assuming each item has a price and quantity field
+      });
+    }
+  });
+
+  // Return the total sales amount
+  return totalSales;
+};
+
+
 export {
   app,
   fetchProducts,
@@ -180,4 +208,5 @@ export {
   getLastOrderNumber,
   updateOrderStatus,
   editProduct,
+  calculateSales
 };

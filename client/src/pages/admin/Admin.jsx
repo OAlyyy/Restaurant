@@ -21,13 +21,15 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./Css/Admin.css";
+import Orders from "./Orders";
+import Dashboard from "./Dashboard";
 
 function Admin() {
   const cookies = new Cookies();
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState(null);
   const [products, setProducts] = useState([]);
-  const [visibleSection, setVisibleSection] = useState("products");
+  const [visibleSection, setVisibleSection] = useState("dashboard");
   const [imageError, setImageError] = useState(false);
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [showEditProduct, setShowEditProduct] = useState(false);
@@ -122,8 +124,33 @@ function Admin() {
 
       <div className="sidebar">
         <div className="sidebar-title">Admin</div>
-        <div className={`sidebar-item ${  visibleSection === "products" ? "active" : ""  }`}  onClick={() => setVisibleSection("products")}  > Products </div>
 
+        <div
+          className={`sidebar-item ${
+            visibleSection === "dashboard" ? "active" : ""
+          }`}
+          onClick={() => setVisibleSection("dashboard")}
+        >
+          Dashboard
+        </div>
+
+        <div
+          className={`sidebar-item ${
+            visibleSection === "products" ? "active" : ""
+          }`}
+          onClick={() => setVisibleSection("products")}
+        >
+          {" "}
+          Menu{" "}
+        </div>
+        <div
+          className={`sidebar-item ${
+            visibleSection === "orders" ? "active" : ""
+          }`}
+          onClick={() => setVisibleSection("orders")}
+        >
+          Orders
+        </div>
       </div>
 
       <div className="main-content">
@@ -169,6 +196,18 @@ function Admin() {
                 />
               </div>
             ))}
+          </div>
+        )}
+
+        {visibleSection === "orders" && (
+          <div>
+            <Orders />
+          </div>
+        )}
+
+        {visibleSection === "dashboard" && (
+          <div>
+            <Dashboard />
           </div>
         )}
       </div>
