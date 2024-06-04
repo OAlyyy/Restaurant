@@ -1,20 +1,20 @@
 import { Route, Routes } from "react-router-dom";
-import { Footer } from "./components/Footer";
-import Home from "./pages/customer/Home.jsx";
-import Login from "./pages/customer/Login.jsx";
-import Register from "./pages/customer/Register.jsx";
-import Menu from "./pages/customer/Menu.jsx";
-import Orders from "./pages/admin/Orders.jsx";
-import MyOrder from "./pages/customer/MyOrder.jsx";
-import Cart from "./pages/customer/Cart.jsx";
-import Admin from "./pages/admin/Admin.jsx";
-import PaymentSuccess from "./pages/customer/PaymentSuccess.jsx";
+import { Footer } from "./pages/customer/components/Footer.jsx";
+import Home from "./pages/customer/pages/Home.jsx";
+import Login from "./pages/customer/pages/Login.jsx";
+import Register from "./pages/customer/pages/Register.jsx";
+import Menu from "./pages/customer/pages/Menu.jsx";
+import Orders from "./pages/admin/pages/Orders.jsx";
+import MyOrder from "./pages/customer/pages/MyOrder.jsx";
+import Cart from "./pages/customer/pages/Cart.jsx";
+import Admin from "./pages/admin/pages/Admin.jsx";
+import PaymentSuccess from "./pages/customer/pages/PaymentSuccess.jsx";
 import { useSelector } from "react-redux";
 import { cartProducts } from "./store/cart/cartSlice";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
-import NavMenu from "./components/NavMenu";
-import Header from "./components/Header";
+import NavMenu from "./pages/customer/components/NavMenu.jsx";
+import Header from "./pages/customer/components/Header.jsx";
 import { auth } from "./firebase";
 
 

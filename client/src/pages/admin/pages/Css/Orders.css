@@ -1,0 +1,85 @@
+
+
+/* Orders */
+
+.orders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  .ordersContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 50px;
+  }
+  
+  .order {
+    display: flex;
+    flex-direction: column;
+    width: calc((100% - 40px) / 3); /* show 5 orders in a row on desktop */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    align-items: center;
+  }
+  
+  .orderHeader {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+  }
+  
+  .orderNumber {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .orderStatus.ready {
+    color: green;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .orderStatus.pending {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .orderDetails {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    max-width: 100%;
+  }
+  
+  .orderName {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .orderAmount {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  @media (max-width: 768px) {
+    /* apply mobile styles */
+    .order {
+      width: 100%;
+      max-width: none;
+    }
+  }

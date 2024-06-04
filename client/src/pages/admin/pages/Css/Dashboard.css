@@ -1,0 +1,47 @@
+/* Css/Dashboard.css */
+.dashboard {
+    margin-top: 30px;
+    padding: 10px;
+    background-color: #f8f9fa;
+  }
+  
+  .dashboard-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sales,
+  .orders {
+    text-align: center;
+  }
+
+  
+
+  .bar-active {
+    fill: #82ca9d; /* Specify the color for the active bars */
+  }
+  
+  .time-range-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .time-range-selector button {
+    padding: 10px;
+    border: none;
+    background-color: #8884d8;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .time-range-selector button:hover {
+    background-color: #6662a8;
+  }
+  
+  .time-range-selector button.active {
+    background-color: #5552a0;
+  }
+  

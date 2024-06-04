@@ -1,0 +1,94 @@
+
+
+.myorder {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* set the width to 100% by default */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    align-items: center;
+    text-align: center;
+  }
+  @media screen and (max-width: 767px) {
+    /* apply styles for mobile screens with a maximum width of 767px */
+    .myorder {
+      max-width: 70vw; /* set the maximum width to 70vw for mobile screens */
+    }
+  }
+  
+  .myorderHeader {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+  }
+  .myorderNumber {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .myorderStatus.ready {
+    color: green;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .myorderStatus.pending {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .myorderItem {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    height: 600px;
+  }
+  
+  .myorder-image {
+    width: 100px;
+    height: 100px;
+    padding-right: 5px;
+  }
+  
+  .myorderDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the products container */
+    padding-bottom: 60px;
+    height: 200px;
+  }
+  
+  .myorderName {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .myorderAmount {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .myorderprice {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .myorderTotalPrice {
+    font-size: 26px;
+    font-weight: bold;
+    padding-bottom: 30px;
+  }
+  
