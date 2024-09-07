@@ -43,17 +43,26 @@ export const ProductsSummaryCard = ({ product }) => {
 
   return (
     <div className="product-summary-card">
-        <img
-          src={imageError ? "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=2742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" : product.imageUrl}
-          alt={product.name}
-          onError={handleImageError}
-        />
+      <img
+        src={
+          imageError
+            ? "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=2742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            : product.imageUrl
+        }
+        alt={product.name}
+        onError={handleImageError}
+      />
 
       <div className="product-details">
         <div className="product-summary-name">{product.name}</div>
-        <div className="product-summary-price">€{totalProductPrice.toFixed(2)}</div>
+        <div className="product-summary-price">
+          €{totalProductPrice.toFixed(2)}
+        </div>
         <p className="product-summary-extras">
           Extras: {product.extras.map((extra) => `${extra.name}`).join(", ")}
+        </p>
+        <p className="product-summary-extras">
+          Size: {product.size.map((size) => `${size.name}`).join(", ")}
         </p>
       </div>
 
@@ -71,7 +80,6 @@ export const ProductsSummaryCard = ({ product }) => {
           </IconButton>
         </div>
       </div>
-
     </div>
   );
 };

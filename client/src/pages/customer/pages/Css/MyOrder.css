@@ -1,20 +1,20 @@
 
 
 .myorder {
-    margin-top: 60px;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
-    width: 100%; /* set the width to 100% by default */
-    padding: 10px;
+    width: 100%; 
     border: 1px solid #ccc;
     border-radius: 8px;
     align-items: center;
     text-align: center;
+    justify-content: center
   }
   @media screen and (max-width: 767px) {
     /* apply styles for mobile screens with a maximum width of 767px */
     .myorder {
-      max-width: 70vw; /* set the maximum width to 70vw for mobile screens */
+      max-width: 70vw;
     }
   }
   
@@ -22,37 +22,43 @@
     display: flex;
     align-items: center;
     text-align: center;
+    justify-content: center;
     justify-content: space-between;
     background-color: #f5f5f5;
     border-bottom: 1px solid #ccc;
     width: 100%;
+    font-size: 20px;
+    padding: 10px;
   }
   .myorderNumber {
     display: flex;
     align-items: center;
     text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .myorderStatus.ready, .myorderStatus.pending {
     font-size: 20px;
     font-weight: bold;
   }
   
   .myorderStatus.ready {
     color: green;
-    font-size: 16px;
-    font-weight: bold;
   }
   
   .myorderStatus.pending {
     color: red;
-    font-size: 16px;
-    font-weight: bold;
   }
   
   .myorderItem {
+    padding: 10px;
     flex: 2;
     display: flex;
     flex-direction: row;
     align-items: center;
     text-align: center;
+    justify-content: center;
     border-bottom: 1px solid #ccc;
     height: 600px;
   }
@@ -68,8 +74,8 @@
     display: flex;
     flex-direction: column;
     align-items: center; /* Center the products container */
-    padding-bottom: 60px;
     height: 200px;
+    justify-content: center;
   }
   
   .myorderName {
@@ -84,11 +90,33 @@
   .myorderprice {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    font-size: 20px;
+    font-weight: bold;
   }
   
   .myorderTotalPrice {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: bold;
-    padding-bottom: 30px;
+    padding: 8px 0;
   }
   
+  .emptyCartButton {
+  background-color: black;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.emptyCart {
+  margin-top: 60px;
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column; /* Arrange text and button vertically */
+  align-items: center;
+  justify-content: center; /* Center both vertically and horizontally */
+}

@@ -123,15 +123,17 @@ const Menu = () => {
       </div>
 
       <div className="button-container">
+      {cart.length >= 1 && (
         <Button 
           variant="contained" 
           color="primary" 
           onClick={cartMenuButton}
           className="cart-button"
         >
-           <span>View basket</span>
+           <span  style={{color: "#FFA07A" }}>View basket</span>
           <div className="pricee">€ {cartTotalPrice.toFixed(2)}</div>
         </Button>
+         )}
       </div>
     </div>
   );

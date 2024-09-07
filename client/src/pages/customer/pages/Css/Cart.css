@@ -13,14 +13,14 @@
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  width: 80%;
+  width: 100%;
   margin: auto;
   margin-bottom: 30px;
 }
 
 .total-price {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between;   
   width: 100%;
   font-weight: bold;
   font-size: 20px;
@@ -35,11 +35,28 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   width: 80%;
 }
 
+.add-item-button {
+  background-color: black;
+  color: white;
+  width: auto;
+  border-radius: 12px;
+}
+
+.add-item-container {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  width: 100%;
+  margin-bottom: 10px; /* Space below the button */
+}
+
+
 .summaryButtons Button {
   margin-right: 10px;
+  border-radius: 12px;
 }
 
 .cart-container {

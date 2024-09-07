@@ -51,8 +51,15 @@ const Cart = () => {
   if (!cart || cart.length === 0) {
     return (
       <div className="emptyCart">
-        <h1>Your Cart Is Still Empty</h1>
-      </div>
+      <h1>Your cart is empty</h1>
+      <Button
+        variant="contained"
+        className="emptyCartButton"
+        onClick={() => navigate("/menu")}
+      >
+        Go to Menu
+      </Button>
+    </div>
     );
   }
 
@@ -63,20 +70,37 @@ const Cart = () => {
       <ProductsSummary />
 
       <div className="summaryEnd">
+  
+      <div className="add-item-container">
+      <Button
+        className="add-item-button"
+        style={{
+          backgroundColor: '#D2691E', 
+          color: 'white',
+          padding: '4px 12px',
+          fontSize: '12px',
+          height: 'auto', 
+          minHeight: '30px',
+        }}
+        onClick={() => navigate("/menu")}
+      >
+        Add Item
+      </Button>
+    </div>
+
       <div className="total-price">
           <span>Total :</span>
           <span className="total-price-value">€ {cartTotalPrice.toFixed(2)}</span>
         </div>
         <div className="summaryButtons">
           <Button variant="contained" onClick={placeOrder}>
-            Pay Onsite
+            Checkout
           </Button>
-
+          
           {/* <Button
             onClick={() => handleTabSwitch("Delivery")}>
             Pay Online
           </Button> */}
-
         </div>
       </div>
     </div>
