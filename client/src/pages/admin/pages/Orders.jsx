@@ -27,6 +27,7 @@ const Orders = () => {
           (a, b) => b.orderNumber - a.orderNumber
         );
         setOrders(sortedOrders);
+        console.log("sortedOrders:", sortedOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
@@ -62,21 +63,24 @@ const Orders = () => {
             </div>
           </div>
           {Array.isArray(order.items) && order.items.length > 0 ? (
-            order.items.map((product, index) => (
-              <div key={index}>
-                <div className="orderDetails">
-                  <div className="orderAmount">{String(product.amount)}</div>
-                  <div className="orderName">{String(product.name)}</div>
-                  <div className="orderSize"><span className="label">Size:</span> {String(product.size)}</div>
-                  <div className="orderExtras">
-                    <span className="label">Add:</span> {product.extras ? product.extras.join(", ") : ""}
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div>No items in this order.</div>
-          )}
+  order.items.map((product, index) => (
+    <div key={index}>
+      <div className="orderDetails">
+        <div className="orderAmount">{String(product.amount)}</div>
+        <div className="orderName">{String(product.name)}</div>
+        <div className="orderSize">
+          <span className="label">Size:</span> {product.size && product.size.length > 0 ? product.size[0].name : ""}
+        </div>
+        <div className="orderExtras">
+          <span className="label">Extras:</span> {product.extras && product.extras.length > 0 ? product.extras.map(extra => extra.name).join(", ") : ""}
+        </div>
+      </div>
+    </div>
+  ))
+) : (
+  <div>No items in this order.</div>
+)}
+
           {order.status !== "ready" && (
             <Button
               variant="contained"

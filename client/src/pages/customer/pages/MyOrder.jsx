@@ -40,7 +40,10 @@ const OrderDetail = () => {
   }
 
   return (
-    <div className="myorder">
+
+    <div className="myorderContainer" >
+
+<div className="myorder">
       <div className="myorderHeader">
         <div className="myorderNumber">Order #{order.orderNumber}</div>
         <div
@@ -56,6 +59,11 @@ const OrderDetail = () => {
       ))}
       <div className="myorderTotalPrice"> Total : {order.totalPrice} €</div>
     </div>
+
+    </div>
+  
+
+
   );
 };
 

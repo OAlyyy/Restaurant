@@ -29,7 +29,7 @@ function Admin() {
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState(null);
   const [products, setProducts] = useState([]);
-  const [visibleSection, setVisibleSection] = useState("dashboard");
+  const [visibleSection, setVisibleSection] = useState("orders");
   const [imageError, setImageError] = useState(false);
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [showEditProduct, setShowEditProduct] = useState(false);
@@ -127,11 +127,11 @@ function Admin() {
 
         <div
           className={`sidebar-item ${
-            visibleSection === "dashboard" ? "active" : ""
+            visibleSection === "orders" ? "active" : ""
           }`}
-          onClick={() => setVisibleSection("dashboard")}
+          onClick={() => setVisibleSection("orders")}
         >
-          Dashboard
+          Orders
         </div>
 
         <div
@@ -143,13 +143,14 @@ function Admin() {
           {" "}
           Menu{" "}
         </div>
+
         <div
           className={`sidebar-item ${
-            visibleSection === "orders" ? "active" : ""
+            visibleSection === "dashboard" ? "active" : ""
           }`}
-          onClick={() => setVisibleSection("orders")}
+          onClick={() => setVisibleSection("dashboard")}
         >
-          Orders
+          Dashboard
         </div>
       </div>
 

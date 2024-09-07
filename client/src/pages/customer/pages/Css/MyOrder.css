@@ -1,5 +1,12 @@
 
 
+.myorderContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the container takes at least the full viewport height */
+  padding-bottom: 60px; /* Space at the bottom of the page */
+}
+
 .myorder {
     margin-top: 80px;
     display: flex;
@@ -9,7 +16,8 @@
     border-radius: 8px;
     align-items: center;
     text-align: center;
-    justify-content: center
+    justify-content: center;
+    overflow-y: auto;
   }
   @media screen and (max-width: 767px) {
     /* apply styles for mobile screens with a maximum width of 767px */
@@ -18,6 +26,11 @@
     }
   }
   
+  .order{
+    align-items: start;
+  }
+
+
   .myorderHeader {
     display: flex;
     align-items: center;
