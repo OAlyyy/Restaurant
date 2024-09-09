@@ -65,31 +65,38 @@ const Orders = () => {
           {Array.isArray(order.items) && order.items.length > 0 ? (
   order.items.map((product, index) => (
     <div key={index}>
-      <div className="orderDetails">
-        <div className="orderAmount">{String(product.amount)}</div>
-        <div className="orderName">{String(product.name)}</div>
-        <div className="orderSize">
-          <span className="label">Size:</span> {product.size && product.size.length > 0 ? product.size[0].name : ""}
-        </div>
-        <div className="orderExtras">
-          <span className="label">Extras:</span> {product.extras && product.extras.length > 0 ? product.extras.map(extra => extra.name).join(", ") : ""}
-        </div>
-      </div>
+     <div className="orderDetails">
+  <div className="orderName">{String(product.name)}</div>
+  <div className="orderSize">
+    <span className="label">Size:</span> {product.size && product.size.length > 0 ? product.size[0].name : ""}
+  </div>
+  <div className="orderExtras">
+    <span className="label">Extras:</span> {product.extras && product.extras.length > 0 ? product.extras.map(extra => extra.name).join(", ") : ""}
+  </div>
+</div>
+
     </div>
   ))
 ) : (
-  <div>No items in this order.</div>
+  <div className="emptyOrder">No items in this order.</div>
 )}
 
-          {order.status !== "ready" && (
+<div className="bottomButtons">
+
+    {order.status !== "ready" && (
             <Button
               variant="contained"
               color="success"
+              className="orderReadyButton"
               onClick={() => handleOrderReady(order.documentId)}
             >
               Order Ready
             </Button>
           )}
+</div>
+        
+
+
         </div>
       ))}
     </div>

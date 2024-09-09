@@ -26,6 +26,8 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     align-items: center;
+    position: relative;
+    padding-bottom: 20px
   }
   
   .orderHeader {
@@ -45,6 +47,10 @@
     font-size: 20px;
     font-weight: bold;
   }
+
+  .orderStatus {
+    text-transform: capitalize;
+  }
   
   .orderStatus.ready {
     color: green;
@@ -61,9 +67,11 @@
   .orderDetails {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 8px;
     align-items: center;
     max-width: 100%;
+    padding-bottom: 40px;
   }
   
   .orderName {
@@ -73,9 +81,42 @@
   
   .orderAmount {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 600;
   }
+  f
+.label{
+  font-size: 16px;
+}
+
+.orderSize{
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.orderExtras{
+  font-size: 16px;
+  font-weight: 600;
   
+}
+
+.emptyOrder{
+  padding-bottom: 50px;
+}
+
+.bottomButtons {
+  position: absolute; /* Position relative to .order relative */
+  bottom: 8px;
+  display: flex;
+  width: 100%; 
+  justify-content: center;
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%);
+  }
+
+.bottomButtons button{
+  border-radius: 20px;
+}
+
   @media (max-width: 768px) {
     /* apply mobile styles */
     .order {

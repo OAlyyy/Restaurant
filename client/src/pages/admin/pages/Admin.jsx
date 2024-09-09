@@ -29,7 +29,7 @@ function Admin() {
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState(null);
   const [products, setProducts] = useState([]);
-  const [visibleSection, setVisibleSection] = useState("orders");
+  const [visibleSection, setVisibleSection] = useState("orders"); //tab state
   const [imageError, setImageError] = useState(false);
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [showEditProduct, setShowEditProduct] = useState(false);
