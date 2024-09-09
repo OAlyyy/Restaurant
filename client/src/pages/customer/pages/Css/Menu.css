@@ -46,22 +46,31 @@ body, html {
   top: 60px; /* Fixed position 70px from the top */
   width: 100vw;
   display: flex;
-  justify-content: center;
+ justify-content: space-around; 
   background-color: #FDFDFD;
   z-index: 1000;
+  border-bottom: 1px solid #ddd;
 }
 
 .tab {
-  padding: 10px 20px;
+  padding: 10px 15px;
   cursor: pointer;
-  color: black;
-  border-bottom: 2px solid transparent;
+  color: #333; /* Slightly darker text for better contrast */
+  font-size: 1rem; /* Standard font size */
+  font-weight: 500;
+  transition: border-bottom 0.3s ease, color 0.3s ease; /* Smooth transitions */
 }
+
+.tab.active {
+  color: black; 
+  border-bottom: 2px solid #000; 
+}
+
 
 .tab:hover {
-  border-bottom: 2px solid black;
+  color: #000;
+  border-bottom: 2px solid #000; 
 }
-
 /* MENU */
 .menuPage {
   background-color: #FDFDFD;

@@ -64,10 +64,11 @@ const ProductDetailCard = ({ product, onAddProduct }) => {
 
       <div className="product-cart">
         <div className="quantityFlex">
-          <IconButton onClick={() => { setSelectedProduct(selectedProduct === product ? null : product); }}>
+          <IconButton  className="add-btn" onClick={() => { setSelectedProduct(selectedProduct === product ? null : product); }}>
             <AddIcon />
           </IconButton>
           <IconButton
+           className="remove-btn" 
             disabled={quantity <= 0}
             onClick={() => dispatch(decrementProductAmount(product))}
           >

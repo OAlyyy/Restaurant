@@ -63,9 +63,15 @@ const Menu = () => {
 
   const scrollToSection = (sectionRef) => {
     if (sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+      const elementPosition = sectionRef.current.getBoundingClientRect().top + window.scrollY; // Get the element's position
+      const offset = 110; // Adjust this to match the height of your tabs or header
+      window.scrollTo({
+        top: elementPosition - offset, // Scroll with an offset to account for the header
+        behavior: 'smooth'
+      });
     }
   };
+  
 
   const cartTotalPrice = parseFloat(cart.reduce((total, product) => total + totalProductPrice(product), 0).toFixed(2));
 
@@ -108,10 +114,12 @@ const Menu = () => {
           <div className="menu-section-category">Breakfast</div>
           {renderProductsByCategory('breakfast')}
         </div>
+
         <div className="menu-section">
           <div ref={lunchRef} id="lunch" className="menu-section-category">Lunch</div>
           {renderProductsByCategory('lunch')}
         </div>
+        
         <div className="menu-section">
           <div ref={dinnerRef} id="dinner" className="menu-section-category">Dinner</div>
           {renderProductsByCategory('dinner')}
