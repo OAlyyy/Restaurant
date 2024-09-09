@@ -38,11 +38,11 @@ const ProductDetailCard = ({ product, onAddProduct }) => {
 
   // Access the quantity from the Redux store
   const quantity = useSelector(state => {
-    console.log("state.cart.products:", state.cart.products); // Log state.cart.products
-    console.log("product.documentId:", product.documentId); // Log product.documentId
+    // console.log("state.cart.products:", state.cart.products); // Log state.cart.products
+   // console.log("product.documentId:", product.documentId); // Log product.documentId
     if (Array.isArray(state.cart.products)) {
       const cartItem = state.cart.products.find(item => item.documentId === product.documentId);
-      console.log("cartItem:", cartItem); // Log the found cart item
+    //  console.log("cartItem:", cartItem); // 
       return cartItem ? cartItem.amount : 0;
     }
     console.log("state.cart.products is not an array"); // Log if state.cart.products is not an array
